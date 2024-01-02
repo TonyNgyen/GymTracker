@@ -23,6 +23,10 @@ const links = [
     title: "Add",
     path: "/add",
   },
+  {
+    title: "Login",
+    path: "/login",
+  }
 ];
 
 function Links() {
