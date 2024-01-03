@@ -20,8 +20,8 @@ const links = [
     path: "/contact",
   },
   {
-    title: "Add",
-    path: "/add",
+    title: "Workouts",
+    path: "/workouts",
   },
   {
     title: "Login",

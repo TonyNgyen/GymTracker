@@ -32,4 +32,21 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const workoutSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+    default: "NO NAME",
+  },
+  workouts: {
+    default: false,
+  },
+});
+
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
+export const Workout =
+  mongoose.models?.Workout || mongoose.model("Workout", workoutSchema);
