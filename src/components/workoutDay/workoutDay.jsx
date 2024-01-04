@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styles from "./workoutDay.module.css";
 
-function workoutDay({ day, dict }) {
+function workoutDay({ day, list }) {
   // MODAL
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
   };
 
-  const [rest, setRest] = useState(dict.false);
-  const [workouts, setWorkouts] = useState(dict.workouts);
+  const [rest, setRest] = useState(list.rest);
+  const [workouts, setWorkouts] = useState(list.workouts);
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -34,8 +34,6 @@ function workoutDay({ day, dict }) {
     setReps("");
     setWeight("");
   };
-
-  console.log(rest);
 
   return (
     <div className={styles.card}>
@@ -89,9 +87,17 @@ function workoutDay({ day, dict }) {
             placeholder="Weight"
             value={weight}
           />
-          <button>Submit</button>
+          <button className={styles.submitButton}>Submit</button>
         </form>
       )}
+      {workouts.map((workout) => (
+        <article className={styles.workouts}>
+          <h1 className="justify-self-start">{workout.name}</h1>
+          <h1>{workout.sets}</h1>
+          <h1>{workout.reps}</h1>
+          <h1>{workout.weight}</h1>
+        </article>
+      ))}
     </div>
   );
 }
