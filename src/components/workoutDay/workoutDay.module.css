@@ -23,6 +23,15 @@
     background-color: var(--btn);
 }
 
+.restButton {
+    padding: 15px;
+    min-width: 120px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+}
+
 .form {
     display: flex;
     gap: 20px;
@@ -51,7 +60,7 @@
 
 .workouts {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     justify-items: center;
     background-color: var(--bg);
     width: 80%;

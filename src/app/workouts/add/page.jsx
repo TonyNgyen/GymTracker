@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
 
 const daysDict = {
-  Monday: { completed: false, workouts: [], rest: true },
+  Monday: { completed: false, workouts: [], rest: false },
   Tuesday: { completed: false, workouts: [], rest: false },
   Wednesday: { completed: false, workouts: [], rest: false },
   Thursday: { completed: false, workouts: [], rest: false },

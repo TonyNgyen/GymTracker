@@ -17,12 +17,13 @@ function workoutDay({ day, list }) {
   const handleRest = () => {
     setRest(!rest);
   };
-  
+
   const add = (e) => {
     e.preventDefault();
     setWorkouts([
       ...workouts,
       {
+        id: workouts.length,
         name: name,
         sets: sets,
         reps: reps,
@@ -42,9 +43,16 @@ function workoutDay({ day, list }) {
         <button className={styles.button} onClick={toggle}>
           Add Workout
         </button>
-        <button className={styles.button} onClick={handleRest}>
-          Rest Day?
+        {!rest && (
+          <button className={styles.button} onClick={handleRest}>
+            Rest Day?
+          </button>
+        )}
+        {rest && (
+          <button className={styles.restButton} onClick={handleRest}>
+          Rest Day
         </button>
+        )}
       </div>
 
       {modal && (
@@ -96,6 +104,15 @@ function workoutDay({ day, list }) {
           <h1>{workout.sets}</h1>
           <h1>{workout.reps}</h1>
           <h1>{workout.weight}</h1>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setWorkouts(workouts.filter((w) => w.id !== workout.id));
+            }}
+          >
+            {/* <HiOutlineTrash size={40} /> */}
+            Delete
+          </button>
         </article>
       ))}
     </div>
