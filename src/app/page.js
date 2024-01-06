@@ -3,6 +3,6 @@ import styles from "./home.module.css"
 
 export default function Home() {
   return (
-    <main className={styles.container}></main>
+    <main className={styles.container}>GymTracker</main>
   )
 }
