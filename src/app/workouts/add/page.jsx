@@ -56,8 +56,8 @@ function AddPage() {
         <div>
           <h1 className="text-center text-3xl mb-5">{name}</h1>
           <div className="bg-red-200 w-5/6 mx-auto flex flex-col">
-            {/* {days.map((day) => <WorkoutDay day={day} dict={daysDict[day]} />)} */}
-            <WorkoutDay day={"Monday"} list={daysDict["Monday"]} />
+            {days.map((day) => <WorkoutDay day={day} list={daysDict[day]} />)}
+            {/* <WorkoutDay day={"Monday"} list={daysDict["Monday"]} /> */}
           </div>
         </div>
       )}
