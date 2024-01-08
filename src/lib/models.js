@@ -40,7 +40,12 @@ const workoutSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    default: "NO NAME",
+    default: "No Name",
+  },
+  creator: {
+    type: String,
+    required: true,
+    default: "No Creator",
   },
   workouts: {
     default: false,

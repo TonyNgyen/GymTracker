@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./workoutDay.module.css";
+import { WorkoutContext } from "@/app/workouts/add/context";
 
 function workoutDay({ day, list }) {
+
+  const workoutsContext = useContext(WorkoutContext)
+
+  console.log(workoutsContext)
+
   // MODAL
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
   };
 
-  const [rest, setRest] = useState(list.rest);
-  const [workouts, setWorkouts] = useState(list.workouts);
+  const [rest, setRest] = useState(workoutsContext[day].rest);
+  const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
+  const [allWorkouts, setAllWorkouts] = useState(workoutsContext);
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -35,6 +42,14 @@ function workoutDay({ day, list }) {
     setReps("");
     setWeight("");
   };
+
+  const addDay = (e) => {
+    e.preventDefault();
+    // BUG WHERE THIS LINE OF CODE CREATES A NEW KEY IN THE DICTIONARY OF VALUE "DAY"
+    setAllWorkouts({...allWorkouts, day:{completed:true, workouts: workouts, rest: rest}})
+    console.log("THIS WORKS")
+    console.log(allWorkouts)
+  }
 
   return (
     <div className={styles.card}>
@@ -115,6 +130,7 @@ function workoutDay({ day, list }) {
           </button>
         </article>
       ))}
+      <button onClick={addDay}>Submit Workout</button>
     </div>
   );
 }

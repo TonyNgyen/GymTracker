@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
+import { WorkoutContext } from "./context";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -25,6 +26,7 @@ const days = [
 
 function AddPage() {
   const [title, setTitle] = useState("");
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [firstModal, setFirstModal] = useState(true);
 
@@ -35,34 +37,44 @@ function AddPage() {
   };
 
   return (
-    <div>
-      {firstModal && (
-        <div>
-          <h1>What will be the name of the workout?</h1>
-          <form onSubmit={nameSubmit}>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              className="text-black"
-              placeholder="Workout name"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <button>Submit</button>
-          </form>
-        </div>
-      )}
-      {!firstModal && (
-        <div>
-          <h1 className="text-center text-3xl mb-5">{name}</h1>
-          <div className="bg-red-200 w-5/6 mx-auto flex flex-col">
-            {days.map((day) => (
-              <WorkoutDay day={day} list={daysDict[day]} />
-            ))}
+    <WorkoutContext.Provider value={daysDict}>
+      <div>
+        {firstModal && (
+          <div>
+            <h1>What will be the name and ID of the workout?</h1>
+            <form onSubmit={nameSubmit} className="flex flex-col gap-5">
+              <input
+                type="text"
+                name="title"
+                id="title"
+                className="text-black"
+                placeholder="Workout name"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <input
+                type="text"
+                name="id"
+                id="id"
+                className="text-black"
+                placeholder="Workout ID"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <button>Submit</button>
+            </form>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+        {!firstModal && (
+          <div>
+            <h1 className="text-center text-3xl mb-5">{name}</h1>
+            <div className="bg-red-200 w-5/6 mx-auto flex flex-col">
+              {days.map((day) => (
+                <WorkoutDay day={day} list={daysDict[day]} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </WorkoutContext.Provider>
   );
 }
 
