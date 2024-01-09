@@ -3,17 +3,15 @@ import styles from "./workoutDay.module.css";
 import { WorkoutContext } from "@/app/workouts/add/context";
 
 function workoutDay({ day, list }) {
-  const workoutsContext = useContext(WorkoutContext);
-
   // MODAL
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
   };
 
+  const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [rest, setRest] = useState(workoutsContext[day].rest);
   const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
-  const [allWorkouts, setAllWorkouts] = useState(workoutsContext);
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -43,14 +41,14 @@ function workoutDay({ day, list }) {
   const addDay = (e) => {
     e.preventDefault();
     // BUG WHERE THIS LINE OF CODE CREATES A NEW KEY IN THE DICTIONARY OF VALUE "DAY"
-    setAllWorkouts({
-      ...allWorkouts,
+    setWorkoutsContext({
+      ...workoutsContext,
       [day]: { completed: true, workouts: workouts, rest: rest },
     });
   };
 
   const debug = (e) => {
-    console.log(allWorkouts);
+    console.log(workoutsContext);
   }
 
   return (

@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     workouts: {
-      default: false,
     },
     isAdmin: {
       type: Boolean,
@@ -48,7 +47,6 @@ const workoutSchema = new mongoose.Schema({
     default: "No Creator",
   },
   workouts: {
-    default: false,
   },
 });
 
