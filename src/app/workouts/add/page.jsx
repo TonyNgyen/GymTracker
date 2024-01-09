@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext } from "./context";
 import { addWorkout } from "@/lib/actions";
+import WorkoutSlider from "@/components/workoutSlider/workoutSlider";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -92,14 +93,14 @@ function AddPage() {
         )}
         {!firstModal && (
           <div>
+          {/* <WorkoutSlider />  */}
             <h1 className="text-center text-3xl mb-5">
               {name} | {id}
             </h1>
             <div className="w-5/6 mx-auto flex flex-col">
-              {/* {days.map((day) => (
+              {days.map((day) => (
                 <WorkoutDay day={day} list={daysDict[day]} />
-              ))} */}
-              <WorkoutDay day={"Monday"} list={daysDict["Monday"]} />
+              ))}
               <button onClick={() => addWorkout(id, name, creator, context)}>Submit</button>
             </div>
           </div>

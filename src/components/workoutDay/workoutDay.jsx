@@ -40,7 +40,6 @@ function workoutDay({ day, list }) {
 
   const addDay = (e) => {
     e.preventDefault();
-    // BUG WHERE THIS LINE OF CODE CREATES A NEW KEY IN THE DICTIONARY OF VALUE "DAY"
     setWorkoutsContext({
       ...workoutsContext,
       [day]: { completed: true, workouts: workouts, rest: rest },
@@ -125,7 +124,6 @@ function workoutDay({ day, list }) {
               setWorkouts(workouts.filter((w) => w.id !== workout.id));
             }}
           >
-            {/* <HiOutlineTrash size={40} /> */}
             Delete
           </button>
         </article>
