@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext } from "./context";
 import { addWorkout } from "@/lib/actions";
-import WorkoutSlider from "@/components/workoutSlider/workoutSlider";
+import styles from "./add.module.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -32,8 +33,9 @@ function AddPage() {
   const [name, setName] = useState("");
   const [firstModal, setFirstModal] = useState(true);
   const [context, setContext] = useState(daysDict);
+  const [index, setIndex] = useState(0);
 
-  const creator = "Creator Placeholder"
+  const creator = "Creator Placeholder";
 
   const nameSubmit = (e) => {
     e.preventDefault();
@@ -41,28 +43,14 @@ function AddPage() {
     setFirstModal(false);
   };
 
-  // const debug = (e) => {
-  //   e.preventDefault();
-  //   console.log(context);
-  // };
-
-  // const submit = async (e) => {
-  //   e.preventDefault();
-  //   connectToDb();
-  //   try {
-  //     const newWorkout = new Workout({
-  //       id: id,
-  //       name: name,
-  //       creator: "No Creator",
-  //       workouts: context,
-  //     });
-  //     await newWorkout.save();
-  //     console.log("saved to db");
-  //   } catch (error) {
-  //     console.log(error);
-  //     return { error: "Something went wrong" };
-  //   }
-  // };
+  const handleArrow = (direction) => {
+    if (direction === "l") {
+      setIndex(index !== 0 ? index - 1 : 6);
+    }
+    if (direction === "r") {
+      setIndex(index !== 6 ? index + 1 : 0);
+    }
+  };
 
   return (
     <WorkoutContext.Provider value={[context, setContext]}>
@@ -93,15 +81,26 @@ function AddPage() {
         )}
         {!firstModal && (
           <div>
-          {/* <WorkoutSlider />  */}
             <h1 className="text-center text-3xl mb-5">
               {name} | {id}
             </h1>
-            <div className="w-5/6 mx-auto flex flex-col">
-              {days.map((day) => (
-                <WorkoutDay day={day} list={daysDict[day]} />
-              ))}
-              <button onClick={() => addWorkout(id, name, creator, context)}>Submit</button>
+            <div className="flex">
+              <button onClick={() => handleArrow("l")} className="text-7xl">
+                <FaAngleLeft />
+              </button>
+              <div className="w-5/6 mx-auto flex flex-col">
+                {days.map((day) => (
+                  <div className={index === days.indexOf(day) ? "" : "hidden"}>
+                    <WorkoutDay day={day} list={daysDict[day]} />
+                  </div>
+                ))}
+                <button onClick={() => addWorkout(id, name, creator, context)}>
+                  Submit
+                </button>
+              </div>
+              <button onClick={() => handleArrow("r")} className="text-7xl">
+                <FaAngleRight />
+              </button>
             </div>
           </div>
         )}
