@@ -36,6 +36,7 @@ function workoutDay({ day, list }) {
     setSets("");
     setReps("");
     setWeight("");
+    toggle();
   };
 
   const addDay = (e) => {
@@ -48,7 +49,7 @@ function workoutDay({ day, list }) {
 
   const debug = (e) => {
     console.log(workoutsContext);
-  }
+  };
 
   return (
     <div className={styles.card}>
@@ -112,24 +113,26 @@ function workoutDay({ day, list }) {
           <button className={styles.submitButton}>Submit</button>
         </form>
       )}
-      {workouts.map((workout) => (
-        <article className={styles.workouts}>
-          <h1 className="justify-self-start">{workout.name}</h1>
-          <h1>{workout.sets}</h1>
-          <h1>{workout.reps}</h1>
-          <h1>{workout.weight}</h1>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setWorkouts(workouts.filter((w) => w.id !== workout.id));
-            }}
-          >
-            Delete
-          </button>
-        </article>
-      ))}
-      <button onClick={addDay}>Submit Workout</button>
-      <button onClick={debug}>Debug</button>
+      <div className={(rest ? "blur" : "") + " overflow-y-scroll h-full w-full mx-0 my-4"}>
+        {workouts.map((workout) => (
+          <article className={styles.workouts}>
+            <h1 className="justify-self-start">{workout.name}</h1>
+            <h1>{workout.sets}</h1>
+            <h1>{workout.reps}</h1>
+            <h1>{workout.weight}</h1>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setWorkouts(workouts.filter((w) => w.id !== workout.id));
+              }}
+            >
+              Delete
+            </button>
+          </article>
+        ))}
+      </div>
+      <button onClick={addDay} className={styles.button}>Submit Workout</button>
+      {/* <button onClick={debug}>Debug</button> */}
     </div>
   );
 }

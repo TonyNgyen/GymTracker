@@ -81,7 +81,7 @@ function AddPage() {
         )}
         {!firstModal && (
           <div>
-            <h1 className="text-center text-3xl mb-5">
+            <h1 className="text-center text-3xl mb-8">
               {name} | {id}
             </h1>
             <div className="flex">
