@@ -1,6 +1,6 @@
 .card {
     background: var(--bgSoft);
-    height: 64vh;
+    height: 62vh;
     padding: 1rem;
     display: flex;
     flex-direction: column;

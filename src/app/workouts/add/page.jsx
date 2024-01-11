@@ -94,8 +94,8 @@ function AddPage() {
                     <WorkoutDay day={day} list={daysDict[day]} />
                   </div>
                 ))}
-                <button onClick={() => addWorkout(id, name, creator, context)}>
-                  Submit
+                <button onClick={() => addWorkout(id, name, creator, context)} className={styles.button}>
+                  Submit Workout
                 </button>
               </div>
               <button onClick={() => handleArrow("r")} className="text-7xl">

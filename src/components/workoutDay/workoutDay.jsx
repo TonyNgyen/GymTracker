@@ -131,7 +131,7 @@ function workoutDay({ day, list }) {
           </article>
         ))}
       </div>
-      <button onClick={addDay} className={styles.button}>Submit Workout</button>
+      <button onClick={addDay} className={styles.button}>Submit {day}</button>
       {/* <button onClick={debug}>Debug</button> */}
     </div>
   );
