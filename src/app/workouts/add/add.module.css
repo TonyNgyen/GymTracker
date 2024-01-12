@@ -4,5 +4,7 @@
     border: none;
     border-radius: 5px;
     background-color: var(--btn);
-    margin-top: 1rem;
+    margin: 1rem auto;
+    width: 20%;
+    min-width: 125px;
 }

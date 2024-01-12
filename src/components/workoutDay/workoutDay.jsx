@@ -113,7 +113,7 @@ function workoutDay({ day, list }) {
           <button className={styles.submitButton}>Submit</button>
         </form>
       )}
-      <div className={(rest ? "blur" : "") + " overflow-y-scroll h-full w-full mx-0 my-4"}>
+      <div className={(rest ? "blur" : "") + " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar"}>
         {workouts.map((workout) => (
           <article className={styles.workouts}>
             <h1 className="justify-self-start">{workout.name}</h1>
