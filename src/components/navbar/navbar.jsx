@@ -2,10 +2,10 @@ import React from "react";
 import Links from "./links/Links";
 import styles from "./navbar.module.css";
 import Link from "next/link";
-// import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 
 async function Navbar() {
-//   const session = await auth();
+  const session = await auth();
 
   return (
     <div className={styles.container}>
@@ -13,8 +13,7 @@ async function Navbar() {
         GymTracker
       </Link>
       <div>
-        {/* <Links session={session} /> */}
-        <Links />
+        <Links session={session} />
       </div>
     </div>
   );

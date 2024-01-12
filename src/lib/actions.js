@@ -1,7 +1,9 @@
 "use server";
 
-import { Workout } from "./models";
+import { Workout, User } from "./models";
 import { connectToDb } from "./utils";
+import { signIn, signOut } from "./auth";
+import { revalidatePath } from "next/cache";
 
 export const addWorkout = async (id, name, creator, workout) => {
   connectToDb();
@@ -18,4 +20,14 @@ export const addWorkout = async (id, name, creator, workout) => {
     console.log(error);
     return { error: "Something went wrong" };
   }
+};
+
+export const handleGithubLogin = async (e) => {
+  "use server";
+  await signIn("github");
+};
+
+export const handleLogout = async (e) => {
+  "use server";
+  await signOut();
 };
