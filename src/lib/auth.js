@@ -12,4 +12,10 @@ export const {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+  callbacks: {
+    async signIn(user, account, profile) {
+      console.log(user,account,profile)
+      return true
+    }
+  }
 });
