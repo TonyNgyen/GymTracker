@@ -22,6 +22,8 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     workouts: {
+      type: Array,
+      default: [],
     },
     isAdmin: {
       type: Boolean,
@@ -46,8 +48,7 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     default: "No Creator",
   },
-  workouts: {
-  },
+  workouts: {},
 });
 
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);

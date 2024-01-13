@@ -28,7 +28,6 @@ const links = [
 function Links({session}) {
   const [open, setOpen] = useState(false);
 
-
   return (
     <div className={styles.container}>
       <div className={styles.links}>
