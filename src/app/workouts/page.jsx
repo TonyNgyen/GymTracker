@@ -1,7 +1,12 @@
 import Link from "next/link";
 import React from "react";
+import WorkoutList from "@/components/workoutList/workoutList";
+import { getWorkouts } from "@/lib/data";
 
-function WorkoutsPage() {
+async function WorkoutsPage() {
+  const workouts = await getWorkouts();
+  const day = new Date().getDay();
+  // console.log(workouts)
   return (
     <div>
       <Link
@@ -10,6 +15,7 @@ function WorkoutsPage() {
       >
         Add Workout
       </Link>
+      <WorkoutList workouts={workouts} day={day} />
     </div>
   );
 }
