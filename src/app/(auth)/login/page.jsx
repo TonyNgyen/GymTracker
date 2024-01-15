@@ -6,7 +6,6 @@ import { auth } from "@/lib/auth";
 
 async function LoginPage() {
   const session = await auth();
-  console.log(session);
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

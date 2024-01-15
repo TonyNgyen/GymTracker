@@ -22,12 +22,17 @@ export const authConfig = {
       },
       authorized({ auth, request }) {
         const user = auth?.user;
-        const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
+        const isOnWorkoutsPage = request.nextUrl?.pathname.startsWith("/workouts");
+        const isOnCreatePage = request.nextUrl?.pathname.startsWith("/create");
         const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
   
         // ONLY ADMIN CAN REACH THE ADMIN DASHBOARD
-        if (isOnAdminPanel && !user?.isAdmin) {
-          return false
+        if (isOnWorkoutsPage && (user == null)) {
+          return Response.redirect(new URL("/create", request.nextUrl))
+        }
+
+        if (isOnCreatePage && user) {
+          return Response.redirect(new URL("/", request.nextUrl))
         }
   
         // ONLY AUTHENTICATED USERS CAN REACH THE LOGIN PAGE
