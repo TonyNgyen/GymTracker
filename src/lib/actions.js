@@ -17,15 +17,16 @@ export const addWorkout = async (id, name, creator, workout) => {
       creator: session.user?.email,
       workouts: workout,
     });
-    await newWorkout.save();
-    const user = await User.findOne({ email: session.user?.email });
-    const updatedWorkouts = user.workouts;
-    updatedWorkouts.push(newWorkout);
     await User.findOneAndUpdate(
       { email: session.user?.email },
-      { workouts: updatedWorkouts }
+      {
+        $set: {
+          [`workouts.${name}`]: newWorkout,
+        },
+      }
     );
     console.log("saved to db");
+    revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
     return { error: "Something went wrong" };

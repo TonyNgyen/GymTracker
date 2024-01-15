@@ -6,16 +6,19 @@ import { getWorkouts } from "@/lib/data";
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
   const day = new Date().getDay();
-  // console.log(workouts)
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  console.log(workouts)
   return (
     <div>
-      <Link
-        href="/workouts/add"
-        className="py-2 px-4 bg-white text-black rounded-full"
-      >
-        Add Workout
-      </Link>
-      <WorkoutList workouts={workouts} day={day} />
+      <WorkoutList workouts={workouts} day={weekday[day]} />
     </div>
   );
 }

@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     workouts: {
-      type: Array,
-      default: [],
+      type: Map,
+      default: {},
     },
     isAdmin: {
       type: Boolean,
