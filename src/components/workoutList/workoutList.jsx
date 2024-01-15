@@ -7,7 +7,7 @@ import styles from "./workoutList.module.css";
 function WorkoutList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const workoutForDay = workouts[select].workouts[day];
-  console.log(workoutForDay);
+  console.log(workoutForDay.rest);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -28,25 +28,28 @@ function WorkoutList({ workouts, day }) {
           Add Workout
         </Link>
       </div>
-
-      <div className={styles.workoutContainer}>
-        <div className={styles.workoutHeader + " text-2xl font-bold"}>
-          <h1>Workouts</h1>
-          <h1>Sets</h1>
-          <h1>Reps</h1>
-          <h1>Weight</h1>
-        </div>
-        {workoutForDay.workouts.map((workout) => (
-          <div key={workout.id}>
-            <div className={styles.workouts}>
-              <h1>{workout.name}</h1>
-              <h1>{workout.sets}</h1>
-              <h1>{workout.reps}</h1>
-              <h1>{workout.weight}</h1>
-            </div>
+      {workoutForDay.rest ? (
+        <div>Today is a rest day</div>
+      ) : (
+        <div className={styles.workoutContainer}>
+          <div className={styles.workoutHeader + " text-2xl font-bold"}>
+            <h1>Workouts</h1>
+            <h1>Sets</h1>
+            <h1>Reps</h1>
+            <h1>Weight</h1>
           </div>
-        ))}
-      </div>
+          {workoutForDay.workouts.map((workout) => (
+            <div key={workout.id}>
+              <div className={styles.workouts}>
+                <h1>{workout.name}</h1>
+                <h1>{workout.sets}</h1>
+                <h1>{workout.reps}</h1>
+                <h1>{workout.weight}</h1>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

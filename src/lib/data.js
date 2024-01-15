@@ -8,7 +8,7 @@ export const getWorkouts = async () => {
   connectToDb();
   try {
     const user = await User.findOne({ email: userEmail });
-    return user.workouts
+    return Object.fromEntries(user.workouts)
   } catch (error) {
     console.log(error);
   }

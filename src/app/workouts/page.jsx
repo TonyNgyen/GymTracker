@@ -15,10 +15,17 @@ async function WorkoutsPage() {
     "Friday",
     "Saturday",
   ];
-  console.log(workouts)
+  console.log(Object.keys(workouts).length == true);
   return (
     <div>
-      <WorkoutList workouts={workouts} day={weekday[day]} />
+      {Object.keys(workouts).length && (
+        <WorkoutList workouts={workouts} day={weekday[day]} />
+      )}
+      {!Object.keys(workouts).length && (
+        <section className="bg-indigo-200 p-10 flex justify-center w-1/2 mx-auto rounded-md">
+          <h1 className="text-4xl">There are no workouts to display</h1>
+        </section>
+      )}
     </div>
   );
 }

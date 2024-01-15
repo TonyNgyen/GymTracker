@@ -6,6 +6,7 @@ import { WorkoutContext } from "./context";
 import { addWorkout } from "@/lib/actions";
 import styles from "./add.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import Link from "next/link";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -94,9 +95,14 @@ function AddPage() {
                     <WorkoutDay day={day} list={daysDict[day]} />
                   </div>
                 ))}
-                <button onClick={() => addWorkout(id, name, creator, context)} className={styles.button}>
-                  Submit Workout
-                </button>
+                <Link href="/workouts">
+                  <button
+                    onClick={() => addWorkout(id, name, creator, context)}
+                    className={styles.button}
+                  >
+                    Submit Workout
+                  </button>
+                </Link>
               </div>
               <button onClick={() => handleArrow("r")} className="text-7xl">
                 <FaAngleRight />
