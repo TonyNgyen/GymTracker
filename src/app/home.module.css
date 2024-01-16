@@ -8,13 +8,14 @@
 }
 
 .title {
-  font-size: 96px;
+  font-size: 5rem;
   font-weight: 600;
   background: linear-gradient(300deg,#dda2eb,#afbef9,#bce1ed);
   background-size: 180% 180%;
   animation: gradient-animation 6s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
 }
 
 .buttons {
