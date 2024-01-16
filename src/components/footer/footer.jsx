@@ -6,7 +6,7 @@ function Footer() {
     <div className={styles.container}>
       <div className={styles.logo}>Tony</div>
       <div className={styles.text}>
-        Tony creative thoughts agency © All rights reserved.
+        Tony GymTracker © All rights reserved.
       </div>
     </div>
   )
