@@ -17,6 +17,7 @@ export const addWorkout = async (id, name, creator, workout) => {
       creator: session.user?.email,
       workouts: workout,
     });
+    await newWorkout.save();
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {

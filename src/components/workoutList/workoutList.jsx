@@ -7,7 +7,7 @@ import styles from "./workoutList.module.css";
 function WorkoutList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const workoutForDay = workouts[select].workouts[day];
-  console.log(workoutForDay.rest);
+  console.log(workouts[select].id)
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -26,6 +26,12 @@ function WorkoutList({ workouts, day }) {
           className="py-2 px-4 bg-white text-black rounded-full"
         >
           Add Workout
+        </Link>
+        <Link
+          href={`/workouts/${workouts[select].id}`}
+          className="py-2 px-4 bg-white text-black rounded-full"
+        >
+          Edit Workout
         </Link>
       </div>
       {workoutForDay.rest ? (
