@@ -11,7 +11,6 @@ async function Navbar() {
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
         GymTracker
-        Change this
       </Link>
       <div>
         <Links session={session} />
