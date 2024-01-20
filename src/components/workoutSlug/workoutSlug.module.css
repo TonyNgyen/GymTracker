@@ -16,7 +16,7 @@
 
 .workoutHeader {
     display: grid;
-    grid-template-columns: repeat(13, 1fr);
+    grid-template-columns: repeat(14, 1fr);
     justify-items: center;
     background-color: var(--bg);
     width: 100%;
@@ -38,7 +38,7 @@
 
 .workouts {
     display: grid;
-    grid-template-columns: repeat(13, 1fr);
+    grid-template-columns: repeat(14, 1fr);
     justify-items: center;
     background-color: var(--bg);
     align-items: center;
