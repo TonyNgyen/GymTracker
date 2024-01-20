@@ -26,12 +26,12 @@ function WorkoutList({ workouts, day }) {
         >
           Add Workout
         </Link>
-        {/* <Link
+        <Link
           href={`/workouts/${workouts[select].id}`}
           className="py-2 px-4 bg-white text-black rounded-full"
         >
           Edit Workout
-        </Link> */}
+        </Link>
       </div>
       {workoutForDay.rest ? (
         <div>Today is a rest day</div>
