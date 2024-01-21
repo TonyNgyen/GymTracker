@@ -15,9 +15,9 @@ function WorkoutSlug({ workouts, day }) {
   const [edit, setEdit] = useState(false);
   const [editWorkout, setEditWorkout] = useState("");
 
-  const [sets, setSets] = useState(0);
-  const [reps, setReps] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [weight, setWeight] = useState("");
 
   const [newWorkouts, setNewWorkouts] = useState(workouts[day].workouts);
 
@@ -62,7 +62,7 @@ function WorkoutSlug({ workouts, day }) {
                       }}
                       placeholder="Sets"
                       value={sets}
-                      className={styles.stats}
+                      className={styles.inputs}
                     />
                     <input
                       type="number"
@@ -73,7 +73,7 @@ function WorkoutSlug({ workouts, day }) {
                       }}
                       placeholder="Reps"
                       value={reps}
-                      className={styles.stats}
+                      className={styles.inputs}
                     />
                     <input
                       type="number"
@@ -84,7 +84,7 @@ function WorkoutSlug({ workouts, day }) {
                       }}
                       placeholder="Weight"
                       value={weight}
-                      className={styles.stats}
+                      className={styles.inputs}
                     />
                     <button className={styles.edit}>Delete</button>
                   </form>

@@ -1,62 +1,81 @@
 .header {
-    display: flex;
-    justify-content: center;
-    gap: 2%;
+  display: flex;
+  justify-content: center;
+  gap: 2%;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .textContainer {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .workoutHeader {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    justify-items: center;
-    background-color: var(--bg);
-    width: 100%;
-    align-items: center;
-    margin: 0px auto;
-    padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  justify-items: center;
+  background-color: var(--bg);
+  width: 100%;
+  align-items: center;
+  margin: 0px auto;
+  padding: 2rem 2rem;
 }
 
 .cardContainer {
-    display: flex;
-    flex-direction: column;
-    background: var(--bgSoft);
-    gap: 1em;
-    padding: 3%;
-    width: 80%;
-    margin: 0px auto;
-    border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bgSoft);
+  gap: 1em;
+  padding: 3%;
+  width: 80%;
+  margin: 0px auto;
+  border-radius: 20px;
 }
 
 .workouts {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    justify-items: center;
-    background-color: var(--bg);
-    align-items: center;
-    margin: 0px auto;
-    padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  justify-items: center;
+  background-color: var(--bg);
+  align-items: center;
+  margin: 0px auto;
+  padding: 2rem 2rem;
 }
 
-.stats, .headers {
-    grid-column: span 3;
+.stats,
+.headers,
+.inputs {
+  grid-column: span 3;
 }
 
-.edit, .empty {
-    justify-self:start;
-    grid-column: span 1;
+.inputs {
+  width: 30%;
+  color: white;
+  background-color: var(--bg);
+  text-align: center;
+  border-bottom: 2px solid white;
+  margin-bottom: -2px;
+  -moz-appearance: textfield;
+}
+
+.inputs::-webkit-outer-spin-button,
+.inputs::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.edit,
+.empty {
+  justify-self: start;
+  grid-column: span 1;
 }
 
 .workoutContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
