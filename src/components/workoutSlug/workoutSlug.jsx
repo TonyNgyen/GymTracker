@@ -26,6 +26,56 @@ function WorkoutSlug({ workouts, day }) {
     setEdit(!edit);
   };
 
+  // const editWorkouts = (workoutId, sets, reps, weight) => {
+  //   setEditWorkout(workoutId);
+  //   setEdit(!edit);
+  //   newWorkouts.map((workout) => {
+  //     if (workout.id == workoutId) {
+  //       setCopyWorkouts([
+  //         ...copyWorkouts,
+  //         {
+  //           id: workoutId,
+  //           name: workout.name,
+  //           sets: sets,
+  //           reps: reps,
+  //           weight: weight,
+  //         },
+  //       ]);
+  //     } else {
+  //       console.log(workout)
+  //       setCopyWorkouts([
+  //         ...copyWorkouts,
+  //         workout,
+  //       ]);
+  //     }
+  //   });
+  // };
+
+  const editWorkouts = (workoutId, sets, reps, weight) => {
+    editSelect(workoutId);
+    let copyWorkouts = [];
+    newWorkouts.map((workout) => {
+      if (workout.id == workoutId) {
+        copyWorkouts = [
+          ...copyWorkouts,
+          {
+            id: workoutId,
+            name: workout.name,
+            sets: sets,
+            reps: reps,
+            weight: weight,
+          },
+        ];
+      } else {
+        copyWorkouts = [...copyWorkouts, workout];
+      }
+    });
+    setNewWorkouts(copyWorkouts);
+    setSets("");
+    setReps("");
+    setWeight("");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.cardContainer}>
@@ -47,7 +97,9 @@ function WorkoutSlug({ workouts, day }) {
                 {workout.id == editWorkout && edit ? (
                   <form className={styles.workouts}>
                     <button
-                      onClick={() => editSelect(workout.id)}
+                      onClick={() =>
+                        editWorkouts(workout.id, sets, reps, weight)
+                      }
                       className={styles.edit}
                     >
                       Editing
