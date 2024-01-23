@@ -7,7 +7,23 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 
-export const addWorkout = async (id, name, creator, workout) => {
+export const validateWorkoutId = async (previousState, formData) => {
+  const { title, id } =
+    Object.fromEntries(formData);
+  try {
+    connectToDb();
+    const workout = await Workout.findOne({ id: id });
+
+    if (workout) {
+      return { error: "Workout ID already exists" };
+    }
+    return { success: true };
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const addWorkout = async (id, name, workout) => {
   const session = await auth();
   connectToDb();
   try {
@@ -33,6 +49,33 @@ export const addWorkout = async (id, name, creator, workout) => {
     return { error: "Something went wrong" };
   }
 };
+
+export const updateWorkout = async (id, name, workout, day) => {
+  const session = await auth();
+  connectToDb();
+  try {
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${name}.workouts.${day}.workouts`]: workout,
+        },
+      }, 
+    );
+
+    await Workout.findOneAndUpdate(
+      { id: id },
+      {
+        $set: {
+          [`workouts.${day}.workouts`]: workout,
+        },
+      }, 
+    );
+    console.log("updated workout to db");
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const handleGithubLogin = async (e) => {
   "use server";

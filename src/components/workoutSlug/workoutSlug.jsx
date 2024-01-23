@@ -3,53 +3,26 @@
 import React, { useState } from "react";
 import styles from "./workoutSlug.module.css";
 import Link from "next/link";
+import { updateWorkout } from "@/lib/actions";
 
-{
-  /* {day} | {workouts[day].completed ? "True" : "False"} |{" "}
-        {workouts[day].rest ? "Rest" : "Workout"} */
-}
-
-function WorkoutSlug({ workouts, day }) {
-  const dayWorkouts = workouts[day].workouts;
+function WorkoutSlug({ workout, day }) {
+  const originalWorkouts = workout.workouts[day].workouts;
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editWorkout, setEditWorkout] = useState("");
+
+  const [rest, setRest] = useState(false);
 
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
 
-  const [newWorkouts, setNewWorkouts] = useState(workouts[day].workouts);
+  const [newWorkouts, setNewWorkouts] = useState(originalWorkouts);
 
   const editSelect = (workoutId) => {
     setEditWorkout(workoutId);
     setEdit(!edit);
   };
-
-  // const editWorkouts = (workoutId, sets, reps, weight) => {
-  //   setEditWorkout(workoutId);
-  //   setEdit(!edit);
-  //   newWorkouts.map((workout) => {
-  //     if (workout.id == workoutId) {
-  //       setCopyWorkouts([
-  //         ...copyWorkouts,
-  //         {
-  //           id: workoutId,
-  //           name: workout.name,
-  //           sets: sets,
-  //           reps: reps,
-  //           weight: weight,
-  //         },
-  //       ]);
-  //     } else {
-  //       console.log(workout)
-  //       setCopyWorkouts([
-  //         ...copyWorkouts,
-  //         workout,
-  //       ]);
-  //     }
-  //   });
-  // };
 
   const editWorkouts = (workoutId, sets, reps, weight) => {
     editSelect(workoutId);
@@ -76,11 +49,13 @@ function WorkoutSlug({ workouts, day }) {
     setWeight("");
   };
 
+  console.log(workout.name)
+
   return (
     <div className={styles.container}>
       <div className={styles.cardContainer}>
         <div className={styles.textContainer}>
-          <h1 className="text-2xl">{day}</h1>
+          <h1 className="text-2xl">{day} <button onClick={() => updateWorkout(workout.id, workout.name, newWorkouts, day)}> Confirm</button></h1>
           <button onClick={() => setDrop(!drop)}>Toggle</button>
         </div>
         {drop && (
