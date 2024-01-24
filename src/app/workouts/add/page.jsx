@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext } from "./context";
-import { addWorkout } from "@/lib/actions";
+import { addWorkout, validateWorkoutId } from "@/lib/actions";
 import styles from "./add.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Link from "next/link";
+import { useFormState, useFormStatus } from "react-dom";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -31,18 +32,18 @@ const days = [
 function AddPage() {
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [firstModal, setFirstModal] = useState(true);
+  // const [name, setName] = useState("");
   const [context, setContext] = useState(daysDict);
   const [index, setIndex] = useState(0);
+  const [state, formAction] = useFormState(validateWorkoutId, undefined);
 
-  const creator = "Creator Placeholder";
-
-  const nameSubmit = (e) => {
-    e.preventDefault();
-    setName(title);
-    setFirstModal(false);
-  };
+  // const nameSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (state?.error == undefined) {
+  //     setName(title);
+  //     setFirstModal(false);
+  //   }
+  // };
 
   const handleArrow = (direction) => {
     if (direction === "l") {
@@ -56,10 +57,10 @@ function AddPage() {
   return (
     <WorkoutContext.Provider value={[context, setContext]}>
       <div>
-        {firstModal && (
+        {(state?.success == undefined) && (
           <div>
             <h1>What will be the name and ID of the workout?</h1>
-            <form onSubmit={nameSubmit} className="flex flex-col gap-5">
+            <form action={formAction} className="flex flex-col gap-5">
               <input
                 type="text"
                 name="title"
@@ -77,13 +78,14 @@ function AddPage() {
                 onChange={(e) => setId(e.target.value)}
               />
               <button>Submit</button>
+              {state?.error}
             </form>
           </div>
         )}
-        {!firstModal && (
+        {(state?.success != undefined) && (
           <div>
             <h1 className="text-center text-3xl mb-8">
-              {name} | {id}
+              {title} | {id}
             </h1>
             <div className="flex">
               <button onClick={() => handleArrow("l")} className="text-7xl">
@@ -97,7 +99,7 @@ function AddPage() {
                 ))}
                 <Link href="/workouts">
                   <button
-                    onClick={() => addWorkout(id, name, creator, context)}
+                    onClick={() => addWorkout(id, title, context)}
                     className={styles.button}
                   >
                     Submit Workout
