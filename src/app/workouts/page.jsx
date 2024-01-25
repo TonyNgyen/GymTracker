@@ -18,8 +18,8 @@ async function WorkoutsPage() {
   return (
     <div>
       {!Object.keys(workouts).length ? (
-        <div>
-          <section className="bg-indigo-200 p-10 flex justify-center w-1/2 mx-auto rounded-md">
+        <div className="flex flex-col items-center">
+          <section className="p-10 flex justify-center w-1/2 mx-auto rounded-md">
             <h1 className="text-4xl">There are no workouts to display</h1>
           </section>
           <Link
