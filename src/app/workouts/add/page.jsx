@@ -95,7 +95,7 @@ function AddPage() {
               </button>
               <div className="w-5/6 text-center">
                 {days.map((day) => (
-                  <div className={index === days.indexOf(day) ? "" : "hidden"}>
+                  <div className={index === days.indexOf(day) ? "" : "hidden"} key={days.indexOf(day)}>
                     <WorkoutDay day={day} list={daysDict[day]} />
                   </div>
                 ))}
