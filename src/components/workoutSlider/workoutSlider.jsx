@@ -34,8 +34,6 @@ function WorkoutSlider() {
     }
   };
 
-  console.log(index);
-
   return (
     <div className={styles.container}>
       <button

@@ -115,7 +115,7 @@ function WorkoutDay({ day }) {
       )}
       <div className={(rest ? "blur" : "") + " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar"}>
         {workouts.map((workout) => (
-          <article className={styles.workouts}>
+          <article className={styles.workouts} key={workout.id}>
             <h1 className="justify-self-start">{workout.name}</h1>
             <h1>{workout.sets}</h1>
             <h1>{workout.reps}</h1>
