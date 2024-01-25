@@ -12,32 +12,32 @@ function WorkoutList({ workouts, day }) {
       <div className={styles.header}>
         <select
           onChange={(e) => setSelect(e.target.value)}
-          className="text-4xl text-black"
+          className={styles.select}
         >
           {Object.keys(workouts).map((name) => (
-            <option key={name} className="text-black">
+            <option key={name} className="text-white">
               {name}
             </option>
           ))}
         </select>
-        <Link
-          href="/workouts/add"
-          className="py-2 px-4 bg-white text-black rounded-full"
-        >
-          Add Workout
-        </Link>
-        <Link
-          href={`/workouts/${workouts[select].id}`}
-          className="py-2 px-4 bg-white text-black rounded-full"
-        >
-          Edit Workout
-        </Link>
+        <div className={styles.buttons}>
+          <Link href="/workouts/add">
+            <button className="py-3 px-4 bg-white text-black rounded-full">
+              Add Workout
+            </button>
+          </Link>
+          <Link href={`/workouts/${workouts[select].id}`}>
+            <button className="py-3 px-4 bg-white text-black rounded-full">
+              Edit Workout
+            </button>
+          </Link>
+        </div>
       </div>
       {workoutForDay.rest ? (
         <div>Today is a rest day</div>
       ) : (
         <div className={styles.workoutContainer}>
-          <div className={styles.workoutHeader + " text-2xl font-bold"}>
+          <div className={styles.workoutHeader}>
             <h1>Workouts</h1>
             <h1>Sets</h1>
             <h1>Reps</h1>

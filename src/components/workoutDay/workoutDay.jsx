@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "./workoutDay.module.css";
 import { WorkoutContext } from "@/app/workouts/add/context";
 
-function workoutDay({ day }) {
+function WorkoutDay({ day }) {
   // MODAL
   const [modal, setModal] = useState(false);
   const toggle = () => {
@@ -137,6 +137,6 @@ function workoutDay({ day }) {
   );
 }
 
-export default workoutDay;
+export default WorkoutDay;
 
 // "flex flex-col items-center mb-4 bg-red-700"

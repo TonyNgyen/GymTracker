@@ -4,7 +4,32 @@
     border: none;
     border-radius: 5px;
     background-color: var(--btn);
-    margin: 1rem auto;
+    margin: 1rem;
+    width: 20%;
+    min-width: 125px;
+}
+
+.error {
+    background-color: #AF0606;
+    padding: 0.5rem;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.input {
+    background-color: var(--bg);
+    border-bottom: 2px solid white;
+    width: 50%;
+    margin: 1.5rem 0;
+    font-size: larger;
+}
+
+.submit {
+    padding: 12px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--btn);
     width: 20%;
     min-width: 125px;
 }

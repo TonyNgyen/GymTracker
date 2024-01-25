@@ -10,6 +10,9 @@ import { auth } from "@/lib/auth";
 export const validateWorkoutId = async (previousState, formData) => {
   const { title, id } =
     Object.fromEntries(formData);
+  if (title == "" || id == "") {
+    return { error: "Please fill in required fields" };
+  }
   try {
     connectToDb();
     const workout = await Workout.findOne({ id: id });
