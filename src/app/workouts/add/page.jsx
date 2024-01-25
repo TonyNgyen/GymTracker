@@ -54,18 +54,20 @@ function AddPage() {
     }
   };
 
+  console.log(state?.error != undefined)
+
   return (
     <WorkoutContext.Provider value={[context, setContext]}>
       <div>
-        {(state?.success == undefined) && (
-          <div>
-            <h1>What will be the name and ID of the workout?</h1>
-            <form action={formAction} className="flex flex-col gap-5">
+        {state?.success == undefined && (
+          <div className="text-center">
+            <h1 className="text-2xl">What will be the name and ID of the workout?</h1>
+            <form action={formAction} className="flex flex-col gap-5 items-center">
               <input
                 type="text"
                 name="title"
                 id="title"
-                className="text-black"
+                className={styles.input}
                 placeholder="Workout name"
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -73,16 +75,16 @@ function AddPage() {
                 type="text"
                 name="id"
                 id="id"
-                className="text-black"
+                className={styles.input}
                 placeholder="Workout ID"
                 onChange={(e) => setId(e.target.value)}
               />
-              <button>Submit</button>
-              {state?.error}
+              {state?.error != undefined ? <h1 className={styles.error}>{state?.error}</h1> : <></>}
+              <button className={styles.submit}>Submit</button>
             </form>
           </div>
         )}
-        {(state?.success != undefined) && (
+        {state?.success != undefined && (
           <div>
             <h1 className="text-center text-3xl mb-8">
               {title} | {id}
@@ -91,7 +93,7 @@ function AddPage() {
               <button onClick={() => handleArrow("l")} className="text-7xl">
                 <FaAngleLeft />
               </button>
-              <div className="w-5/6 mx-auto flex flex-col">
+              <div className="w-5/6 text-center">
                 {days.map((day) => (
                   <div className={index === days.indexOf(day) ? "" : "hidden"}>
                     <WorkoutDay day={day} list={daysDict[day]} />

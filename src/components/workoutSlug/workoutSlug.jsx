@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import styles from "./workoutSlug.module.css";
-import Link from "next/link";
 import { updateWorkout } from "@/lib/actions";
 
 function WorkoutSlug({ workout, day }) {
