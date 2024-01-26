@@ -19,8 +19,10 @@ function AboutPage() {
           GymTracker helps you reach your fitness goals by helping you track and
           monitor your performace. You input your workout and GymTracker
           remembers what workouts you are doing for the day as well as the
-          previous weight you did to push you forward. <span className={styles.highlight}>Let&apos;s Improve
-          Efficiently.</span>
+          previous weight you did to push you forward.{" "}
+          <span className={styles.highlight}>
+            Let&apos;s Improve Efficiently.
+          </span>
         </p>
         <div className={styles.boxes}>
           <div className={styles.box}>

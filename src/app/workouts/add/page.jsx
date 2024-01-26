@@ -54,15 +54,20 @@ function AddPage() {
     }
   };
 
-  console.log(state?.error != undefined)
+  console.log(state?.error != undefined);
 
   return (
     <WorkoutContext.Provider value={[context, setContext]}>
       <div>
         {state?.success == undefined && (
           <div className="text-center">
-            <h1 className="text-2xl">What will be the name and ID of the workout?</h1>
-            <form action={formAction} className="flex flex-col gap-5 items-center">
+            <h1 className="text-2xl">
+              What will be the name and ID of the workout?
+            </h1>
+            <form
+              action={formAction}
+              className="flex flex-col gap-5 items-center"
+            >
               <input
                 type="text"
                 name="title"
@@ -79,7 +84,11 @@ function AddPage() {
                 placeholder="Workout ID"
                 onChange={(e) => setId(e.target.value)}
               />
-              {state?.error != undefined ? <h1 className={styles.error}>{state?.error}</h1> : <></>}
+              {state?.error != undefined ? (
+                <h1 className={styles.error}>{state?.error}</h1>
+              ) : (
+                <></>
+              )}
               <button className={styles.submit}>Submit</button>
             </form>
           </div>
@@ -95,7 +104,10 @@ function AddPage() {
               </button>
               <div className="w-5/6 text-center">
                 {days.map((day) => (
-                  <div className={index === days.indexOf(day) ? "" : "hidden"} key={days.indexOf(day)}>
+                  <div
+                    className={index === days.indexOf(day) ? "" : "hidden"}
+                    key={days.indexOf(day)}
+                  >
                     <WorkoutDay day={day} list={daysDict[day]} />
                   </div>
                 ))}

@@ -43,7 +43,10 @@ function WorkoutSlider() {
       >
         Previous
       </button>
-      <div className={styles.wrapper} style={{transform:`translateX(${-100*index}vw)`}}>
+      <div
+        className={styles.wrapper}
+        style={{ transform: `translateX(${-100 * index}vw)` }}
+      >
         {days.map((day) => (
           <div className={styles.cardContainer} key={day}>
             <WorkoutDay day={day} list={daysDict[day]} />

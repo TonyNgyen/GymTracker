@@ -5,13 +5,13 @@
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
- /* Hide scrollbar for IE, Edge and Firefox */
+  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-}
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 :root {
@@ -35,7 +35,7 @@ a {
 
 body {
   background-color: var(--bg);
-  color: var(--text)
+  color: var(--text);
 }
 
 .container {
@@ -49,46 +49,46 @@ body {
   justify-content: space-between;
 }
 
-@media (max-width:1536px) {
+@media (max-width: 1536px) {
   .container {
-      width: 1366px;
+    width: 1366px;
   }
 }
 
-@media (max-width:1366px) {
+@media (max-width: 1366px) {
   .container {
-      width: 1280px;
+    width: 1280px;
   }
 }
 
-@media (max-width:1280px) {
+@media (max-width: 1280px) {
   .container {
-      width: 1024px;
-      padding-left: 20px;
-      padding-right: 20px;
+    width: 1024px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .container {
-      width: 768px;
+    width: 768px;
   }
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .container {
-      width: 640px;
+    width: 640px;
   }
 }
 
-@media (max-width:640px) {
+@media (max-width: 640px) {
   .container {
-      width: 475px;
+    width: 475px;
   }
 }
 
-@media (max-width:475px) {
+@media (max-width: 475px) {
   .container {
-      width: 380px;
+    width: 380px;
   }
 }

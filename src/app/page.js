@@ -8,8 +8,12 @@ export default function Home() {
       <div className={styles.hero}>
         <h1 className={styles.title}>Let&apos;s Improve Efficiently.</h1>
         <div className={styles.buttons}>
-          <Link className={styles.button} href="/about">Learn More</Link>
-          <Link className={styles.button} href="/register">Sign Up</Link>
+          <Link className={styles.button} href="/about">
+            Learn More
+          </Link>
+          <Link className={styles.button} href="/register">
+            Sign Up
+          </Link>
         </div>
       </div>
     </main>

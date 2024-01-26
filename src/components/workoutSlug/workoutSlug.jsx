@@ -48,13 +48,21 @@ function WorkoutSlug({ workout, day }) {
     setWeight("");
   };
 
-  console.log(workout.name)
-
   return (
     <div className={styles.container}>
       <div className={styles.cardContainer}>
         <div className={styles.textContainer}>
-          <h1 className="text-2xl">{day} <button onClick={() => updateWorkout(workout.id, workout.name, newWorkouts, day)}> Confirm</button></h1>
+          <h1 className="text-2xl">
+            {day}{" "}
+            <button
+              onClick={() =>
+                updateWorkout(workout.id, workout.name, newWorkouts, day)
+              }
+            >
+              {" "}
+              Confirm
+            </button>
+          </h1>
           <button onClick={() => setDrop(!drop)}>Toggle</button>
         </div>
         {drop && (
