@@ -1,3 +1,3 @@
 A web application that aids in tracking your workouts.
 
-Hosted and Deployed on Vercel: gymtracker-phi.vercel.app
+Hosted and Deployed on Vercel: [gymtracker-phi.vercel.app](gymtracker-phi.vercel.app)
