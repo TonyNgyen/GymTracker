@@ -16,6 +16,8 @@ function WorkoutDay({ day }) {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
+  const [workoutSaved, setWorkoutSaved] = useState(false);
+
   const handleRest = () => {
     setRest(!rest);
   };
@@ -36,7 +38,6 @@ function WorkoutDay({ day }) {
     setSets("");
     setReps("");
     setWeight("");
-    toggle();
   };
 
   const addDay = (e) => {
@@ -45,7 +46,13 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: workouts, rest: rest },
     });
+    setWorkoutSaved(true);
   };
+
+  const closeWorkoutSaved = (e) => {
+    e.preventDefault();
+    setWorkoutSaved(false);
+  }
 
   const debug = (e) => {
     console.log(workoutsContext);
@@ -136,14 +143,19 @@ function WorkoutDay({ day }) {
           </article>
         ))}
       </div>
+      {workoutSaved ? (
+        <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
+          Workout Successfully Saved! 
+          <button onClick={closeWorkoutSaved} className="ml-5">X</button>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <button onClick={addDay} className={styles.button}>
-        Submit {day}
+        Save {day}
       </button>
-      {/* <button onClick={debug}>Debug</button> */}
     </div>
   );
 }
 
 export default WorkoutDay;
-
-// "flex flex-col items-center mb-4 bg-red-700"

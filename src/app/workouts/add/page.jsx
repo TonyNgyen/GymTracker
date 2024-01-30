@@ -32,18 +32,9 @@ const days = [
 function AddPage() {
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
-  // const [name, setName] = useState("");
   const [context, setContext] = useState(daysDict);
   const [index, setIndex] = useState(0);
   const [state, formAction] = useFormState(validateWorkoutId, undefined);
-
-  // const nameSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (state?.error == undefined) {
-  //     setName(title);
-  //     setFirstModal(false);
-  //   }
-  // };
 
   const handleArrow = (direction) => {
     if (direction === "l") {
@@ -53,8 +44,6 @@ function AddPage() {
       setIndex(index !== 6 ? index + 1 : 0);
     }
   };
-
-  console.log(state?.error != undefined);
 
   return (
     <WorkoutContext.Provider value={[context, setContext]}>
@@ -98,7 +87,7 @@ function AddPage() {
             <h1 className="text-center text-3xl mb-8">
               {title} | {id}
             </h1>
-            <div className="flex">
+            <div className="flex justify-center">
               <button onClick={() => handleArrow("l")} className="text-7xl">
                 <FaAngleLeft />
               </button>
