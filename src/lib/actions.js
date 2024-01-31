@@ -1,11 +1,34 @@
 "use server";
 
-import { Workout, User } from "./models";
+import { Workout, User, DevLog } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
+
+export const addLog = async (prevState, formData) => {
+  const { title, desc, slug, username, img } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    const newDevLog = new DevLog({
+      title,
+      desc,
+      slug,
+      username,
+      img,
+    });
+
+    await newDevLog.save();
+    console.log("saved to db");
+    // revalidatePath("/blog");
+    revalidatePath("/admin");
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong" };
+  }
+};
 
 export const validateWorkoutId = async (previousState, formData) => {
   const { title, id } =
