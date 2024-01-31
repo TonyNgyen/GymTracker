@@ -1,5 +1,5 @@
 import { auth } from "./auth";
-import { User, Workout } from "./models";
+import { DevLog, User, Workout } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -24,5 +24,16 @@ export const getWorkout = async (id) => {
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch workout!")
+  }
+}
+
+export const getDevLogs = async () => {
+  try {
+    connectToDb();
+    const devLogs = await DevLog.find();
+    return devLogs
+  } catch (error) {
+    console.log(error)
+    throw new Error("Failed to fetch devLogs");
   }
 }

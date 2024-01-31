@@ -1,8 +1,12 @@
 import React from 'react'
+import { getDevLogs } from "@/lib/data"
 
-function DevLogsPage() {
+async function DevLogsPage() {
+  const devLogs = await getDevLogs();
   return (
-    <div>DevLogs</div>
+    <div>
+    {devLogs.map((devLog) => <div>{devLog.title}</div>)}
+    </div>
   )
 }
 
