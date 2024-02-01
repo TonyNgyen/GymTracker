@@ -16,7 +16,18 @@ function WorkoutSlug({ workout, day }) {
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
 
+  const [newName, setNewName] = useState("");
+  const [newSets, setNewSets] = useState("");
+  const [newReps, setNewReps] = useState("");
+  const [newWeight, setNewWeight] = useState("");
+
   const [newWorkouts, setNewWorkouts] = useState(originalWorkouts);
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => {
+    setModal(!modal);
+  };
 
   const editSelect = (workoutId) => {
     setEditWorkout(workoutId);
@@ -59,7 +70,6 @@ function WorkoutSlug({ workout, day }) {
                 updateWorkout(workout.id, workout.name, newWorkouts, day)
               }
             >
-              {" "}
               Confirm
             </button>
           </h1>
@@ -73,7 +83,40 @@ function WorkoutSlug({ workout, day }) {
               <h1 className={styles.headers}>Sets</h1>
               <h1 className={styles.headers}>Reps</h1>
               <h1 className={styles.headers}>Weight</h1>
+              <button className={styles.add} onClick={toggle}>
+                +
+              </button>
             </div>
+            {modal && (
+              <form className={styles.addHeader}>
+                <h1 className={styles.empty}></h1>
+                <input
+                  value={newName}
+                  type="text"
+                  placeholder="Workout"
+                  className={styles.addInputs}
+                />
+                <input
+                  value={newSets}
+                  type="number"
+                  placeholder="Sets"
+                  className={styles.addInputs}
+                />
+                <input
+                  value={newReps}
+                  type="number"
+                  placeholder="Reps"
+                  className={styles.addInputs}
+                />
+                <input
+                  value={newWeight}
+                  type="number"
+                  placeholder="Weight"
+                  className={styles.addInputs}
+                />
+                <h1 className={styles.empty}></h1>
+              </form>
+            )}
             {newWorkouts.map((workout) => (
               <div key={workout.id}>
                 {workout.id == editWorkout && edit ? (

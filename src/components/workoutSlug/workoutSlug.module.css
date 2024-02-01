@@ -25,6 +25,17 @@
   padding: 2rem 2rem;
 }
 
+.addHeader {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  justify-items: center;
+  background-color: var(--bg);
+  width: 100%;
+  align-items: center;
+  margin: 0px auto;
+  padding: 2rem 2rem;
+}
+
 .cardContainer {
   display: flex;
   flex-direction: column;
@@ -48,8 +59,18 @@
 
 .stats,
 .headers,
-.inputs {
+.inputs,
+.addInputs {
   grid-column: span 3;
+}
+
+.addInputs {
+  width: 90%;
+  background-color: var(--bg);
+  text-align: center;
+  border-bottom: 2px solid white;
+  margin-bottom: -2px;
+  -moz-appearance: textfield;
 }
 
 .inputs {
@@ -63,14 +84,21 @@
 }
 
 .inputs::-webkit-outer-spin-button,
-.inputs::-webkit-inner-spin-button {
+.inputs::-webkit-inner-spin-button,
+.addInputs::-webkit-outer-spin-button,
+.addInputs::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 .edit,
-.empty {
+.empty
+{
   justify-self: start;
+  grid-column: span 1;
+}
+
+.add {
   grid-column: span 1;
 }
 
