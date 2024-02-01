@@ -5,7 +5,7 @@ async function DevLogsPage() {
   const devLogs = await getDevLogs();
   return (
     <div>
-    {devLogs.map((devLog) => <div>{devLog.title}</div>)}
+    {devLogs.map((devLog) => <div key={devLog.title}>{devLog.title}</div>)}
     </div>
   )
 }
