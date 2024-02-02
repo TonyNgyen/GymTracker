@@ -22,9 +22,11 @@ function WorkoutDay({ day }) {
     setRest(!rest);
   };
 
+  const isWhitespaceString = str => !str.replace(/\s/g, '').length
+
   const add = (e) => {
     e.preventDefault();
-    if (name == "" || sets == "" || reps == "" || weight == "") {
+    if (isWhitespaceString(name) || sets == "" || reps == "" || weight == "") {
       alert("Please fill in required inputs");
       return;
     }
