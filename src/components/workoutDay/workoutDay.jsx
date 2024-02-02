@@ -24,6 +24,10 @@ function WorkoutDay({ day }) {
 
   const add = (e) => {
     e.preventDefault();
+    if (name == "" || sets == "" || reps == "" || weight == "") {
+      alert("Please fill in required inputs");
+      return;
+    }
     setWorkouts([
       ...workouts,
       {

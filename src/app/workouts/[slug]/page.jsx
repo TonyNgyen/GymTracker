@@ -8,7 +8,7 @@ async function SingleWorkoutPage({ params }) {
   const workout = await getWorkout(slug);
   return (
     <div>
-      <h1>{workout.name}</h1>
+      <h1 className="text-center my-10 text-5xl font-bold">{workout.name}</h1>
       <div className={styles.slugContainer}>
         {Object.keys(workout.workouts).map((day) => (
           <WorkoutSlug day={day} workout={workout} key={day} />
