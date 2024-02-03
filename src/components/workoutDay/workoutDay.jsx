@@ -63,7 +63,6 @@ function WorkoutDay({ day }) {
   const debug = (e) => {
     console.log(workoutsContext);
   };
-
   return (
     <div className={styles.card}>
       <h1 className="text-center text-3xl mb-5">{day}</h1>
@@ -132,6 +131,7 @@ function WorkoutDay({ day }) {
           " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar"
         }
       >
+      {!workouts.length && (<div>Please add workouts or mark {day} as a rest day!</div>)}
         {workouts.map((workout) => (
           <article className={styles.workouts} key={workout.id}>
             <h1 className="justify-self-start">{workout.name}</h1>

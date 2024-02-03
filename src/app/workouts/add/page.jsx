@@ -84,8 +84,11 @@ function AddPage() {
         )}
         {state?.success != undefined && (
           <div>
-            <h1 className="text-center text-3xl mb-8">
-              {title} | {id}
+            <h1 className="text-center text-4xl mb-2">
+              {title}
+            </h1>
+            <h1 className="text-center text-md mb-8">
+              {id}
             </h1>
             <div className="flex justify-center">
               <button onClick={() => handleArrow("l")} className="text-7xl">
