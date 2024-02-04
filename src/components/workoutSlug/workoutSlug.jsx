@@ -59,12 +59,39 @@ function WorkoutSlug({ workout, day }) {
     setWeight("");
   };
 
+  // FINISH METHOD
+  const addWorkout = (workoutId, name, sets, reps, weight) => {
+    toggle(workoutId);
+    let copyWorkouts = [];
+    newWorkouts.map((workout) => {
+      if (workout.id == workoutId) {
+        copyWorkouts = [
+          ...copyWorkouts,
+          {
+            id: workoutId,
+            name: workout.name,
+            sets: sets,
+            reps: reps,
+            weight: weight,
+          },
+        ];
+      } else {
+        copyWorkouts = [...copyWorkouts, workout];
+      }
+    });
+    setNewWorkouts(copyWorkouts);
+    setNewName("")
+    setNewSets("");
+    setNewReps("");
+    setNewWeight("");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.cardContainer}>
         <div className={styles.textContainer}>
           <h1 className="text-2xl">
-            {day}{" "}
+            {day}
             <button
               onClick={() =>
                 updateWorkout(workout.id, workout.name, newWorkouts, day)
@@ -95,26 +122,38 @@ function WorkoutSlug({ workout, day }) {
                   type="text"
                   placeholder="Workout"
                   className={styles.addInputs}
+                  onChange={(e) => {
+                    setNewName(e.target.value);
+                  }}
                 />
                 <input
                   value={newSets}
                   type="number"
                   placeholder="Sets"
                   className={styles.addInputs}
+                  onChange={(e) => {
+                    setNewSets(e.target.value);
+                  }}
                 />
                 <input
                   value={newReps}
                   type="number"
                   placeholder="Reps"
                   className={styles.addInputs}
+                  onChange={(e) => {
+                    setNewReps(e.target.value);
+                  }}
                 />
                 <input
                   value={newWeight}
                   type="number"
                   placeholder="Weight"
                   className={styles.addInputs}
+                  onChange={(e) => {
+                    setNewWeight(e.target.value);
+                  }}
                 />
-                <h1 className={styles.empty}></h1>
+                <h1 className={styles.add  + " text-2xl font-bold"}>+</h1>
               </form>
             )}
             {newWorkouts.map((workout) => (

@@ -68,16 +68,16 @@ function WorkoutDay({ day }) {
       <h1 className="text-center text-3xl mb-5">{day}</h1>
       <div className={styles.buttons}>
         <button className={styles.button} onClick={toggle}>
-          Add Workout
+          Add
         </button>
         {!rest && (
           <button className={styles.button} onClick={handleRest}>
-            Rest Day?
+            Rest?
           </button>
         )}
         {rest && (
           <button className={styles.restButton} onClick={handleRest}>
-            Rest Day
+            Rest
           </button>
         )}
       </div>
