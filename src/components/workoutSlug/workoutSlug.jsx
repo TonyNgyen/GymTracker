@@ -60,31 +60,25 @@ function WorkoutSlug({ workout, day }) {
   };
 
   // FINISH METHOD
-  const addWorkout = (workoutId, name, sets, reps, weight) => {
-    toggle(workoutId);
-    let copyWorkouts = [];
-    newWorkouts.map((workout) => {
-      if (workout.id == workoutId) {
-        copyWorkouts = [
-          ...copyWorkouts,
-          {
-            id: workoutId,
-            name: workout.name,
-            sets: sets,
-            reps: reps,
-            weight: weight,
-          },
-        ];
-      } else {
-        copyWorkouts = [...copyWorkouts, workout];
-      }
-    });
-    setNewWorkouts(copyWorkouts);
-    setNewName("")
+  const addWorkout = (e) => {
+    e.preventDefault();
+    setNewWorkouts([
+      ...newWorkouts,
+      {
+        id: newWorkouts.length,
+        name: newName,
+        sets: newSets,
+        reps: newReps,
+        weight: newWeight,
+      },
+    ]);
+    setNewName("");
     setNewSets("");
     setNewReps("");
     setNewWeight("");
   };
+
+  console.log(newWorkouts);
 
   return (
     <div className={styles.container}>
@@ -153,7 +147,7 @@ function WorkoutSlug({ workout, day }) {
                     setNewWeight(e.target.value);
                   }}
                 />
-                <h1 className={styles.add  + " text-2xl font-bold"}>+</h1>
+                <button className={styles.add + " text-2xl font-bold"} onClick={addWorkout}>+</button>
               </form>
             )}
             {newWorkouts.map((workout) => (
