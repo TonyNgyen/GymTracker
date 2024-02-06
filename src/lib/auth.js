@@ -11,7 +11,8 @@ export const {
   auth,
   signIn,
   signOut,
-} = NextAuth({...authConfig,
+} = NextAuth({
+  ...authConfig,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
@@ -23,14 +24,14 @@ export const {
           const user = await login(credentials);
           return user;
         } catch (error) {
-          return null
+          return null;
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
-    async signIn({user, account, profile}) {
-      console.log(profile)
+    async signIn({ user, account, profile }) {
+      console.log(profile);
       if (account.provider === "github") {
         connectToDb();
         try {

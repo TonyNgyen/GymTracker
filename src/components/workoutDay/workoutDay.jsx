@@ -22,7 +22,7 @@ function WorkoutDay({ day }) {
     setRest(!rest);
   };
 
-  const isWhitespaceString = str => !str.replace(/\s/g, '').length
+  const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   const add = (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ function WorkoutDay({ day }) {
   const closeWorkoutSaved = (e) => {
     e.preventDefault();
     setWorkoutSaved(false);
-  }
+  };
 
   const debug = (e) => {
     console.log(workoutsContext);
@@ -131,7 +131,9 @@ function WorkoutDay({ day }) {
           " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar"
         }
       >
-      {!workouts.length && (<div>Please add workouts or mark {day} as a rest day!</div>)}
+        {!workouts.length && (
+          <div>Please add workouts or mark {day} as a rest day!</div>
+        )}
         {workouts.map((workout) => (
           <article className={styles.workouts} key={workout.id}>
             <h1 className="justify-self-start">{workout.name}</h1>
@@ -151,8 +153,10 @@ function WorkoutDay({ day }) {
       </div>
       {workoutSaved ? (
         <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
-          Workout Successfully Saved! 
-          <button onClick={closeWorkoutSaved} className="ml-5">X</button>
+          Workout Successfully Saved!
+          <button onClick={closeWorkoutSaved} className="ml-5">
+            X
+          </button>
         </div>
       ) : (
         <div></div>

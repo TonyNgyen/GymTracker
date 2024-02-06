@@ -78,8 +78,8 @@ const devlogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
 export const Workout =
   mongoose.models?.Workout || mongoose.model("Workout", workoutSchema);
-export const DevLog = mongoose.models?.DevLog || mongoose.model("DevLog", devlogSchema);
+export const DevLog =
+  mongoose.models?.DevLog || mongoose.model("DevLog", devlogSchema);

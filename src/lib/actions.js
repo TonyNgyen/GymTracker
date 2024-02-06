@@ -31,8 +31,7 @@ export const addLog = async (prevState, formData) => {
 };
 
 export const validateWorkoutId = async (previousState, formData) => {
-  const { title, id } =
-    Object.fromEntries(formData);
+  const { title, id } = Object.fromEntries(formData);
   if (title == "" || id == "") {
     return { error: "Please fill in required fields" };
   }
@@ -45,9 +44,9 @@ export const validateWorkoutId = async (previousState, formData) => {
     }
     return { success: true };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const addWorkout = async (id, name, workout) => {
   const session = await auth();
@@ -86,7 +85,7 @@ export const updateWorkout = async (id, name, workout, day) => {
         $set: {
           [`workouts.${name}.workouts.${day}.workouts`]: workout,
         },
-      }, 
+      }
     );
 
     await Workout.findOneAndUpdate(
@@ -95,13 +94,13 @@ export const updateWorkout = async (id, name, workout, day) => {
         $set: {
           [`workouts.${day}.workouts`]: workout,
         },
-      }, 
+      }
     );
     console.log("updated workout to db");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const handleGithubLogin = async (e) => {
   "use server";

@@ -92,8 +92,7 @@
 }
 
 .edit,
-.empty
-{
+.empty {
   justify-self: start;
   grid-column: span 1;
 }

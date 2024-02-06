@@ -1,19 +1,19 @@
 .container {
-    background-color: cadetblue;
+  background-color: cadetblue;
 }
 
 .button {
-    position: absolute;
-    width: 10%;
-    height: 20%;
-    background-color: darkgreen;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  width: 10%;
+  height: 20%;
+  background-color: darkgreen;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .wrapper {
-    display: flex;
+  display: flex;
 }

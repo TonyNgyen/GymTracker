@@ -16,24 +16,24 @@ export const getWorkouts = async () => {
 };
 
 export const getWorkout = async (id) => {
-  noStore()
+  noStore();
   try {
     connectToDb();
-    const workout = await Workout.findOne({id: id});
+    const workout = await Workout.findOne({ id: id });
     return workout;
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to fetch workout!")
+    throw new Error("Failed to fetch workout!");
   }
-}
+};
 
 export const getDevLogs = async () => {
   try {
     connectToDb();
     const devLogs = await DevLog.find();
-    return devLogs
+    return devLogs;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error("Failed to fetch devLogs");
   }
-}
+};

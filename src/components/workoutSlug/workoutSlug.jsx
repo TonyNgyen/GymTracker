@@ -147,7 +147,12 @@ function WorkoutSlug({ workout, day }) {
                     setNewWeight(e.target.value);
                   }}
                 />
-                <button className={styles.add + " text-2xl font-bold"} onClick={addWorkout}>+</button>
+                <button
+                  className={styles.add + " text-2xl font-bold"}
+                  onClick={addWorkout}
+                >
+                  +
+                </button>
               </form>
             )}
             {newWorkouts.map((workout) => (

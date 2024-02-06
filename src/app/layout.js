@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: {
     default: "GymTracker Home Page",
-    template: "%s | GymTracker"
+    template: "%s | GymTracker",
   },
   description: "GymTracker",
 };
