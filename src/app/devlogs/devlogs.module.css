@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.devlogContainer {
+    background-color: var(--bgSoft);
+    padding: 2em;
+    width: 20%;
+}
+
+.devlogTitle {
+    font-size: 2em;
+}
