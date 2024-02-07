@@ -78,14 +78,12 @@ function WorkoutSlug({ workout, day }) {
     setNewWeight("");
   };
 
-  console.log(newWorkouts);
-
   return (
     <div className={styles.container}>
       <div className={styles.cardContainer}>
         <div className={styles.textContainer}>
-          <h1 className="text-2xl">
-            {day}
+          <h1 className="flex">
+            <h1 className="text-4xl mr-4">{day}</h1>
             <button
               onClick={() =>
                 updateWorkout(workout.id, workout.name, newWorkouts, day)
