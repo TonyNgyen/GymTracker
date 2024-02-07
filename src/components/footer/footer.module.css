@@ -6,8 +6,18 @@
     color: gray;
 }
 
+.leftContainer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
 .logo {
     font-weight: bold;
+}
+
+.devLogs {
+    font-size: 0.75rem;
 }
 
 .text {

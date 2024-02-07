@@ -3,7 +3,7 @@ import styles from "./workoutDay.module.css";
 import { WorkoutContext } from "@/app/workouts/add/context";
 
 function WorkoutDay({ day }) {
-  // MODAL
+
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
