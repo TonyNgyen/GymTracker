@@ -1,6 +1,6 @@
 import React from "react";
 import { getDevLogs } from "@/lib/data";
-import styles from "./devlogs.module.css"
+import styles from "./devlogs.module.css";
 
 async function DevLogsPage() {
   const devLogs = await getDevLogs();

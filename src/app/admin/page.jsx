@@ -1,10 +1,8 @@
-import DevLogForm from '@/components/devLogForm/devLogForm'
-import React from 'react'
+import DevLogForm from "@/components/devLogForm/devLogForm";
+import React from "react";
 
 function AdminPage() {
-  return (
-    <DevLogForm />
-  )
+  return <DevLogForm />;
 }
 
-export default AdminPage
+export default AdminPage;

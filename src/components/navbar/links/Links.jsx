@@ -60,6 +60,18 @@ function Links({ session }) {
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
           ))}
+          {session?.user ? (
+            <>
+              {session.user?.isAdmin && (
+                <NavLink item={{ title: "Admin", path: "/admin" }} />
+              )}
+              <form action={handleLogout}>
+                <button className={styles.logout}>Logout</button>
+              </form>
+            </>
+          ) : (
+            <NavLink item={{ title: "Login", path: "/login" }} />
+          )}
         </div>
       )}
     </div>
