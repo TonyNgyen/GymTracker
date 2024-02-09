@@ -58,7 +58,9 @@ function Links({ session }) {
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
-            <NavLink item={link} key={link.title} />
+            <div onClick={() => setOpen((prev) => !prev)}>
+              <NavLink item={link} key={link.title} />
+            </div>
           ))}
           {session?.user ? (
             <>
