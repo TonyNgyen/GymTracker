@@ -3,6 +3,11 @@
 import React, { useState } from "react";
 import styles from "./workoutSlug.module.css";
 import { updateWorkout } from "@/lib/actions";
+import { FaTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
+import { FaCheck } from "react-icons/fa";
 
 function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
@@ -83,20 +88,28 @@ function WorkoutSlug({ workout, day }) {
       <div className={styles.cardContainer}>
         <div className={styles.textContainer}>
           <h1 className="flex">
-            <h1 className="text-4xl mr-4">{day}</h1>
+            <h1 className={styles.dayHeader}>{day}</h1>
             <button
               onClick={() =>
                 updateWorkout(workout.id, workout.name, newWorkouts, day)
               }
             >
-              Confirm
+              <FaCheck />
             </button>
           </h1>
-          <button onClick={() => setDrop(!drop)}>Toggle</button>
+          {drop ? (
+            <button onClick={() => setDrop(!drop)}>
+              <IoIosArrowUp />
+            </button>
+          ) : (
+            <button onClick={() => setDrop(!drop)}>
+              <IoIosArrowDown />
+            </button>
+          )}
         </div>
         {drop && (
           <div className={styles.workoutContainer}>
-            <div className={styles.workoutHeader + " text-2xl font-bold"}>
+            <div className={styles.workoutHeader}>
               <h1 className={styles.empty}></h1>
               <h1 className={styles.headers}>Workouts</h1>
               <h1 className={styles.headers}>Sets</h1>
@@ -163,7 +176,7 @@ function WorkoutSlug({ workout, day }) {
                       }
                       className={styles.edit}
                     >
-                      Editing
+                      <FaEdit />
                     </button>
                     <h1 className={styles.stats}>{workout.name}</h1>
                     <input
@@ -199,7 +212,9 @@ function WorkoutSlug({ workout, day }) {
                       value={weight}
                       className={styles.inputs}
                     />
-                    <button className={styles.edit}>Delete</button>
+                    <button className={styles.edit}>
+                      <FaTrashAlt />
+                    </button>
                   </form>
                 ) : (
                   <div className={styles.workouts}>
@@ -207,8 +222,8 @@ function WorkoutSlug({ workout, day }) {
                       onClick={() => editSelect(workout.id)}
                       className={styles.edit}
                     >
-                      Edit
-                    </button>{" "}
+                      <FaEdit />
+                    </button>
                     <h1 className={styles.stats}>{workout.name}</h1>
                     <h1 className={styles.stats}>{workout.sets}</h1>
                     <h1 className={styles.stats}>{workout.reps}</h1>
@@ -222,7 +237,7 @@ function WorkoutSlug({ workout, day }) {
                         );
                       }}
                     >
-                      Delete
+                      <FaTrashAlt />
                     </button>
                   </div>
                 )}

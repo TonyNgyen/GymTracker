@@ -34,7 +34,7 @@ function WorkoutList({ workouts, day }) {
         </div>
       </div>
       {workoutForDay.rest ? (
-        <div>Today is a rest day</div>
+        <div className="text-center">Today is a rest day</div>
       ) : (
         <div className={styles.workoutContainer}>
           <div className={styles.workoutHeader}>
