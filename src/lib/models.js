@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       type: Map,
       default: {},
     },
+    workoutHistory: {
+      type: Map,
+      default: {},
+    },
     isAdmin: {
       type: Boolean,
       default: false,
