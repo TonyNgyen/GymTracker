@@ -22,12 +22,12 @@ function WorkoutList({ workouts, day }) {
         </select>
         <div className={styles.buttons}>
           <Link href="/workouts/add">
-            <button className="py-3 px-4 bg-white text-black rounded-full">
+            <button className={styles.button}>
               Add Workout
             </button>
           </Link>
           <Link href={`/workouts/${workouts[select].id}`}>
-            <button className="py-3 px-4 bg-white text-black rounded-full">
+            <button className={styles.button}>
               Edit Workout
             </button>
           </Link>
