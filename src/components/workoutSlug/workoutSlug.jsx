@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-import { WorkoutContext } from "./context";
+import { WorkoutContext } from "./context"
 
 function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
