@@ -64,7 +64,6 @@ function WorkoutSlug({ workout, day }) {
     setWeight("");
   };
 
-  // FINISH METHOD
   const addWorkout = (e) => {
     e.preventDefault();
     setNewWorkouts([
