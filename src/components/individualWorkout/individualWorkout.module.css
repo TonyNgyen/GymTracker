@@ -8,9 +8,12 @@
   padding: 2rem 2rem;
 }
 
-.edit,
-.empty {
+.edit {
   justify-self: start;
+  grid-column: span 1;
+}
+
+.trash {
   grid-column: span 1;
 }
 

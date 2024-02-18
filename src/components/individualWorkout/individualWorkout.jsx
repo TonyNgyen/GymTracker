@@ -6,18 +6,19 @@ import { WorkoutContext } from "@/components/workoutSlug/context";
 
 function IndividualWorkout(workout) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
+  // console.log(workoutsContext)
 
-  const [prevSets, setPrevSets] = useState("");
-  const [prevReps, setPrevReps] = useState("");
-  const [prevWeight, setPrevWeight] = useState("");
+  const [prevSets, setPrevSets] = useState(workout.workout.sets);
+  const [prevReps, setPrevReps] = useState(workout.workout.reps);
+  const [prevWeight, setPrevWeight] = useState(workout.workout.weight);
 
   const [newSets, setNewSets] = useState("");
   const [newReps, setNewReps] = useState("");
   const [newWeight, setNewWeight] = useState("");
 
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [weight, setWeight] = useState("");
+  const [sets, setSets] = useState(workout.workout.sets);
+  const [reps, setReps] = useState(workout.workout.reps);
+  const [weight, setWeight] = useState(workout.workout.weight);
 
   const [edit, setEdit] = useState(false);
 
@@ -47,10 +48,8 @@ function IndividualWorkout(workout) {
         copyWorkouts = [...copyWorkouts, workout];
       }
     });
-    setWorkoutsContext(copyWorkouts);
-    setSets("");
-    setReps("");
-    setWeight("");
+    console.log(copyWorkouts);
+    setWorkoutsContext({ ...workoutsContext, workouts: copyWorkouts });
   };
 
   return (
@@ -58,12 +57,12 @@ function IndividualWorkout(workout) {
       {workout.workout.id == editWorkout && edit ? (
         <form className={styles.workouts}>
           <button
-            onClick={() => editWorkouts(workout.id, sets, reps, weight)}
+            onClick={() => editWorkouts(workout.workout.id, sets, reps, weight)}
             className={styles.edit}
           >
             <FaEdit />
           </button>
-          <h1 className={styles.stats}>{workout.name}</h1>
+          <h1 className={styles.stats}>{workout.workout.name}</h1>
           <input
             type="number"
             name="sets"
@@ -97,14 +96,14 @@ function IndividualWorkout(workout) {
             value={weight}
             className={styles.inputs}
           />
-          <button className={styles.edit}>
+          <button className={styles.trash}>
             <FaTrashAlt />
           </button>
         </form>
       ) : (
         <div className={styles.workouts}>
           <button
-            onClick={() => editSelect(workout.id)}
+            onClick={() => editSelect(workout.workout.id)}
             className={styles.edit}
           >
             <FaEdit />
@@ -114,7 +113,7 @@ function IndividualWorkout(workout) {
           <h1 className={styles.stats}>{workout.workout.reps}</h1>
           <h1 className={styles.stats}>{workout.workout.weight}</h1>
           <button
-            className={styles.edit}
+            className={styles.trash}
             onClick={(e) => {
               e.preventDefault();
               setNewWorkouts(newWorkouts.filter((w) => w.id !== workout.id));

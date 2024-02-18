@@ -13,6 +13,7 @@ function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
 
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
+  console.log(workoutsContext)
 
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -31,36 +32,6 @@ function WorkoutSlug({ workout, day }) {
 
   const toggle = () => {
     setModal(!modal);
-  };
-
-  const editSelect = (workoutId) => {
-    setEditWorkout(workoutId);
-    setEdit(!edit);
-  };
-
-  const editWorkouts = (workoutId, sets, reps, weight) => {
-    editSelect(workoutId);
-    let copyWorkouts = [];
-    newWorkouts.map((workout) => {
-      if (workout.id == workoutId) {
-        copyWorkouts = [
-          ...copyWorkouts,
-          {
-            id: workoutId,
-            name: workout.name,
-            sets: sets,
-            reps: reps,
-            weight: weight,
-          },
-        ];
-      } else {
-        copyWorkouts = [...copyWorkouts, workout];
-      }
-    });
-    setNewWorkouts(copyWorkouts);
-    setSets("");
-    setReps("");
-    setWeight("");
   };
 
   const addWorkout = (e) => {
@@ -86,16 +57,16 @@ function WorkoutSlug({ workout, day }) {
       <div className={styles.container}>
         <div className={styles.cardContainer}>
           <div className={styles.textContainer}>
-            <h1 className="flex">
+            <div className="flex">
               <h1 className={styles.dayHeader}>{day}</h1>
               <button
                 onClick={() =>
-                  updateWorkout(workout.id, workout.name, newWorkouts, day)
+                  updateWorkout(workout.id, workout.name, workoutsContext, day)
                 }
               >
                 <FaCheck />
               </button>
-            </h1>
+            </div>
             {drop ? (
               <button onClick={() => setDrop(!drop)}>
                 <IoIosArrowUp />
@@ -165,7 +136,7 @@ function WorkoutSlug({ workout, day }) {
                   </button>
                 </form>
               )}
-              {newWorkouts.map((workout) => (
+              {workoutsContext.workouts.map((workout) => (
                 <div key={workout.id}>
                   <IndividualWorkout workout={workout} />
                 </div>
