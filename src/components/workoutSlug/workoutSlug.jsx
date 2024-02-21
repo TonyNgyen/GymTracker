@@ -13,7 +13,7 @@ function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
 
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
-  console.log(workoutsContext)
+  console.log(workoutsContext);
 
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -36,7 +36,7 @@ function WorkoutSlug({ workout, day }) {
 
   const addWorkout = (e) => {
     e.preventDefault();
-    setWork([
+    setWorkoutsContext([
       ...newWorkouts,
       {
         id: newWorkouts.length,
