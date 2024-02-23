@@ -13,7 +13,7 @@ function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
 
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
-  console.log(workoutsContext);
+  // console.log(workoutsContext.workouts);
 
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -61,7 +61,7 @@ function WorkoutSlug({ workout, day }) {
               <h1 className={styles.dayHeader}>{day}</h1>
               <button
                 onClick={() =>
-                  updateWorkout(workout.id, workout.name, workoutsContext, day)
+                  updateWorkout(workout.id, workout.name, workoutsContext.workouts, day)
                 }
               >
                 <FaCheck />

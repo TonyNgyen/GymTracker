@@ -6,7 +6,7 @@ import { WorkoutContext } from "@/components/workoutSlug/context";
 
 function IndividualWorkout(workout) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
-  // console.log(workoutsContext)
+  console.log(workoutsContext.workouts)
 
   const [prevSets, setPrevSets] = useState(workout.workout.sets);
   const [prevReps, setPrevReps] = useState(workout.workout.reps);
@@ -51,6 +51,10 @@ function IndividualWorkout(workout) {
     console.log(copyWorkouts);
     setWorkoutsContext({ ...workoutsContext, workouts: copyWorkouts });
   };
+
+  const deleteWorkout = (workoutId) => {
+    setWorkoutsContext({ ...workoutsContext, workouts: workoutsContext.workouts.filter((w) => w.id !== workoutId) });
+  }
 
   return (
     <div>
@@ -116,7 +120,7 @@ function IndividualWorkout(workout) {
             className={styles.trash}
             onClick={(e) => {
               e.preventDefault();
-              setNewWorkouts(newWorkouts.filter((w) => w.id !== workout.id));
+              deleteWorkout(workout.workout.id);
             }}
           >
             <FaTrashAlt />
