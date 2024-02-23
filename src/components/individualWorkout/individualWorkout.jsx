@@ -6,15 +6,6 @@ import { WorkoutContext } from "@/components/workoutSlug/context";
 
 function IndividualWorkout(workout) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
-  console.log(workoutsContext.workouts)
-
-  const [prevSets, setPrevSets] = useState(workout.workout.sets);
-  const [prevReps, setPrevReps] = useState(workout.workout.reps);
-  const [prevWeight, setPrevWeight] = useState(workout.workout.weight);
-
-  const [newSets, setNewSets] = useState("");
-  const [newReps, setNewReps] = useState("");
-  const [newWeight, setNewWeight] = useState("");
 
   const [sets, setSets] = useState(workout.workout.sets);
   const [reps, setReps] = useState(workout.workout.reps);
