@@ -13,7 +13,7 @@ function WorkoutSlug({ workout, day }) {
   const originalWorkouts = workout.workouts[day].workouts;
 
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
-  // console.log(workoutsContext.workouts);
+  console.log(workoutsContext.workouts);
 
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -36,16 +36,29 @@ function WorkoutSlug({ workout, day }) {
 
   const addWorkout = (e) => {
     e.preventDefault();
-    setWorkoutsContext([
-      ...newWorkouts,
-      {
-        id: newWorkouts.length,
-        name: newName,
-        sets: newSets,
-        reps: newReps,
-        weight: newWeight,
-      },
-    ]);
+    // setWorkoutsContext([
+    //   ...newWorkouts,
+    //   {
+    //     id: newWorkouts.length,
+    //     name: newName,
+    //     sets: newSets,
+    //     reps: newReps,
+    //     weight: newWeight,
+    //   },
+    // ]);
+    setWorkoutsContext({
+      ...workoutsContext,
+      workouts: [
+        ...workoutsContext.workouts,
+        {
+          id: newWorkouts.length,
+          name: newName,
+          sets: newSets,
+          reps: newReps,
+          weight: newWeight,
+        },
+      ],
+    });
     setNewName("");
     setNewSets("");
     setNewReps("");
@@ -61,7 +74,12 @@ function WorkoutSlug({ workout, day }) {
               <h1 className={styles.dayHeader}>{day}</h1>
               <button
                 onClick={() =>
-                  updateWorkout(workout.id, workout.name, workoutsContext.workouts, day)
+                  updateWorkout(
+                    workout.id,
+                    workout.name,
+                    workoutsContext.workouts,
+                    day
+                  )
                 }
               >
                 <FaCheck />
