@@ -1,3 +1,12 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 import React from "react";
 import { getDevLogs } from "@/lib/data";
 import styles from "./devlogs.module.css";
@@ -7,10 +16,14 @@ async function DevLogsPage() {
   return (
     <div className={styles.container}>
       {devLogs.map((devLog) => (
-        <div key={devLog.title} className={styles.devlogContainer}>
-          <h1 className={styles.devlogTitle}>{devLog.title}</h1>
-          <h2 className={styles.devlogDesc}>{devLog.desc}</h2>
-        </div>
+        <Card key={devLog.title}>
+          <CardHeader>
+            <div>
+              <CardTitle>{devLog.title}</CardTitle>
+              <CardDescription>{devLog.desc}</CardDescription>
+            </div>
+          </CardHeader>
+        </Card>
       ))}
     </div>
   );
