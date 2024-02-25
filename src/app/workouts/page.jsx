@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import WorkoutList from "@/components/workoutList/workoutList";
 import { getWorkouts } from "@/lib/data";
+import { Button } from "@/components/ui/button";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();

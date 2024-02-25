@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import styles from "./workoutList.module.css";
+import { Button } from "../ui/button";
 
 function WorkoutList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
@@ -15,22 +16,23 @@ function WorkoutList({ workouts, day }) {
           className={styles.select}
         >
           {Object.keys(workouts).map((name) => (
-            <option key={name} className="text-white">
+            <option key={name} className="">
               {name}
             </option>
           ))}
         </select>
         <div className={styles.buttons}>
-          <Link href="/workouts/add">
-            <button className={styles.button}>
+          <Button>
+            <Link href="/workouts/add">
               Add Workout
-            </button>
-          </Link>
-          <Link href={`/workouts/${workouts[select].id}`}>
-            <button className={styles.button}>
+            </Link>
+          </Button>
+
+          <Button>
+            <Link href={`/workouts/${workouts[select].id}`}>
               Edit Workout
-            </button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
       {workoutForDay.rest ? (

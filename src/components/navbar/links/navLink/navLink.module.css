@@ -14,7 +14,4 @@
 .container:hover {
     background-color: var(--bg);
     color: white;
-    -webkit-box-shadow:inset 0px 0px 0px 3px white;
-    -moz-box-shadow:inset 0px 0px 0px 3px white;
-    box-shadow:inset 0px 0px 0px 3px white;
 }

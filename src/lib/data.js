@@ -1,6 +1,6 @@
 import { auth } from "./auth";
 import { DevLog, User, Workout } from "./models";
-import { connectToDb } from "./utils";
+import { connectToDb } from "./mongo";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const getWorkouts = async () => {

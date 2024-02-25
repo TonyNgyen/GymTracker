@@ -1,7 +1,7 @@
 "use server";
 
 import { Workout, User, DevLog } from "./models";
-import { connectToDb } from "./utils";
+import { connectToDb } from "./mongo";
 import { signIn, signOut } from "./auth";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./workoutDay.module.css";
 import { WorkoutContext } from "@/app/workouts/add/context";
+import { Button } from "../ui/button";
 
 function WorkoutDay({ day }) {
 
@@ -63,22 +64,23 @@ function WorkoutDay({ day }) {
   const debug = (e) => {
     console.log(workoutsContext);
   };
+
   return (
     <div className={styles.card}>
       <h1 className="text-center text-3xl mb-5">{day}</h1>
       <div className={styles.buttons}>
-        <button className={styles.button} onClick={toggle}>
+        <Button onClick={toggle}>
           Add
-        </button>
+        </Button>
         {!rest && (
-          <button className={styles.button} onClick={handleRest}>
+          <Button onClick={handleRest}>
             Rest?
-          </button>
+          </Button>
         )}
         {rest && (
-          <button className={styles.restButton} onClick={handleRest}>
+          <Button onClick={handleRest}>
             Rest
-          </button>
+          </Button>
         )}
       </div>
 
@@ -122,7 +124,7 @@ function WorkoutDay({ day }) {
             placeholder="Weight"
             value={weight}
           />
-          <button className={styles.submitButton}>Submit</button>
+          <Button>Submit</Button>
         </form>
       )}
       <div
@@ -140,14 +142,14 @@ function WorkoutDay({ day }) {
             <h1>{workout.sets}</h1>
             <h1>{workout.reps}</h1>
             <h1>{workout.weight}</h1>
-            <button
+            <Button
               onClick={(e) => {
                 e.preventDefault();
                 setWorkouts(workouts.filter((w) => w.id !== workout.id));
               }}
             >
               Delete
-            </button>
+            </Button>
           </article>
         ))}
       </div>
@@ -161,9 +163,9 @@ function WorkoutDay({ day }) {
       ) : (
         <div></div>
       )}
-      <button onClick={addDay} className={styles.button}>
+      <Button onClick={addDay}>
         Save {day}
-      </button>
+      </Button>
     </div>
   );
 }

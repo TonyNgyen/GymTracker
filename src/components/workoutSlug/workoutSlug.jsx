@@ -36,16 +36,6 @@ function WorkoutSlug({ workout, day }) {
 
   const addWorkout = (e) => {
     e.preventDefault();
-    // setWorkoutsContext([
-    //   ...newWorkouts,
-    //   {
-    //     id: newWorkouts.length,
-    //     name: newName,
-    //     sets: newSets,
-    //     reps: newReps,
-    //     weight: newWeight,
-    //   },
-    // ]);
     setWorkoutsContext({
       ...workoutsContext,
       workouts: [

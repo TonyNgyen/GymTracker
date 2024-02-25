@@ -2,10 +2,10 @@
   display: grid;
   grid-template-columns: repeat(14, 1fr);
   justify-items: center;
-  background-color: var(--bg);
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
+  border: 2px solid black;
 }
 
 .edit {

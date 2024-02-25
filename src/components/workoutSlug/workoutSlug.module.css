@@ -23,40 +23,39 @@
   display: grid;
   grid-template-columns: repeat(14, 1fr);
   justify-items: center;
-  background-color: var(--bg);
   width: 100%;
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
+  border: 2px solid black;
 }
 
 .addHeader {
   display: grid;
   grid-template-columns: repeat(14, 1fr);
   justify-items: center;
-  background-color: var(--bg);
   width: 100%;
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
+  border: 2px solid black;
 }
 
 .cardContainer {
   display: flex;
   flex-direction: column;
-  background: var(--bgSoft);
   gap: 1em;
   padding: 3%;
   width: 80%;
   margin: 0px auto;
   border-radius: 20px;
+  border: 2px solid black;
 }
 
 .workouts {
   display: grid;
   grid-template-columns: repeat(14, 1fr);
   justify-items: center;
-  background-color: var(--bg);
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
@@ -71,19 +70,16 @@
 
 .addInputs {
   width: 90%;
-  background-color: var(--bg);
   text-align: center;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid black;
   margin-bottom: -2px;
   -moz-appearance: textfield;
 }
 
 .inputs {
   width: 30%;
-  color: white;
-  background-color: var(--bg);
   text-align: center;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid black;
   margin-bottom: -2px;
   -moz-appearance: textfield;
 }

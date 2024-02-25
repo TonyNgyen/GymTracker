@@ -1,5 +1,4 @@
 .card {
-  background: var(--bgSoft);
   height: 62vh;
   padding: 1rem;
   display: flex;
@@ -7,6 +6,7 @@
   align-items: center;
   margin: auto;
   border-radius: 50px;
+  border: 2px black solid;
 }
 
 .buttons {
@@ -42,10 +42,9 @@
 }
 
 .form input {
-  border-bottom-color: white;
+  border-bottom-color: black;
   border-bottom-width: 2px;
   background-color: transparent;
-  color: white;
   min-width: 0;
 }
 
@@ -63,11 +62,11 @@
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-items: center;
-  background-color: var(--bg);
   width: 80%;
   align-items: center;
   margin: 0px auto 0.5em;
   padding: 2rem 2rem;
+  border: 2px solid black;
 }
 
 @media (max-width: 1024px) {

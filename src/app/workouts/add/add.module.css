@@ -3,7 +3,6 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: var(--btn);
   margin: 1rem;
   width: 20%;
   min-width: 125px;
@@ -17,8 +16,7 @@
 }
 
 .input {
-  background-color: var(--bg);
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid black;
   width: 50%;
   margin: 1.5rem 0;
   font-size: larger;
@@ -29,7 +27,6 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: var(--btn);
   width: 20%;
   min-width: 125px;
 }

@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import React, { useState } from "react";
 import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext } from "./context";
@@ -8,6 +16,7 @@ import styles from "./add.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
+import { Button } from "@/components/ui/button";
 
 const daysDict = {
   Monday: { completed: false, workouts: [], rest: false },
@@ -78,7 +87,7 @@ function AddPage() {
               ) : (
                 <></>
               )}
-              <button className={styles.submit}>Submit</button>
+              <Button>Submit</Button>
             </form>
           </div>
         )}
@@ -86,7 +95,7 @@ function AddPage() {
           <div>
             <h1 className="text-center text-4xl mb-2">{title}</h1>
             <h1 className="text-center text-md mb-8">{id}</h1>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <button onClick={() => handleArrow("l")} className="text-7xl">
                 <FaAngleLeft />
               </button>
@@ -100,17 +109,38 @@ function AddPage() {
                   </div>
                 ))}
                 <Link href="/workouts">
-                  <button
+                  <Button
                     onClick={() => addWorkout(id, title, context)}
                     className={styles.button}
                   >
                     Submit Workout
-                  </button>
+                  </Button>
                 </Link>
               </div>
               <button onClick={() => handleArrow("r")} className="text-7xl">
                 <FaAngleRight />
               </button>
+            </div> */}
+            <div className="flex flex-col items-center">
+              <Carousel className="flex">
+                <CarouselContent className="text-center">
+                  {days.map((day) => (
+                    <CarouselItem>
+                      <WorkoutDay day={day} list={daysDict[day]} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+              <Link href="/workouts">
+                <Button
+                  onClick={() => addWorkout(id, title, context)}
+                  className="mt-6"
+                >
+                  Submit Workout
+                </Button>
+              </Link>
             </div>
           </div>
         )}

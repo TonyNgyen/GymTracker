@@ -6,8 +6,6 @@
 }
 
 .select {
-  color: white;
-  background-color: var(--bg);
   font-size: xx-large;
 }
 
@@ -26,9 +24,6 @@
 .button:hover {
   background-color: var(--bg);
   color: white;
-  -webkit-box-shadow:inset 0px 0px 0px 3px white;
-  -moz-box-shadow:inset 0px 0px 0px 3px white;
-  box-shadow:inset 0px 0px 0px 3px white;
 }
 
 .container {
@@ -41,7 +36,6 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-items: center;
-  background-color: var(--bg);
   width: 100%;
   align-items: center;
   margin: 0px auto;
@@ -53,7 +47,6 @@
 .workoutContainer {
   display: flex;
   flex-direction: column;
-  background: var(--bgSoft);
   gap: 1em;
   padding: 4%;
   width: 80%;
@@ -65,7 +58,6 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-items: center;
-  background-color: var(--bg);
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
