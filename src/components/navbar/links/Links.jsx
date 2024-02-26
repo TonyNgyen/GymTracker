@@ -5,6 +5,7 @@ import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 import Image from "next/image";
 import { handleLogout } from "@/lib/actions";
+import { ModeToggle } from "@/components/ui/toggle-mode";
 
 const links = [
   {
@@ -46,7 +47,9 @@ function Links({ session }) {
         ) : (
           <NavLink item={{ title: "Login", path: "/login" }} />
         )}
+        <ModeToggle />
       </div>
+
       <Image
         className={styles.menuButton}
         src="/menu.png"
