@@ -95,34 +95,13 @@ function AddPage() {
           <div>
             <h1 className="text-center text-4xl mb-2">{title}</h1>
             <h1 className="text-center text-md mb-8">{id}</h1>
-            {/* <div className="flex justify-center">
-              <button onClick={() => handleArrow("l")} className="text-7xl">
-                <FaAngleLeft />
-              </button>
-              <div className="w-5/6 text-center">
-                {days.map((day) => (
-                  <div
-                    className={index === days.indexOf(day) ? "" : "hidden"}
-                    key={days.indexOf(day)}
-                  >
-                    <WorkoutDay day={day} list={daysDict[day]} />
-                  </div>
-                ))}
-                <Link href="/workouts">
-                  <Button
-                    onClick={() => addWorkout(id, title, context)}
-                    className={styles.button}
-                  >
-                    Submit Workout
-                  </Button>
-                </Link>
-              </div>
-              <button onClick={() => handleArrow("r")} className="text-7xl">
-                <FaAngleRight />
-              </button>
-            </div> */}
             <div className="flex flex-col items-center">
-              <Carousel className="flex">
+              <Carousel
+                className="flex w-10/12 md:w-4/5"
+                opts={{
+                  loop: true,
+                }}
+              >
                 <CarouselContent className="text-center">
                   {days.map((day) => (
                     <CarouselItem>

@@ -16,7 +16,7 @@ function WorkoutList({ workouts, day }) {
           className={styles.select}
         >
           {Object.keys(workouts).map((name) => (
-            <option key={name} className="">
+            <option key={name} className="dark:bg-slate-950">
               {name}
             </option>
           ))}
