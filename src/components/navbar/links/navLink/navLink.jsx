@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import styles from "./navLink.module.css";
@@ -12,8 +12,8 @@ function NavLink({ item }) {
     <Link
       href={item.path}
       key={item.title}
-      className={`${styles.container} ${
-        pathName === item.path && styles.active
+      className={`${"min-w-[100px] p-[10px] rounded-full text-center font-medium hover:bg-foreground hover:text-background "} ${
+        pathName === item.path && "bg-foreground text-background"
       }`}
     >
       {item.title}

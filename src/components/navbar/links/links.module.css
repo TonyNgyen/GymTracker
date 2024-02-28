@@ -8,8 +8,8 @@
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  background-color: var(--text);
-  color: var(--bg);
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
 }
 
 .menuButton,

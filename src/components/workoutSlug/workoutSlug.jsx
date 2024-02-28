@@ -93,7 +93,7 @@ function WorkoutSlug({ workout, day }) {
                 <h1 className={styles.headers}>Sets</h1>
                 <h1 className={styles.headers}>Reps</h1>
                 <h1 className={styles.headers}>Weight</h1>
-                <button className={styles.add} onClick={toggle}>
+                <button className={styles.add + " text-2xl font-bold"} onClick={toggle}>
                   +
                 </button>
               </div>

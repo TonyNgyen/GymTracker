@@ -9,7 +9,7 @@ import { ModeToggle } from "@/components/ui/toggle-mode";
 
 const links = [
   {
-    title: "Homepage",
+    title: "Home",
     path: "/",
   },
   {
@@ -41,7 +41,7 @@ function Links({ session }) {
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
             <form action={handleLogout}>
-              <button className={styles.logout}>Logout</button>
+              <button className="p-[10px] cursor-pointer font-bold bg-foreground text-background rounded-full">Logout</button>
             </form>
           </>
         ) : (
@@ -71,7 +71,7 @@ function Links({ session }) {
                 <NavLink item={{ title: "Admin", path: "/admin" }} />
               )}
               <form action={handleLogout}>
-                <button className={styles.logout}>Logout</button>
+                <button className="p-[10px] cursor-pointer font-bold bg-foreground text-background text-2xl">Logout</button>
               </form>
             </>
           ) : (
