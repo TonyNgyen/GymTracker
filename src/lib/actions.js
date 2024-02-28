@@ -22,7 +22,7 @@ export const addLog = async (prevState, formData) => {
 
     await newDevLog.save();
     console.log("saved to db");
-    // revalidatePath("/blog");
+    revalidatePath("/workouts");
     revalidatePath("/admin");
   } catch (error) {
     console.log(error);
@@ -96,6 +96,7 @@ export const updateWorkout = async (id, name, workout, day) => {
         },
       }
     );
+    revalidatePath("/workouts");
     console.log("updated workout to db");
   } catch (error) {
     console.log(error);
