@@ -16,6 +16,7 @@
 
 .trash {
   grid-column: span 1;
+  color:red;
 }
 
 .stats,
