@@ -104,7 +104,7 @@ function AddPage() {
               >
                 <CarouselContent className="text-center">
                   {days.map((day) => (
-                    <CarouselItem>
+                    <CarouselItem key={day}>
                       <WorkoutDay day={day} list={daysDict[day]} />
                     </CarouselItem>
                   ))}
