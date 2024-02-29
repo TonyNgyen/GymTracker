@@ -28,7 +28,7 @@ function WorkoutList({ workouts, day }) {
           </SelectTrigger>
           <SelectContent>
             {Object.keys(workouts).map((name) => (
-              <SelectItem value={name}>{name}</SelectItem>
+              <SelectItem value={name} key={name}>{name}</SelectItem>
             ))}
           </SelectContent>
         </Select>
