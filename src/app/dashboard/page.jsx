@@ -3,6 +3,7 @@
 import BarChart from "@/components/barChart/BarChart";
 import React, { useState } from "react";
 import { UserData } from "@/lib/fakeData";
+import LineChart from "@/components/lineChart/lineChart";
 
 function DashboardPage() {
   const [userData, setUserData] = useState({
@@ -18,6 +19,7 @@ function DashboardPage() {
   return (
     <div className="w-3/4">
       <BarChart chartData={userData} />
+      <LineChart chartData={userData} />
     </div>
   );
 }
