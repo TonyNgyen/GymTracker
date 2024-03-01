@@ -2,6 +2,7 @@ import LoginForm from "@/components/loginForm/loginForm";
 import React from "react";
 import styles from "./create.module.css";
 import { handleGithubLogin } from "@/lib/actions";
+import { Button } from "@/components/ui/button";
 
 function CreateAccountPage() {
   return (
@@ -12,7 +13,7 @@ function CreateAccountPage() {
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <form action={handleGithubLogin}>
-            <button className={styles.github}>Login with GitHub</button>
+            <Button className="w-full">Login with GitHub</Button>
           </form>
           <LoginForm />
         </div>

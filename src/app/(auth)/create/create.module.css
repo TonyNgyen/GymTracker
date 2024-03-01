@@ -6,7 +6,7 @@
 
 .wrapper {
   width: 500px;
-  background-color: var(--bgSoft);
+  background-color: hsl(var(--secondary));
   padding: 50px;
   display: flex;
   flex-direction: column;
