@@ -91,3 +91,5 @@ export const Workout =
   mongoose.models?.Workout || mongoose.model("Workout", workoutSchema);
 export const DevLog =
   mongoose.models?.DevLog || mongoose.model("DevLog", devlogSchema);
+
+//https://medium.com/@nicknauert/mongooses-model-populate-b844ae6d1ee7
