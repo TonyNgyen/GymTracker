@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 function RegisterForm() {
   const [state, formAction] = useFormState(register, undefined);
@@ -29,7 +30,7 @@ function RegisterForm() {
         name="passwordRepeat"
         id=""
       />
-      <button>Register</button>
+      <Button>Register</Button>
       {state?.error}
       <Link href="/login">
         Have an account? <b>Login</b>
