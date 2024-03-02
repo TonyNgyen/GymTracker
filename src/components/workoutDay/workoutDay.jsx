@@ -69,11 +69,11 @@ function WorkoutDay({ day }) {
     <div className={styles.card}>
       <h1 className="text-center text-3xl mb-5">{day}</h1>
       <div className={styles.buttons}>
-        <Button onClick={toggle}>
+        <Button onClick={toggle} className="min-w-[69px]">
           Add
         </Button>
         {!rest && (
-          <Button onClick={handleRest}>
+          <Button onClick={handleRest} className="min-w-[69px]">
             Rest?
           </Button>
         )}
@@ -134,7 +134,7 @@ function WorkoutDay({ day }) {
         }
       >
         {!workouts.length && (
-          <div>Please add workouts or mark {day} as a rest day!</div>
+          <div className="mt-36 text-2xl font-semibold">Please add workouts or mark {day} as a rest day!</div>
         )}
         {workouts.map((workout) => (
           <article className={styles.workouts} key={workout.id}>

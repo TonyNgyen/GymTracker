@@ -6,13 +6,13 @@
   align-items: center;
   margin: auto;
   border-radius: 50px;
-  border: 2px black solid;
+  border: 2px hsl(var(--foreground)) solid;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .button {
@@ -42,7 +42,7 @@
 }
 
 .form input {
-  border-bottom-color: black;
+  border-bottom-color: hsl(var(--foreground));
   border-bottom-width: 2px;
   background-color: transparent;
   min-width: 0;
@@ -66,7 +66,7 @@
   align-items: center;
   margin: 0px auto 0.5em;
   padding: 2rem 2rem;
-  border: 2px solid black;
+  border: 2px solid hsl(var(--foreground));
 }
 
 @media (max-width: 1024px) {
