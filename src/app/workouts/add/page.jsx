@@ -13,7 +13,6 @@ import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext } from "./context";
 import { addWorkout, validateWorkoutId } from "@/lib/actions";
 import styles from "./add.module.css";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
@@ -42,17 +41,7 @@ function AddPage() {
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [context, setContext] = useState(daysDict);
-  const [index, setIndex] = useState(0);
   const [state, formAction] = useFormState(validateWorkoutId, undefined);
-
-  const handleArrow = (direction) => {
-    if (direction === "l") {
-      setIndex(index !== 0 ? index - 1 : 6);
-    }
-    if (direction === "r") {
-      setIndex(index !== 6 ? index + 1 : 0);
-    }
-  };
 
   return (
     <WorkoutContext.Provider value={[context, setContext]}>

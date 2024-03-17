@@ -103,6 +103,10 @@ export const updateWorkout = async (id, name, workout, day) => {
   }
 };
 
+export const checkExercise = async () => {
+  
+}
+
 export const handleGithubLogin = async (e) => {
   "use server";
   await signIn("github");
@@ -136,6 +140,7 @@ export const register = async (previousState, formData) => {
       email,
       password: hashedPassword,
       img,
+      exercises: [],
     });
 
     await newUser.save();

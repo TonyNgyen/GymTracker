@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema(
       type: Map,
       default: {},
     },
-    individualWorkouts: {
-      type: Map,
-      default: {},
+    exercises: {
+      type: Array,
+      default: [],
     },
     workoutHistory: {
       type: Map,
@@ -93,3 +93,4 @@ export const DevLog =
   mongoose.models?.DevLog || mongoose.model("DevLog", devlogSchema);
 
 //https://medium.com/@nicknauert/mongooses-model-populate-b844ae6d1ee7
+//https://stackoverflow.com/questions/8303900/mongodb-mongoose-findmany-find-all-documents-with-ids-listed-in-array
