@@ -17,6 +17,7 @@ function WorkoutDay({ day }) {
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [workoutSaved, setWorkoutSaved] = useState(false);
+  const [exerciseIDs, setExerciseIDs] = useState([]);
 
   const handleRest = () => {
     setRest(!rest);
@@ -26,6 +27,7 @@ function WorkoutDay({ day }) {
 
   const add = (e) => {
     e.preventDefault();
+    const newExerciseID = makeid();
     if (isWhitespaceString(name) || sets == "" || reps == "" || weight == "") {
       alert("Please fill in required inputs");
       return;
@@ -33,14 +35,14 @@ function WorkoutDay({ day }) {
     setWorkouts([
       ...workouts,
       {
-        id: makeid(),
+        id: newExerciseID,
         name: name,
         sets: sets,
         reps: reps,
         weight: weight,
       },
     ]);
-    console.log(workouts);
+    setExerciseIDs([...exerciseIDs, newExerciseID]);
     setName("");
     setSets("");
     setReps("");
@@ -175,9 +177,7 @@ function WorkoutDay({ day }) {
         <div></div>
       )}
       {/* <Button onClick={addDay}> */}
-        <Button onClick={() => (console.log(workouts))}>
-        Save {day}
-      </Button>
+      <Button onClick={() => console.log(exerciseIDs)}>Save {day}</Button>
     </div>
   );
 }
