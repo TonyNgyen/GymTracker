@@ -58,7 +58,7 @@ function autoUpdatePage() {
           <CarouselNext />
         </Carousel>
         {/* <Link href="/workouts"> */}
-          <Button onClick={() => (console.log("works"))}
+          <Button onClick={() => (console.log(context))}
             className="mt-6"
           >
           {/* onClick={() => addWorkout(id, title, context)} */}

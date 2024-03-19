@@ -53,7 +53,7 @@ function WorkoutDay({ day }) {
     e.preventDefault();
     setWorkoutsContext({
       ...workoutsContext,
-      [day]: { completed: true, workouts: workouts, rest: rest },
+      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
     setWorkoutSaved(true);
   };
@@ -93,6 +93,9 @@ function WorkoutDay({ day }) {
           </Button>
         )}
         {rest && <Button onClick={handleRest}>Rest</Button>}
+        <Button onClick={debug} className="min-w-[69px]">
+          Debug
+        </Button>
       </div>
 
       {modal && (
@@ -176,8 +179,10 @@ function WorkoutDay({ day }) {
       ) : (
         <div></div>
       )}
-      {/* <Button onClick={addDay}> */}
-      <Button onClick={() => console.log(exerciseIDs)}>Save {day}</Button>
+      <Button onClick={addDay}>
+      {/* <Button onClick={() => console.log(exerciseIDs)}> */}
+        Save {day}
+      </Button>
     </div>
   );
 }
