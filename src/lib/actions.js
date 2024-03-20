@@ -103,9 +103,20 @@ export const updateWorkout = async (id, name, workout, day) => {
   }
 };
 
-export const checkExercise = async () => {
-  
-}
+export const addExercises = async (exercises) => {
+  const session = await auth();
+  try {
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $push: { exercises: { $each: exercises } },
+      }
+    );
+    console.log("Saved to DB");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const handleGithubLogin = async (e) => {
   "use server";

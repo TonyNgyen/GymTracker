@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { WorkoutContext } from "@/app/autoUpdate/context";
 import { Button } from "../ui/button";
+import { addExercises } from "@/lib/actions";
 
 function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
@@ -64,7 +65,7 @@ function WorkoutDay({ day }) {
   };
 
   const debug = (e) => {
-    console.log(workoutsContext);
+    console.log(workouts);
   };
 
   const makeid = () => {
