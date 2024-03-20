@@ -1,3 +1,5 @@
+"use server";
+
 import { auth } from "./auth";
 import { DevLog, User, Workout } from "./models";
 import { connectToDb } from "./mongo";
@@ -15,6 +17,18 @@ export const getWorkouts = async () => {
   }
 };
 
+export const getExercises = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    return user.exercises;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getWorkout = async (id) => {
   noStore();
   try {
@@ -26,6 +40,27 @@ export const getWorkout = async (id) => {
     throw new Error("Failed to fetch workout!");
   }
 };
+
+// export const getExercises = async (exerciseIDs) => {
+//   const session = await auth();
+//   const userEmail = session.user?.email;
+//   const exercises = [];
+//   connectToDb();
+//   try {
+//     const user = await User.findOne({email: userEmail});
+//     const allExercises = Object.fromEntries(user.execises);
+//     exerciseIDs.map(id => {
+//       allExercises.map(exercise => {
+//         if (id == exercise.id) {
+//           exercises.push(exercise);
+//         }
+//       })
+//     })
+//     return exercises;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export const getDevLogs = async () => {
   try {

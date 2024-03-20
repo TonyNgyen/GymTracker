@@ -39,6 +39,15 @@ function autoUpdatePage() {
   const [workoutContext, setWorkoutContext] = useState(daysDict);
   const [exerciseContext, setExerciseContext] = useState([]);
 
+  const add = () => {
+    try {
+      addWorkout("Test Workout", workoutContext);
+      addExercises(exerciseContext);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ExerciseContext.Provider value={[exerciseContext, setExerciseContext]}>
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
@@ -60,8 +69,8 @@ function autoUpdatePage() {
             <CarouselNext />
           </Carousel>
           {/* <Link href="/workouts"> */}
-          <Button onClick={() => console.log(workoutContext)} className="mt-6">
-            {/* onClick={() => addWorkout(id, title, workoutContext)} */}
+          {/* <Button onClick={() => console.log(workoutContext)} className="mt-6"> */}
+          <Button onClick={add} className="mt-6">
             Submit Workout
           </Button>
           {/* </Link> */}

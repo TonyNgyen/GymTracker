@@ -1,11 +1,12 @@
 import Link from "next/link";
 import React from "react";
 import WorkoutList from "@/components/workoutList/workoutList";
-import { getWorkouts } from "@/lib/data";
+import { getWorkouts, getExercises } from "@/lib/data";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
   const day = new Date().getDay();
+  const exercises = await getExercises();
   const weekday = [
     "Sunday",
     "Monday",
@@ -30,7 +31,7 @@ async function WorkoutsPage() {
           </Link>
         </div>
       ) : (
-        <WorkoutList workouts={workouts} day={weekday[day]} />
+        <WorkoutList workouts={workouts} day={weekday[day]} exercises={exercises} />
       )}
     </div>
   );

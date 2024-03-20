@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styles from "./workoutDayTest.module.css";
-import { WorkoutContext } from "@/app/autoUpdate/context";
+import { ExerciseContext, WorkoutContext } from "@/app/autoUpdate/context";
 import { Button } from "../ui/button";
 import { addExercises } from "@/lib/actions";
 
@@ -11,6 +11,7 @@ function WorkoutDay({ day }) {
   };
 
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
+  const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
   const [rest, setRest] = useState(workoutsContext[day].rest);
   const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
   const [name, setName] = useState("");
@@ -56,6 +57,10 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
+    setExerciseContext(
+      ...exerciseContext,
+      workouts,
+    );
     setWorkoutSaved(true);
   };
 
@@ -181,7 +186,7 @@ function WorkoutDay({ day }) {
         <div></div>
       )}
       <Button onClick={addDay}>
-      {/* <Button onClick={() => console.log(exerciseIDs)}> */}
+        {/* <Button onClick={() => console.log(exerciseIDs)}> */}
         Save {day}
       </Button>
     </div>

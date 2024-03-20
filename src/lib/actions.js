@@ -48,17 +48,16 @@ export const validateWorkoutId = async (previousState, formData) => {
   }
 };
 
-export const addWorkout = async (id, name, workout) => {
+export const addWorkout = async (name, workout) => {
   const session = await auth();
   connectToDb();
   try {
     const newWorkout = new Workout({
-      id: id,
       name: name,
       creator: session.user?.email,
       workouts: workout,
     });
-    await newWorkout.save();
+    // await newWorkout.save();
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {

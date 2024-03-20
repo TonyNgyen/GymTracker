@@ -15,9 +15,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function WorkoutList({ workouts, day }) {
+function WorkoutList({ workouts, day, exercises }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
-  const workoutForDay = workouts[select].workouts[day];
+  const workoutForDay = workouts[select].workouts["Monday"];
+
+  const convertedExercises = [];
+
+  workoutForDay.workouts.map(id => {
+    exercises.map(exercise => {
+      console.log(id)
+      if (id == exercise.id) {
+        convertedExercises.push(exercise);
+      }
+    })
+  })
 
   return (
     <div className={styles.container}>
@@ -52,7 +63,7 @@ function WorkoutList({ workouts, day }) {
             <h1>Reps</h1>
             <h1>Weight</h1>
           </div>
-          {workoutForDay.workouts.map((workout) => (
+          {convertedExercises.map((workout) => (
             <div key={workout.id}>
               <div className={styles.workouts}>
                 <h1>{workout.name}</h1>
