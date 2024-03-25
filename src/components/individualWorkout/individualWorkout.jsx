@@ -39,7 +39,6 @@ function IndividualWorkout(workout) {
         copyWorkouts = [...copyWorkouts, workout];
       }
     });
-    console.log(copyWorkouts);
     setWorkoutsContext({ ...workoutsContext, workouts: copyWorkouts });
   };
 

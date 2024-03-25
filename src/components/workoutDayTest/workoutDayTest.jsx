@@ -3,6 +3,7 @@ import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "@/app/autoUpdate/context";
 import { Button } from "../ui/button";
 import { addExercises } from "@/lib/actions";
+import { makeid } from "@/lib/utils"
 
 function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
@@ -57,10 +58,7 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
-    setExerciseContext(
-      ...exerciseContext,
-      workouts,
-    );
+    setExerciseContext(...exerciseContext, workouts);
     setWorkoutSaved(true);
   };
 
@@ -71,19 +69,6 @@ function WorkoutDay({ day }) {
 
   const debug = (e) => {
     console.log(workouts);
-  };
-
-  const makeid = () => {
-    let result = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < 24) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    return result;
   };
 
   return (

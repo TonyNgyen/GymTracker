@@ -8,12 +8,25 @@ import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
 import { WorkoutContext } from "./context";
 import IndividualWorkout from "../individualWorkout/individualWorkout";
+import { makeid } from "@/lib/utils";
 
-function WorkoutSlug({ workout, day }) {
-  const originalWorkouts = workout.workouts[day].workouts;
+function WorkoutSlug({ workout, day, exercises }) {
+  const [exerciseIds, setExerciseIds] = useState(
+    workout.workouts[day].workouts
+  );
+  const convert = [];
 
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
-  console.log(workoutsContext.workouts);
+
+  workoutsContext.workouts.map((id) => {
+    exercises.map((exercise) => {
+      if (id == exercise.id) {
+        convert.push(exercise);
+      }
+    });
+  });
+
+  const [convertedExercises, setConveredExercises] = useState(convert);
 
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -26,7 +39,7 @@ function WorkoutSlug({ workout, day }) {
   const [newReps, setNewReps] = useState("");
   const [newWeight, setNewWeight] = useState("");
 
-  const [newWorkouts, setNewWorkouts] = useState(originalWorkouts);
+  const [newExerciseIds, setNewWorkouts] = useState([]);
 
   const [modal, setModal] = useState(false);
 
@@ -34,19 +47,25 @@ function WorkoutSlug({ workout, day }) {
     setModal(!modal);
   };
 
-  const addWorkout = (e) => {
+  const addExercise = (e) => {
     e.preventDefault();
+    const newExerciseId = makeid();
+    setExerciseIds([...exerciseIds, newExerciseId]);
+    setConveredExercises([
+      ...convertedExercises,
+      {
+        id: newExerciseId,
+        name: newName,
+        sets: newSets,
+        reps: newReps,
+        weight: newWeight,
+      },
+    ]);
     setWorkoutsContext({
       ...workoutsContext,
       workouts: [
         ...workoutsContext.workouts,
-        {
-          id: newWorkouts.length,
-          name: newName,
-          sets: newSets,
-          reps: newReps,
-          weight: newWeight,
-        },
+        newExerciseId,
       ],
     });
     setNewName("");
@@ -93,7 +112,10 @@ function WorkoutSlug({ workout, day }) {
                 <h1 className={styles.headers}>Sets</h1>
                 <h1 className={styles.headers}>Reps</h1>
                 <h1 className={styles.headers}>Weight</h1>
-                <button className={styles.add + " text-2xl font-bold"} onClick={toggle}>
+                <button
+                  className={styles.add + " text-2xl font-bold"}
+                  onClick={toggle}
+                >
                   +
                 </button>
               </div>
@@ -138,13 +160,13 @@ function WorkoutSlug({ workout, day }) {
                   />
                   <button
                     className={styles.add + " text-2xl font-bold"}
-                    onClick={addWorkout}
+                    onClick={addExercise}
                   >
                     +
                   </button>
                 </form>
               )}
-              {workoutsContext.workouts.map((workout) => (
+              {convertedExercises.map((workout) => (
                 <div key={workout.id}>
                   <IndividualWorkout workout={workout} />
                 </div>

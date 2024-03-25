@@ -31,7 +31,7 @@ async function WorkoutsPage() {
           </Link>
         </div>
       ) : (
-        <WorkoutList workouts={workouts} day={weekday[day]} exercises={exercises} />
+        <WorkoutList workouts={workouts} day={weekday[1]} exercises={exercises} />
       )}
     </div>
   );

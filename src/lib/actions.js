@@ -6,6 +6,7 @@ import { signIn, signOut } from "./auth";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
+import { makeid } from "./utils"
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -53,11 +54,12 @@ export const addWorkout = async (name, workout) => {
   connectToDb();
   try {
     const newWorkout = new Workout({
+      id: makeid(),
       name: name,
       creator: session.user?.email,
       workouts: workout,
     });
-    // await newWorkout.save();
+    await newWorkout.save();
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {
