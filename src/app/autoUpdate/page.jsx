@@ -37,7 +37,7 @@ function autoUpdatePage() {
   ];
 
   const [workoutContext, setWorkoutContext] = useState(daysDict);
-  const [exerciseContext, setExerciseContext] = useState([]);
+  const [exerciseContext, setExerciseContext] = useState({});
 
   const add = () => {
     try {

@@ -1,25 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./workoutSlug.module.css";
 import { updateWorkout } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-import { WorkoutContext } from "./context";
+import { WorkoutContext, UpdatedExercisesContext } from "./context";
 import IndividualWorkout from "../individualWorkout/individualWorkout";
 import { makeid } from "@/lib/utils";
+import {
+  ExerciseIDsContext,
+  NewExercisesContext,
+} from "@/app/workouts/[slug]/context";
 
-function WorkoutSlug({ workout, day, exercises }) {
+//https://stackoverflow.com/questions/15691224/mongoose-update-values-in-array-of-objects
+
+function WorkoutSlug({ workout, day }) {
+  const [exerciseIDsContext, setExerciseIDsContext] =
+    useContext(ExerciseIDsContext);
+  const [newExercisesContext, setNewExercisesContext] =
+    useContext(NewExercisesContext);
+
   const [exerciseIds, setExerciseIds] = useState(
     workout.workouts[day].workouts
   );
   const convert = [];
 
+  const [updatedExercisesContext, setUpdatedExercisesContext] = useState([]);
   const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
 
   workoutsContext.workouts.map((id) => {
-    exercises.map((exercise) => {
+    exerciseIDsContext.map((exercise) => {
       if (id == exercise.id) {
         convert.push(exercise);
       }
@@ -27,20 +39,11 @@ function WorkoutSlug({ workout, day, exercises }) {
   });
 
   const [convertedExercises, setConveredExercises] = useState(convert);
-
   const [drop, setDrop] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [editWorkout, setEditWorkout] = useState("");
-
-  const [rest, setRest] = useState(false);
-
   const [newName, setNewName] = useState("");
   const [newSets, setNewSets] = useState("");
   const [newReps, setNewReps] = useState("");
   const [newWeight, setNewWeight] = useState("");
-
-  const [newExerciseIds, setNewWorkouts] = useState([]);
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
@@ -50,7 +53,9 @@ function WorkoutSlug({ workout, day, exercises }) {
   const addExercise = (e) => {
     e.preventDefault();
     const newExerciseId = makeid();
+    
     setExerciseIds([...exerciseIds, newExerciseId]);
+
     setConveredExercises([
       ...convertedExercises,
       {
@@ -61,13 +66,23 @@ function WorkoutSlug({ workout, day, exercises }) {
         weight: newWeight,
       },
     ]);
+
+    setNewExercisesContext([
+      ...newExercisesContext,
+      {
+        id: newExerciseId,
+        name: newName,
+        sets: newSets,
+        reps: newReps,
+        weight: newWeight,
+      },
+    ]);
+
     setWorkoutsContext({
       ...workoutsContext,
-      workouts: [
-        ...workoutsContext.workouts,
-        newExerciseId,
-      ],
+      workouts: [...workoutsContext.workouts, newExerciseId],
     });
+
     setNewName("");
     setNewSets("");
     setNewReps("");

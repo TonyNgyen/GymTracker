@@ -3,9 +3,12 @@ import styles from "./individualWorkout.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { WorkoutContext } from "@/components/workoutSlug/context";
+import { ExerciseIDsContext, NewExercisesContext } from "@/app/workouts/[slug]/context";
 
 function IndividualWorkout(workout) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
+  const [exerciseIDsContext, setExerciseIDsContext] =
+    useContext(ExerciseIDsContext);
 
   const [sets, setSets] = useState(workout.workout.sets);
   const [reps, setReps] = useState(workout.workout.reps);
