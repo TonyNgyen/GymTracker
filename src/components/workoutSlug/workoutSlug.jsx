@@ -6,32 +6,34 @@ import { updateWorkout } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-import { WorkoutContext, UpdatedExercisesContext } from "./context";
+import {
+  UpdatedExercisesContext,
+  NewExercisesForDayContext,
+} from "./context";
 import IndividualWorkout from "../individualWorkout/individualWorkout";
 import { makeid } from "@/lib/utils";
 import {
-  ExerciseIDsContext,
+  ExercisesContext,
   NewExercisesContext,
-} from "@/app/workouts/[slug]/context";
-
-//https://stackoverflow.com/questions/15691224/mongoose-update-values-in-array-of-objects
+  WorkoutContext,
+} from "../editList/context";
 
 function WorkoutSlug({ workout, day }) {
-  const [exerciseIDsContext, setExerciseIDsContext] =
-    useContext(ExerciseIDsContext);
+  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [newExercisesContext, setNewExercisesContext] =
     useContext(NewExercisesContext);
+  const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
 
   const [exerciseIds, setExerciseIds] = useState(
     workout.workouts[day].workouts
   );
+
   const convert = [];
 
   const [updatedExercisesContext, setUpdatedExercisesContext] = useState([]);
-  const [workoutsContext, setWorkoutsContext] = useState(workout.workouts[day]);
 
-  workoutsContext.workouts.map((id) => {
-    exerciseIDsContext.map((exercise) => {
+  workoutContext.workouts[day].workouts.map((id) => {
+    exercisesContext.map((exercise) => {
       if (id == exercise.id) {
         convert.push(exercise);
       }
@@ -53,7 +55,7 @@ function WorkoutSlug({ workout, day }) {
   const addExercise = (e) => {
     e.preventDefault();
     const newExerciseId = makeid();
-    
+
     setExerciseIds([...exerciseIds, newExerciseId]);
 
     setConveredExercises([
@@ -78,9 +80,9 @@ function WorkoutSlug({ workout, day }) {
       },
     ]);
 
-    setWorkoutsContext({
-      ...workoutsContext,
-      workouts: [...workoutsContext.workouts, newExerciseId],
+    setWorkoutContext({
+      ...workoutContext.workouts[day],
+      workouts: [...workoutContext.workouts[day].workouts, newExerciseId],
     });
 
     setNewName("");
@@ -90,107 +92,109 @@ function WorkoutSlug({ workout, day }) {
   };
 
   return (
-    <WorkoutContext.Provider value={[workoutsContext, setWorkoutsContext]}>
-      <div className={styles.container}>
-        <div className={styles.cardContainer}>
-          <div className={styles.textContainer}>
-            <div className="flex">
-              <h1 className={styles.dayHeader}>{day}</h1>
-              <button
-                onClick={() =>
-                  updateWorkout(
-                    workout.id,
-                    workout.name,
-                    workoutsContext.workouts,
-                    day
-                  )
-                }
-              >
-                <FaCheck />
-              </button>
-            </div>
-            {drop ? (
-              <button onClick={() => setDrop(!drop)}>
-                <IoIosArrowUp />
-              </button>
-            ) : (
-              <button onClick={() => setDrop(!drop)}>
-                <IoIosArrowDown />
-              </button>
-            )}
-          </div>
-          {drop && (
-            <div className={styles.workoutContainer}>
-              <div className={styles.workoutHeader}>
-                <h1 className={styles.empty}></h1>
-                <h1 className={styles.headers}>Workouts</h1>
-                <h1 className={styles.headers}>Sets</h1>
-                <h1 className={styles.headers}>Reps</h1>
-                <h1 className={styles.headers}>Weight</h1>
+      <UpdatedExercisesContext.Provider
+        value={[updatedExercisesContext, setUpdatedExercisesContext]}
+      >
+        <div className={styles.container}>
+          <div className={styles.cardContainer}>
+            <div className={styles.textContainer}>
+              <div className="flex">
+                <h1 className={styles.dayHeader}>{day}</h1>
                 <button
-                  className={styles.add + " text-2xl font-bold"}
-                  onClick={toggle}
+                  onClick={() =>
+                    updateWorkout(
+                      workout.id,
+                      workout.name,
+                      workoutContext.workouts[day].workouts,
+                      day
+                    )
+                  }
                 >
-                  +
+                  <FaCheck />
                 </button>
               </div>
-              {modal && (
-                <form className={styles.addHeader}>
+              {drop ? (
+                <button onClick={() => setDrop(!drop)}>
+                  <IoIosArrowUp />
+                </button>
+              ) : (
+                <button onClick={() => setDrop(!drop)}>
+                  <IoIosArrowDown />
+                </button>
+              )}
+            </div>
+            {drop && (
+              <div className={styles.workoutContainer}>
+                <div className={styles.workoutHeader}>
                   <h1 className={styles.empty}></h1>
-                  <input
-                    value={newName}
-                    type="text"
-                    placeholder="Workout"
-                    className={styles.addInputs}
-                    onChange={(e) => {
-                      setNewName(e.target.value);
-                    }}
-                  />
-                  <input
-                    value={newSets}
-                    type="number"
-                    placeholder="Sets"
-                    className={styles.addInputs}
-                    onChange={(e) => {
-                      setNewSets(e.target.value);
-                    }}
-                  />
-                  <input
-                    value={newReps}
-                    type="number"
-                    placeholder="Reps"
-                    className={styles.addInputs}
-                    onChange={(e) => {
-                      setNewReps(e.target.value);
-                    }}
-                  />
-                  <input
-                    value={newWeight}
-                    type="number"
-                    placeholder="Weight"
-                    className={styles.addInputs}
-                    onChange={(e) => {
-                      setNewWeight(e.target.value);
-                    }}
-                  />
+                  <h1 className={styles.headers}>Workouts</h1>
+                  <h1 className={styles.headers}>Sets</h1>
+                  <h1 className={styles.headers}>Reps</h1>
+                  <h1 className={styles.headers}>Weight</h1>
                   <button
                     className={styles.add + " text-2xl font-bold"}
-                    onClick={addExercise}
+                    onClick={toggle}
                   >
                     +
                   </button>
-                </form>
-              )}
-              {convertedExercises.map((workout) => (
-                <div key={workout.id}>
-                  <IndividualWorkout workout={workout} />
                 </div>
-              ))}
-            </div>
-          )}
+                {modal && (
+                  <form className={styles.addHeader}>
+                    <h1 className={styles.empty}></h1>
+                    <input
+                      value={newName}
+                      type="text"
+                      placeholder="Workout"
+                      className={styles.addInputs}
+                      onChange={(e) => {
+                        setNewName(e.target.value);
+                      }}
+                    />
+                    <input
+                      value={newSets}
+                      type="number"
+                      placeholder="Sets"
+                      className={styles.addInputs}
+                      onChange={(e) => {
+                        setNewSets(e.target.value);
+                      }}
+                    />
+                    <input
+                      value={newReps}
+                      type="number"
+                      placeholder="Reps"
+                      className={styles.addInputs}
+                      onChange={(e) => {
+                        setNewReps(e.target.value);
+                      }}
+                    />
+                    <input
+                      value={newWeight}
+                      type="number"
+                      placeholder="Weight"
+                      className={styles.addInputs}
+                      onChange={(e) => {
+                        setNewWeight(e.target.value);
+                      }}
+                    />
+                    <button
+                      className={styles.add + " text-2xl font-bold"}
+                      onClick={addExercise}
+                    >
+                      +
+                    </button>
+                  </form>
+                )}
+                {convertedExercises.map((workout) => (
+                  <div key={workout.id}>
+                    <IndividualWorkout workout={workout} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </WorkoutContext.Provider>
+      </UpdatedExercisesContext.Provider>
   );
 }
 

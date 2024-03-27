@@ -23,7 +23,6 @@ function WorkoutList({ workouts, day, exercises }) {
 
   workoutForDay.workouts.map(id => {
     exercises.map(exercise => {
-      console.log(id)
       if (id == exercise.id) {
         convertedExercises.push(exercise);
       }

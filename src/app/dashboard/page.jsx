@@ -1,9 +1,9 @@
 "use client"
 
-import BarChart from "@/components/barChart/BarChart";
+import BarChart from "@/components/charts/barChart/BarChart";
 import React, { useState } from "react";
 import { UserData } from "@/lib/fakeData";
-import LineChart from "@/components/lineChart/lineChart";
+import LineChart from "@/components/charts/lineChart/lineChart";
 
 function DashboardPage() {
   const [userData, setUserData] = useState({

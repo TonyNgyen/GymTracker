@@ -2,13 +2,14 @@ import React, { useState, useContext } from "react";
 import styles from "./individualWorkout.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { WorkoutContext } from "@/components/workoutSlug/context";
-import { ExerciseIDsContext, NewExercisesContext } from "@/app/workouts/[slug]/context";
+import {
+  WorkoutSlugContext,
+  UpdatedExercisesContext,
+} from "@/components/workoutSlug/context";
 
 function IndividualWorkout(workout) {
-  const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
-  const [exerciseIDsContext, setExerciseIDsContext] =
-    useContext(ExerciseIDsContext);
+
+  const [updatedExercisesContext, setUpdatedExercisesContext] = useContext(UpdatedExercisesContext);
 
   const [sets, setSets] = useState(workout.workout.sets);
   const [reps, setReps] = useState(workout.workout.reps);
@@ -43,11 +44,33 @@ function IndividualWorkout(workout) {
       }
     });
     setWorkoutsContext({ ...workoutsContext, workouts: copyWorkouts });
+    copyWorkouts = [];
+    updatedExercisesContext.map((workout) => {
+      if (workout.id == workoutId) {
+        copyWorkouts = [
+          ...copyWorkouts,
+          {
+            id: workoutId,
+            name: workout.name,
+            sets: sets,
+            reps: reps,
+            weight: weight,
+          },
+        ];
+      } else {
+        copyWorkouts = [...copyWorkouts, workout];
+      }
+    });
+    setUpdatedExercisesContext([...updatedExercisesContext, copyWorkouts]);
+    console.log(updatedExercisesContext);
   };
 
   const deleteWorkout = (workoutId) => {
-    setWorkoutsContext({ ...workoutsContext, workouts: workoutsContext.workouts.filter((w) => w.id !== workoutId) });
-  }
+    setWorkoutsContext({
+      ...workoutsContext,
+      workouts: workoutsContext.workouts.filter((w) => w.id !== workoutId),
+    });
+  };
 
   return (
     <div>
