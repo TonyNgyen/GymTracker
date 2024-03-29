@@ -2,87 +2,83 @@ import React, { useState, useContext } from "react";
 import styles from "./individualWorkout.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import {
-  WorkoutSlugContext,
-  UpdatedExercisesContext,
-} from "@/components/workoutSlug/context";
+import { WorkoutContext, ExercisesContext } from "../editList/context";
+import { updateExercises } from "@/lib/actions";
 
-function IndividualWorkout(workout) {
+function IndividualWorkout({ exerciseID, day }) {
+  const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
+  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
 
-  const [updatedExercisesContext, setUpdatedExercisesContext] = useContext(UpdatedExercisesContext);
+  let workout = {};
 
-  const [sets, setSets] = useState(workout.workout.sets);
-  const [reps, setReps] = useState(workout.workout.reps);
-  const [weight, setWeight] = useState(workout.workout.weight);
+  for (let exercise in exercisesContext) {
+    if (exercisesContext[exercise].id == exerciseID) {
+      workout = exercisesContext[exercise];
+    }
+  }
+
+  const [sets, setSets] = useState(workout.sets);
+  const [reps, setReps] = useState(workout.reps);
+  const [weight, setWeight] = useState(workout.weight);
 
   const [edit, setEdit] = useState(false);
 
-  const [editWorkout, setEditWorkout] = useState("");
+  const [exerciseSelect, setExerciseSelect] = useState("");
 
-  const editSelect = (workoutId) => {
-    setEditWorkout(workoutId);
+  const editSelect = (exerciseID) => {
+    setExerciseSelect(exerciseID);
     setEdit(!edit);
   };
 
-  const editWorkouts = (workoutId, sets, reps, weight) => {
-    editSelect(workoutId);
-    let copyWorkouts = [];
-    workoutsContext.workouts.map((workout) => {
-      if (workout.id == workoutId) {
-        copyWorkouts = [
-          ...copyWorkouts,
-          {
-            id: workoutId,
-            name: workout.name,
-            sets: sets,
-            reps: reps,
-            weight: weight,
-          },
-        ];
+  const editExercise = (exerciseID, name, sets, reps, weight) => {
+    editSelect(exerciseID);
+    let copyExercises = [];
+    for (let exercise in exercisesContext) {
+      if (exercisesContext[exercise].id == exerciseID) {
+        copyExercises.push({
+          id: exerciseID,
+          name: name,
+          sets: sets,
+          reps: reps,
+          weight: weight,
+        });
       } else {
-        copyWorkouts = [...copyWorkouts, workout];
+        copyExercises.push(exercisesContext[exercise]);
       }
-    });
-    setWorkoutsContext({ ...workoutsContext, workouts: copyWorkouts });
-    copyWorkouts = [];
-    updatedExercisesContext.map((workout) => {
-      if (workout.id == workoutId) {
-        copyWorkouts = [
-          ...copyWorkouts,
-          {
-            id: workoutId,
-            name: workout.name,
-            sets: sets,
-            reps: reps,
-            weight: weight,
-          },
-        ];
-      } else {
-        copyWorkouts = [...copyWorkouts, workout];
-      }
-    });
-    setUpdatedExercisesContext([...updatedExercisesContext, copyWorkouts]);
-    console.log(updatedExercisesContext);
+    }
+    setExercisesContext(copyExercises);
+    updateExercises(exercisesContext);
   };
 
   const deleteWorkout = (workoutId) => {
-    setWorkoutsContext({
-      ...workoutsContext,
-      workouts: workoutsContext.workouts.filter((w) => w.id !== workoutId),
+    console.log(workoutContext.workouts[day].workouts);
+    setWorkoutContext({
+      ...workoutContext,
+      workouts: {
+        ...workoutContext.workouts,
+        [day]: {
+          ...workoutContext.workouts[day],
+          workouts: workoutContext.workouts[day].workouts.filter(
+            (w) => w !== workoutId
+          ),
+        },
+      },
     });
   };
 
   return (
     <div>
-      {workout.workout.id == editWorkout && edit ? (
+      {workout.id == exerciseSelect && edit ? (
         <form className={styles.workouts}>
           <button
-            onClick={() => editWorkouts(workout.workout.id, sets, reps, weight)}
+            onClick={() =>
+              editExercise(workout.id, workout.name, sets, reps, weight)
+            }
             className={styles.edit}
           >
             <FaEdit />
           </button>
-          <h1 className={styles.stats}>{workout.workout.name}</h1>
+          <h1 className={styles.stats}>{workout.name}</h1>
           <input
             type="number"
             name="sets"
@@ -123,20 +119,20 @@ function IndividualWorkout(workout) {
       ) : (
         <div className={styles.workouts}>
           <button
-            onClick={() => editSelect(workout.workout.id)}
+            onClick={() => editSelect(workout.id)}
             className={styles.edit}
           >
             <FaEdit />
           </button>
-          <h1 className={styles.stats}>{workout.workout.name}</h1>
-          <h1 className={styles.stats}>{workout.workout.sets}</h1>
-          <h1 className={styles.stats}>{workout.workout.reps}</h1>
-          <h1 className={styles.stats}>{workout.workout.weight}</h1>
+          <h1 className={styles.stats}>{workout.name}</h1>
+          <h1 className={styles.stats}>{workout.sets}</h1>
+          <h1 className={styles.stats}>{workout.reps}</h1>
+          <h1 className={styles.stats}>{workout.weight}</h1>
           <button
             className={styles.trash}
             onClick={(e) => {
               e.preventDefault();
-              deleteWorkout(workout.workout.id);
+              deleteWorkout(workout.id);
             }}
           >
             <FaTrashAlt />

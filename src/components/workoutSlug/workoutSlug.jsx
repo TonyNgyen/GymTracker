@@ -2,14 +2,10 @@
 
 import React, { useContext, useState } from "react";
 import styles from "./workoutSlug.module.css";
-import { updateWorkout } from "@/lib/actions";
+import { updateWorkout, addExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-import {
-  UpdatedExercisesContext,
-  NewExercisesForDayContext,
-} from "./context";
 import IndividualWorkout from "../individualWorkout/individualWorkout";
 import { makeid } from "@/lib/utils";
 import {
@@ -30,15 +26,17 @@ function WorkoutSlug({ workout, day }) {
 
   const convert = [];
 
-  const [updatedExercisesContext, setUpdatedExercisesContext] = useState([]);
-
-  workoutContext.workouts[day].workouts.map((id) => {
-    exercisesContext.map((exercise) => {
-      if (id == exercise.id) {
-        convert.push(exercise);
-      }
+  console.log(exercisesContext);
+  const convertExercises = () => {
+    workoutContext.workouts[day].workouts.map((id) => {
+      exercisesContext.map((exercise) => {
+        if (id == exercise.id) {
+          convert.push(exercise);
+        }
+      });
     });
-  });
+  };
+  convertExercises();
 
   const [convertedExercises, setConveredExercises] = useState(convert);
   const [drop, setDrop] = useState(false);
@@ -69,6 +67,17 @@ function WorkoutSlug({ workout, day }) {
       },
     ]);
 
+    setExercisesContext([
+      ...exercisesContext,
+      {
+        id: newExerciseId,
+        name: newName,
+        sets: newSets,
+        reps: newReps,
+        weight: newWeight,
+      },
+    ]);
+
     setNewExercisesContext([
       ...newExercisesContext,
       {
@@ -81,8 +90,14 @@ function WorkoutSlug({ workout, day }) {
     ]);
 
     setWorkoutContext({
-      ...workoutContext.workouts[day],
-      workouts: [...workoutContext.workouts[day].workouts, newExerciseId],
+      ...workoutContext,
+      workouts: {
+        ...workoutContext.workouts,
+        [day]: {
+          ...workoutContext.workouts[day],
+          workouts: [...workoutContext.workouts[day].workouts, newExerciseId],
+        },
+      },
     });
 
     setNewName("");
@@ -91,10 +106,16 @@ function WorkoutSlug({ workout, day }) {
     setNewWeight("");
   };
 
+  const updateDay = (workoutID, workoutName, exercises, day) => {
+    updateWorkout(workoutID, workoutName, exercises, day);
+    addExercises(newExercisesContext);
+  };
+
   return (
-      <UpdatedExercisesContext.Provider
-        value={[updatedExercisesContext, setUpdatedExercisesContext]}
+      <NewExercisesContext.Provider
+        value={[newExercisesContext, setNewExercisesContext]}
       >
+      <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         <div className={styles.container}>
           <div className={styles.cardContainer}>
             <div className={styles.textContainer}>
@@ -102,7 +123,7 @@ function WorkoutSlug({ workout, day }) {
                 <h1 className={styles.dayHeader}>{day}</h1>
                 <button
                   onClick={() =>
-                    updateWorkout(
+                    updateDay(
                       workout.id,
                       workout.name,
                       workoutContext.workouts[day].workouts,
@@ -185,16 +206,17 @@ function WorkoutSlug({ workout, day }) {
                     </button>
                   </form>
                 )}
-                {convertedExercises.map((workout) => (
-                  <div key={workout.id}>
-                    <IndividualWorkout workout={workout} />
+                {workoutContext.workouts[day].workouts.map((exercise) => (
+                  <div key={exercise}>
+                    <IndividualWorkout exerciseID={exercise} day={day}/>
                   </div>
                 ))}
               </div>
             )}
           </div>
         </div>
-      </UpdatedExercisesContext.Provider>
+        </WorkoutContext.Provider>
+      </NewExercisesContext.Provider>
   );
 }
 

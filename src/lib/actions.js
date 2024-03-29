@@ -119,6 +119,16 @@ export const addExercises = async (exercises) => {
   }
 };
 
+export const updateExercises = async (exercises) => {
+  const session = await auth();
+  await User.findOneAndUpdate(
+    { email: session.user?.email },
+    {
+      $set: {exercises: exercises}
+    }
+  )
+}
+
 export const handleGithubLogin = async (e) => {
   "use server";
   await signIn("github");

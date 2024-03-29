@@ -39,6 +39,7 @@
   padding: 2rem 2rem;
   border: 2px solid hsl(var(--foreground));
   border-radius: 18px;
+  background-color: hsl(var(--muted));
 }
 
 .cardContainer {
@@ -72,7 +73,7 @@
   width: 90%;
   text-align: center;
   border-bottom: 2px solid hsl(var(--foreground));
-  background-color: hsl(var(--background));
+  background-color: hsl(var(--muted));
   margin-bottom: -2px;
   -moz-appearance: textfield;
 }
