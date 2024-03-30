@@ -2,7 +2,7 @@
 
 import React, { useContext, useState } from "react";
 import styles from "./workoutSlug.module.css";
-import { updateWorkout, addExercises } from "@/lib/actions";
+import { updateWorkout, addExercises, updateExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
@@ -24,20 +24,6 @@ function WorkoutSlug({ workout, day }) {
     workout.workouts[day].workouts
   );
 
-  const convert = [];
-
-  const convertExercises = () => {
-    workoutContext.workouts[day].workouts.map((id) => {
-      exercisesContext.map((exercise) => {
-        if (id == exercise.id) {
-          convert.push(exercise);
-        }
-      });
-    });
-  };
-  convertExercises();
-
-  const [convertedExercises, setConveredExercises] = useState(convert);
   const [drop, setDrop] = useState(false);
   const [newName, setNewName] = useState("");
   const [newSets, setNewSets] = useState("");
@@ -54,17 +40,6 @@ function WorkoutSlug({ workout, day }) {
     const newExerciseId = makeid();
 
     setExerciseIds([...exerciseIds, newExerciseId]);
-
-    setConveredExercises([
-      ...convertedExercises,
-      {
-        id: newExerciseId,
-        name: newName,
-        sets: newSets,
-        reps: newReps,
-        weight: newWeight,
-      },
-    ]);
 
     setExercisesContext([
       ...exercisesContext,
@@ -107,6 +82,7 @@ function WorkoutSlug({ workout, day }) {
 
   const updateDay = (workoutID, workoutName, exercises, day) => {
     updateWorkout(workoutID, workoutName, exercises, day);
+    updateExercises(exercisesContext);
     addExercises(newExercisesContext);
   };
 

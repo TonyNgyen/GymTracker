@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import styles from "./individualWorkout.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { WorkoutContext, ExercisesContext } from "../editList/context";
+import { WorkoutContext, ExercisesContext, NewExercisesContext } from "../editList/context";
 import { updateExercises } from "@/lib/actions";
 
 function IndividualWorkout({ exerciseID, day }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
+  const [newExercisesContext, setNewExercisesContext] = useContext(NewExercisesContext);
 
   let workout = {};
 
@@ -30,10 +31,6 @@ function IndividualWorkout({ exerciseID, day }) {
     setEdit(!edit);
   };
 
-  useEffect(() => {
-    updateExercises(exercisesContext), [exercisesContext];
-  })
-
   const editExercise = (exerciseID, name, sets, reps, weight) => {
     editSelect(exerciseID);
     let copyExercises = [];
@@ -51,6 +48,22 @@ function IndividualWorkout({ exerciseID, day }) {
       }
     }
     setExercisesContext(copyExercises);
+
+    copyExercises = [];
+    for (let exercise in newExercisesContext) {
+      if (newExercisesContext[exercise].id == exerciseID) {
+        copyExercises.push({
+          id: exerciseID,
+          name: name,
+          sets: sets,
+          reps: reps,
+          weight: weight,
+        });
+      } else {
+        copyExercises.push(exercisesContext[exercise]);
+      }
+    }
+    setNewExercisesContext(copyExercises);
   };
 
   const deleteWorkout = (workoutId) => {
