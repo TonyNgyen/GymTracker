@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styles from "./workoutDayTest.module.css";
-import { ExerciseContext, WorkoutContext } from "@/app/autoUpdate/context";
+import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { addExercises } from "@/lib/actions";
 import { makeid } from "@/lib/utils"
@@ -21,6 +21,7 @@ function WorkoutDay({ day }) {
   const [weight, setWeight] = useState("");
   const [workoutSaved, setWorkoutSaved] = useState(false);
   const [exerciseIDs, setExerciseIDs] = useState([]);
+  const [unsavedExercises, setUnsavedExercises] = useState([]);
 
   const handleRest = () => {
     setRest(!rest);
@@ -45,6 +46,16 @@ function WorkoutDay({ day }) {
         weight: weight,
       },
     ]);
+    setUnsavedExercises([
+      ...unsavedExercises,
+      {
+        id: newExerciseID,
+        name: name,
+        sets: sets,
+        reps: reps,
+        weight: weight,
+      },
+    ]);
     setExerciseIDs([...exerciseIDs, newExerciseID]);
     setName("");
     setSets("");
@@ -58,10 +69,12 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
-    console.log(exerciseContext);
-    setExerciseContext(...exerciseContext, workouts);
+    setExerciseContext([...exerciseContext, ...unsavedExercises]);
+    setUnsavedExercises([]);
     setWorkoutSaved(true);
   };
+
+  console.log(exerciseContext);
 
   const closeWorkoutSaved = (e) => {
     e.preventDefault();
