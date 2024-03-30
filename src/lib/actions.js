@@ -6,7 +6,7 @@ import { signIn, signOut } from "./auth";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
-import { makeid } from "./utils"
+import { makeid } from "./utils";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -49,7 +49,7 @@ export const validateWorkoutId = async (previousState, formData) => {
   }
 };
 
-export const addWorkout = async (name, workout) => {
+export const addWorkout = async (name, workout, exercises) => {
   const session = await auth();
   connectToDb();
   try {
@@ -65,10 +65,11 @@ export const addWorkout = async (name, workout) => {
       {
         $set: {
           [`workouts.${name}`]: newWorkout,
+          exercises: exercises,
         },
       }
     );
-    console.log("saved to db");
+    console.log("Added new workout");
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
@@ -106,29 +107,29 @@ export const updateWorkout = async (id, name, workout, day) => {
 
 export const addExercises = async (exercises) => {
   const session = await auth();
+  connectToDb();
   try {
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {
-        $push: { exercises: { $each: exercises } },
+        $set: { exercises: exercises },
       }
     );
-    console.log("Saved to DB");
+    console.log("Added Exercises");
   } catch (error) {
-    console.log(error);
+    console.log("Failed to add exercises");
   }
 };
 
 export const updateExercises = async (exercises) => {
   const session = await auth();
-  console.log(exercises);
   await User.findOneAndUpdate(
     { email: session.user?.email },
     {
-      $set: {exercises: exercises}
+      $set: { exercises: exercises },
     }
-  )
-}
+  );
+};
 
 export const handleGithubLogin = async (e) => {
   "use server";

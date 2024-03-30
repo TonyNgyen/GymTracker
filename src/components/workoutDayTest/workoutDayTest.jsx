@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useContext, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
@@ -73,8 +75,6 @@ function WorkoutDay({ day }) {
     setUnsavedExercises([]);
     setWorkoutSaved(true);
   };
-
-  console.log(exerciseContext);
 
   const closeWorkoutSaved = (e) => {
     e.preventDefault();
