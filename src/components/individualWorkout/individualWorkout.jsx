@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./individualWorkout.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
@@ -30,6 +30,10 @@ function IndividualWorkout({ exerciseID, day }) {
     setEdit(!edit);
   };
 
+  useEffect(() => {
+    updateExercises(exercisesContext), [exercisesContext];
+  })
+
   const editExercise = (exerciseID, name, sets, reps, weight) => {
     editSelect(exerciseID);
     let copyExercises = [];
@@ -47,7 +51,6 @@ function IndividualWorkout({ exerciseID, day }) {
       }
     }
     setExercisesContext(copyExercises);
-    updateExercises(exercisesContext);
   };
 
   const deleteWorkout = (workoutId) => {

@@ -121,6 +121,7 @@ export const addExercises = async (exercises) => {
 
 export const updateExercises = async (exercises) => {
   const session = await auth();
+  console.log(exercises);
   await User.findOneAndUpdate(
     { email: session.user?.email },
     {

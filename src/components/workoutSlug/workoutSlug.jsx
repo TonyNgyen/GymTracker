@@ -26,7 +26,6 @@ function WorkoutSlug({ workout, day }) {
 
   const convert = [];
 
-  console.log(exercisesContext);
   const convertExercises = () => {
     workoutContext.workouts[day].workouts.map((id) => {
       exercisesContext.map((exercise) => {

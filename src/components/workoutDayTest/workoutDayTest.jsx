@@ -58,6 +58,7 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
+    console.log(exerciseContext);
     setExerciseContext(...exerciseContext, workouts);
     setWorkoutSaved(true);
   };
