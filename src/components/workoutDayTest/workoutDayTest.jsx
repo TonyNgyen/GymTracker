@@ -1,18 +1,14 @@
-"use client"
+"use client";
 
 import React, { useContext, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { addExercises } from "@/lib/actions";
-import { makeid } from "@/lib/utils"
+import { makeid } from "@/lib/utils";
 
 function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
-  const toggle = () => {
-    setModal(!modal);
-  };
-
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
   const [rest, setRest] = useState(workoutsContext[day].rest);
@@ -24,10 +20,8 @@ function WorkoutDay({ day }) {
   const [workoutSaved, setWorkoutSaved] = useState(false);
   const [exerciseIDs, setExerciseIDs] = useState([]);
   const [unsavedExercises, setUnsavedExercises] = useState([]);
-
-  const handleRest = () => {
-    setRest(!rest);
-  };
+  const [foundExercises, setFoundExercises] = useState([]);
+  const [foundBoolean, setFoundBoolean] = useState(false);
 
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
@@ -38,27 +32,42 @@ function WorkoutDay({ day }) {
       alert("Please fill in required inputs");
       return;
     }
-    setWorkouts([
-      ...workouts,
-      {
-        id: newExerciseID,
-        name: name,
-        sets: sets,
-        reps: reps,
-        weight: weight,
-      },
-    ]);
-    setUnsavedExercises([
-      ...unsavedExercises,
-      {
-        id: newExerciseID,
-        name: name,
-        sets: sets,
-        reps: reps,
-        weight: weight,
-      },
-    ]);
-    setExerciseIDs([...exerciseIDs, newExerciseID]);
+
+    let foundExercisesArray = [];
+    for (let exercise in exerciseContext) {
+      if (exerciseContext[exercise].name == name) {
+        foundExercisesArray.push(exerciseContext[exercise]);
+        // FOUND OUT WHY THIS DOES NOT WORK
+        // setFoundExercises(...foundExercises, exerciseContext[exercise])
+      }
+    }
+    setFoundExercises(foundExercisesArray);
+    if (foundExercisesArray.length) {
+      setFoundBoolean(true);
+      setModal(false);
+    } else {
+      setWorkouts([
+        ...workouts,
+        {
+          id: newExerciseID,
+          name: name,
+          sets: sets,
+          reps: reps,
+          weight: weight,
+        },
+      ]);
+      setUnsavedExercises([
+        ...unsavedExercises,
+        {
+          id: newExerciseID,
+          name: name,
+          sets: sets,
+          reps: reps,
+          weight: weight,
+        },
+      ]);
+      setExerciseIDs([...exerciseIDs, newExerciseID]);
+    }
     setName("");
     setSets("");
     setReps("");
@@ -82,22 +91,22 @@ function WorkoutDay({ day }) {
   };
 
   const debug = (e) => {
-    console.log(workouts);
+    console.log(foundExercises);
   };
 
   return (
     <div className={styles.card}>
       <h1 className="text-center text-3xl mb-5">{day}</h1>
       <div className={styles.buttons}>
-        <Button onClick={toggle} className="min-w-[69px]">
+        <Button onClick={() => setModal(!modal)} className="min-w-[69px]">
           Add
         </Button>
         {!rest && (
-          <Button onClick={handleRest} className="min-w-[69px]">
+          <Button onClick={() => setRest(!rest)} className="min-w-[69px]">
             Rest?
           </Button>
         )}
-        {rest && <Button onClick={handleRest}>Rest</Button>}
+        {rest && <Button onClick={() => setRest(!rest)}>Rest</Button>}
         <Button onClick={debug} className="min-w-[69px]">
           Debug
         </Button>
@@ -143,8 +152,15 @@ function WorkoutDay({ day }) {
             placeholder="Weight"
             value={weight}
           />
-          <Button>Submit</Button>
+          <div className={styles.buttonsContainer}>
+            <Button type="submit">Add</Button>
+            <Button type="submit">Reuse</Button>
+          </div>
         </form>
+      )}
+
+      {foundBoolean && (
+        <div>Yoyoyo</div>
       )}
       <div
         className={

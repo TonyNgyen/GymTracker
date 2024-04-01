@@ -39,6 +39,12 @@
   justify-content: center;
   width: 80%;
   margin-top: 1rem;
+  background-color: hsl(var(--muted));
+  padding: 1rem;
+  position: absolute;
+  top: 7em;
+  border-radius: 15px;
+  border: 2px hsl(var(--foreground)) solid;
 }
 
 .form input {
@@ -58,6 +64,11 @@
   background-color: var(--btn);
 }
 
+.buttonsContainer {
+  display: flex;
+  gap: 10px;
+}
+
 .workouts {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -72,7 +83,7 @@
 @media (max-width: 1024px) {
   .form {
     flex-direction: column;
-    gap: 40px;
+    gap: 10px;
   }
   .submitButton {
     min-width: 100%;

@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import WorkoutDayTest from "@/components/workoutDayTest/workoutDayTest";
 import { WorkoutContext, ExerciseContext } from "./context";
-import { addWorkout, addExercises, print } from "@/lib/actions";
+import { addWorkout } from "@/lib/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -60,7 +60,12 @@ function AutoUpdate({ exercises }) {
             <CarouselNext />
           </Carousel>
           <Link href="/workouts">
-            <Button onClick={() => addWorkout("Test Workout", workoutContext, exerciseContext)} className="mt-6">
+            <Button
+              onClick={() =>
+                addWorkout("Test Workout", workoutContext, exerciseContext)
+              }
+              className="mt-6"
+            >
               Submit Workout
             </Button>
           </Link>
