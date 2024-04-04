@@ -6,6 +6,7 @@ import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { addExercises } from "@/lib/actions";
 import { makeid } from "@/lib/utils";
+import FoundExercise from "../foundExercises/foundExercise";
 
 function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
@@ -22,6 +23,8 @@ function WorkoutDay({ day }) {
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
+  const [chosenID, setChosenID] = useState("");
+  const [chosenExercise, setChosenExercise] = useState({})
 
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
@@ -160,7 +163,9 @@ function WorkoutDay({ day }) {
       )}
 
       {foundBoolean && (
-        <div>Yoyoyo</div>
+        foundExercises.map((exercise) => (
+          <FoundExercise exercise={exercise} setFoundBoolean={setFoundBoolean} foundBoolean={foundBoolean}/>
+        ))
       )}
       <div
         className={
