@@ -67,7 +67,6 @@ function IndividualWorkout({ exerciseID, day }) {
   };
 
   const deleteWorkout = (workoutId) => {
-    console.log(workoutContext.workouts[day].workouts);
     setWorkoutContext({
       ...workoutContext,
       workouts: {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
@@ -23,8 +23,6 @@ function WorkoutDay({ day }) {
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
-  const [chosenID, setChosenID] = useState("");
-  const [chosenExercise, setChosenExercise] = useState({})
 
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
@@ -77,6 +75,20 @@ function WorkoutDay({ day }) {
     setWeight("");
   };
 
+  const addChosen = (exerciseID, exercise) => {
+    setWorkouts([
+      ...workouts,
+      {
+        id: exerciseID,
+        name: exercise.name,
+        sets: exercise.sets,
+        reps: exercise.reps,
+        weight: exercise.weight,
+      },
+    ]);
+    setExerciseIDs([...exerciseIDs, exerciseID]);
+  }
+
   const addDay = (e) => {
     e.preventDefault();
     setWorkoutsContext({
@@ -94,7 +106,7 @@ function WorkoutDay({ day }) {
   };
 
   const debug = (e) => {
-    console.log(foundExercises);
+    console.log(exerciseIDs);
   };
 
   return (
@@ -164,7 +176,7 @@ function WorkoutDay({ day }) {
 
       {foundBoolean && (
         foundExercises.map((exercise) => (
-          <FoundExercise exercise={exercise} setFoundBoolean={setFoundBoolean} foundBoolean={foundBoolean}/>
+          <FoundExercise exercise={exercise} setFoundBoolean={setFoundBoolean} foundBoolean={foundBoolean} addChosen={addChosen}/>
         ))
       )}
       <div

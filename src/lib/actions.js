@@ -123,6 +123,7 @@ export const addExercises = async (exercises) => {
 
 export const updateExercises = async (exercises) => {
   const session = await auth();
+  connectToDb();
   await User.findOneAndUpdate(
     { email: session.user?.email },
     {

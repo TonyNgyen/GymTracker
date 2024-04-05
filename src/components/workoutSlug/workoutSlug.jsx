@@ -83,7 +83,7 @@ function WorkoutSlug({ workout, day }) {
   const updateDay = (workoutID, workoutName, exercises, day) => {
     updateWorkout(workoutID, workoutName, exercises, day);
     updateExercises(exercisesContext);
-    addExercises(newExercisesContext);
+    // addExercises(newExercisesContext);
   };
 
   return (
