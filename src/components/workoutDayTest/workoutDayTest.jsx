@@ -114,18 +114,18 @@ function WorkoutDay({ day }) {
     <div className={styles.card}>
       <h1 className="text-center text-3xl mt-10 mb-4">{day}</h1>
       <div className={`${styles.buttons} z-0 ${(foundBoolean ? " pointer-events-none blur" : "")}`}>
-        <Button onClick={() => setModal(!modal)} className="min-w-[69px]">
+        <Button onClick={() => setModal(!modal)} className="min-w-[80px]">
           Add
         </Button>
         {!rest && (
-          <Button onClick={() => setRest(!rest)} className="min-w-[69px]">
+          <Button variant="secondary" onClick={() => setRest(!rest)} className="min-w-[80px]">
             Rest?
           </Button>
         )}
-        {rest && <Button onClick={() => setRest(!rest)}>Rest</Button>}
-        <Button onClick={debug} className="min-w-[69px]">
+        {rest && <Button variant="destructive" className="min-w-[80px]" onClick={() => setRest(!rest)}>Rest</Button>}
+        {/* <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button>
+        </Button> */}
       </div>
 
       {modal && (
@@ -213,14 +213,14 @@ function WorkoutDay({ day }) {
             <h1>{workout.sets}</h1>
             <h1>{workout.reps}</h1>
             <h1>{workout.weight}</h1>
-            <button className="text-red-400"
+            <Button variant="ghost" className={styles.trash}
               onClick={(e) => {
                 e.preventDefault();
                 setWorkouts(workouts.filter((w) => w.id !== workout.id));
               }}
             >
               <FaTrashAlt />
-            </button>
+            </Button>
           </article>
         ))}
       </div>

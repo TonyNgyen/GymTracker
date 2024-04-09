@@ -1,6 +1,6 @@
 .workouts {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     align-items: center;
     margin: 0px auto;
     padding: 2rem 2rem;
@@ -10,9 +10,9 @@
 }
 
 .stats {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 .button {
-  grid-column: span 2;
+  grid-column: span 1;
 }

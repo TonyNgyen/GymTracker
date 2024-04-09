@@ -61,17 +61,19 @@
 }
 
 .foundContainer {
-  position: absolute;
+  /* FIND A SOLUTION */
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   background-color: hsl(var(--secondary));
   border: 2px hsl(var(--foreground)) solid;
   border-radius: 20px;
   padding: 2rem;
 }
 
-.defaultMessage {
+.trash {
+  color: hsl(var(--destructive))
 }
 
 .workouts {
