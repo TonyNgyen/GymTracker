@@ -38,13 +38,14 @@
   gap: 20px;
   justify-content: center;
   width: 80%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   background-color: hsl(var(--muted));
   padding: 1rem;
   position: absolute;
   top: 7em;
   border-radius: 15px;
   border: 2px hsl(var(--foreground)) solid;
+  z-index: 20;
 }
 
 .form input {
@@ -69,15 +70,27 @@
   gap: 10px;
 }
 
+.foundContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: hsl(var(--secondary));
+  border: 2px hsl(var(--foreground)) solid;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
 .workouts {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-items: center;
-  width: 80%;
+  width: 75%;
   align-items: center;
   margin: 0px auto 0.5em;
   padding: 2rem 2rem;
   border: 2px solid hsl(var(--foreground));
+  border-radius: 20px;
 }
 
 @media (max-width: 1024px) {
@@ -87,5 +100,9 @@
   }
   .submitButton {
     min-width: 100%;
+  }
+  .workouts {
+    padding: 1rem 1rem;
+    width: 100%;
   }
 }

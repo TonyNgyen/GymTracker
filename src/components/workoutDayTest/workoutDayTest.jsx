@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
+import { FaTrashAlt } from "react-icons/fa";
 import { addExercises } from "@/lib/actions";
 import { makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
@@ -87,7 +88,7 @@ function WorkoutDay({ day }) {
       },
     ]);
     setExerciseIDs([...exerciseIDs, exerciseID]);
-  }
+  };
 
   const addDay = (e) => {
     e.preventDefault();
@@ -111,8 +112,8 @@ function WorkoutDay({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl mb-5">{day}</h1>
-      <div className={styles.buttons}>
+      <h1 className="text-center text-3xl mb-5 mt-4">{day}</h1>
+      <div className={`${styles.buttons} z-0 ${(foundBoolean ? " pointer-events-none blur" : "")}`}>
         <Button onClick={() => setModal(!modal)} className="min-w-[69px]">
           Add
         </Button>
@@ -175,35 +176,51 @@ function WorkoutDay({ day }) {
       )}
 
       {foundBoolean && (
-        foundExercises.map((exercise) => (
-          <FoundExercise exercise={exercise} setFoundBoolean={setFoundBoolean} foundBoolean={foundBoolean} addChosen={addChosen}/>
-        ))
+        <div className={`${styles.foundContainer} z-10`}>
+          <h2>Found Exercises</h2>
+          <div className="flex flex-col gap-4 mt-4">
+            {foundExercises.map((exercise) => (
+              <FoundExercise
+                exercise={exercise}
+                setFoundBoolean={setFoundBoolean}
+                foundBoolean={foundBoolean}
+                addChosen={addChosen}
+              />
+            ))}
+            <Button onClick={() => setFoundBoolean(false)} className="">
+              Cancel
+            </Button>
+          </div>
+        </div>
       )}
       <div
         className={
-          (rest ? "blur" : "") +
-          " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar"
+          (rest || foundBoolean ? "blur pointer-events-none" : "") +
+          " overflow-y-scroll h-full w-full mx-0 my-4 no-scrollbar z-0"
         }
       >
-        {!workouts.length && (
+        {!workouts.length && !foundBoolean && (
           <div className="mt-36 text-2xl font-semibold">
             Please add workouts or mark {day} as a rest day!
           </div>
         )}
         {workouts.map((workout) => (
-          <article className={styles.workouts} key={workout.id}>
+          <article
+            className={`${styles.workouts} z-0 ${(foundBoolean ? " pointer-events-none " : "")}`}
+            key={workout.id}
+          >
             <h1 className="justify-self-start">{workout.name}</h1>
             <h1>{workout.sets}</h1>
             <h1>{workout.reps}</h1>
             <h1>{workout.weight}</h1>
-            <Button
+            <button className="text-red-400"
               onClick={(e) => {
                 e.preventDefault();
                 setWorkouts(workouts.filter((w) => w.id !== workout.id));
               }}
             >
-              Delete
-            </Button>
+              <FaTrashAlt />
+            </button>
           </article>
         ))}
       </div>
