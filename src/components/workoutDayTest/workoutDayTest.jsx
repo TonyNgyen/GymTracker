@@ -112,7 +112,7 @@ function WorkoutDay({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl mb-5 mt-4">{day}</h1>
+      <h1 className="text-center text-3xl mt-10 mb-4">{day}</h1>
       <div className={`${styles.buttons} z-0 ${(foundBoolean ? " pointer-events-none blur" : "")}`}>
         <Button onClick={() => setModal(!modal)} className="min-w-[69px]">
           Add
@@ -200,7 +200,7 @@ function WorkoutDay({ day }) {
         }
       >
         {!workouts.length && !foundBoolean && (
-          <div className="mt-36 text-2xl font-semibold">
+          <div className="mt-32 text-2xl font-semibold">
             Please add workouts or mark {day} as a rest day!
           </div>
         )}
@@ -234,7 +234,7 @@ function WorkoutDay({ day }) {
       ) : (
         <div></div>
       )}
-      <Button onClick={addDay}>
+      <Button onClick={addDay} className="mb-6">
         {/* <Button onClick={() => console.log(exerciseIDs)}> */}
         Save {day}
       </Button>
