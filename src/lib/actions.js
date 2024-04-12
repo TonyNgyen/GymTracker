@@ -32,17 +32,11 @@ export const addLog = async (prevState, formData) => {
 };
 
 export const validateWorkoutId = async (previousState, formData) => {
-  const { title, id } = Object.fromEntries(formData);
-  if (title == "" || id == "") {
+  const { title } = Object.fromEntries(formData);
+  if (title == "") {
     return { error: "Please fill in required fields" };
   }
   try {
-    connectToDb();
-    const workout = await Workout.findOne({ id: id });
-
-    if (workout) {
-      return { error: "Workout ID already exists" };
-    }
     return { success: true };
   } catch (error) {
     console.log(error);

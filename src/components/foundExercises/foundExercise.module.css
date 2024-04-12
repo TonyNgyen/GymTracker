@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     align-items: center;
-    margin: 0px auto;
     padding: 2rem 2rem;
     border: 2px solid hsl(var(--foreground));
     border-radius: 18px;
@@ -11,8 +10,21 @@
 
 .stats {
   grid-column: span 1;
+  justify-self: center;
 }
 
 .button {
   grid-column: span 1;
+  font-size: large;
+  padding: 1rem;
+  justify-self: center;
+}
+
+@media (max-width: 1024px) {
+  .workouts {
+    padding: 1rem 0.5rem;
+  }
+  .button {
+    padding: 0.5rem;
+  }
 }

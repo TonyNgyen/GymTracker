@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./foundExercise.module.css";
 import { Button } from "../ui/button";
+import { FaPlus } from "react-icons/fa";
 
 function FoundExercise({ exercise, setFoundBoolean, addChosen }) {
   const chosen = (exerciseID, exercise) => {
@@ -13,7 +14,7 @@ function FoundExercise({ exercise, setFoundBoolean, addChosen }) {
       <h1 className={styles.stats}>{exercise.sets}</h1>
       <h1 className={styles.stats}>{exercise.reps}</h1>
       <h1 className={styles.stats}>{exercise.weight}</h1>
-      <Button className={styles.button} onClick={() => chosen(exercise.id, exercise)}>Select</Button>
+      <Button className={styles.button} onClick={() => chosen(exercise.id, exercise)}><FaPlus /></Button>
     </div>
   );
 }

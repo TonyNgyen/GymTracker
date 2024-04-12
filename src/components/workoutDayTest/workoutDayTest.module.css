@@ -55,11 +55,6 @@
   background-color: var(--btn);
 }
 
-.buttonsContainer {
-  display: flex;
-  gap: 10px;
-}
-
 .foundContainer {
   /* FIND A SOLUTION */
   /* position: absolute;
@@ -70,6 +65,8 @@
   border: 2px hsl(var(--foreground)) solid;
   border-radius: 20px;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .trash {
@@ -98,6 +95,11 @@
   }
   .workouts {
     padding: 1rem 1rem;
-    width: 100%;
+    width: 90%;
+  }
+  .foundContainer {
+    width: 90%;
+    padding: 1rem;
+    max-height: 60%;
   }
 }

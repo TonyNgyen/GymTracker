@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaPlus } from "react-icons/fa";
 import { addExercises } from "@/lib/actions";
 import { makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
@@ -47,33 +47,25 @@ function WorkoutDay({ day }) {
     if (foundExercisesArray.length) {
       setFoundBoolean(true);
       setModal(false);
+      return;
     } else {
-      setWorkouts([
-        ...workouts,
-        {
-          id: newExerciseID,
-          name: name,
-          sets: sets,
-          reps: reps,
-          weight: weight,
-        },
-      ]);
-      setUnsavedExercises([
-        ...unsavedExercises,
-        {
-          id: newExerciseID,
-          name: name,
-          sets: sets,
-          reps: reps,
-          weight: weight,
-        },
-      ]);
+      let newExercise = {
+        id: newExerciseID,
+        name: name,
+        sets: sets,
+        reps: reps,
+        weight: weight,
+      };
+      setWorkouts([...workouts, newExercise]);
+      setUnsavedExercises([...unsavedExercises, newExercise]);
       setExerciseIDs([...exerciseIDs, newExerciseID]);
+      setExerciseContext([...exerciseContext, newExercise]);
     }
     setName("");
     setSets("");
     setReps("");
     setWeight("");
+    return;
   };
 
   const addChosen = (exerciseID, exercise) => {
@@ -90,39 +82,75 @@ function WorkoutDay({ day }) {
     setExerciseIDs([...exerciseIDs, exerciseID]);
   };
 
-  const addDay = (e) => {
-    e.preventDefault();
-    setWorkoutsContext({
-      ...workoutsContext,
-      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-    });
-    setExerciseContext([...exerciseContext, ...unsavedExercises]);
-    setUnsavedExercises([]);
-    setWorkoutSaved(true);
+  const createNewExercise = () => {
+    const newExerciseID = makeid();
+    let newExercise = {
+      id: newExerciseID,
+      name: name,
+      sets: sets,
+      reps: reps,
+      weight: weight,
+    };
+    setWorkouts([...workouts, newExercise]);
+    setUnsavedExercises([...unsavedExercises, newExercise]);
+    setExerciseIDs([...exerciseIDs, newExerciseID]);
+    setExerciseContext([...exerciseContext, newExercise]);
+    setName("");
+    setSets("");
+    setReps("");
+    setWeight("");
+    setFoundBoolean(false);
   };
 
-  const closeWorkoutSaved = (e) => {
-    e.preventDefault();
-    setWorkoutSaved(false);
-  };
+  // const addDay = (e) => {
+  //   e.preventDefault();
+  //   setWorkoutsContext({
+  //     ...workoutsContext,
+  //     [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+  //   });
+  //   setExerciseContext([...exerciseContext, ...unsavedExercises]);
+  //   setUnsavedExercises([]);
+  //   setWorkoutSaved(true);
+  // };
+
+  // const closeWorkoutSaved = (e) => {
+  //   e.preventDefault();
+  //   setWorkoutSaved(false);
+  // };
 
   const debug = (e) => {
-    console.log(exerciseIDs);
+    console.log(workouts);
   };
 
   return (
     <div className={styles.card}>
       <h1 className="text-center text-3xl mt-10 mb-4">{day}</h1>
-      <div className={`${styles.buttons} z-0 ${(foundBoolean ? " pointer-events-none blur" : "")}`}>
+      <div
+        className={`${styles.buttons} z-0 ${
+          foundBoolean ? " pointer-events-none blur" : ""
+        }`}
+      >
         <Button onClick={() => setModal(!modal)} className="min-w-[80px]">
           Add
         </Button>
         {!rest && (
-          <Button variant="secondary" onClick={() => setRest(!rest)} className="min-w-[80px]">
+          <Button
+            variant="secondary"
+            onClick={() => setRest(!rest)}
+            className="min-w-[80px]"
+          >
             Rest?
           </Button>
         )}
-        {rest && <Button variant="destructive" className="min-w-[80px]" onClick={() => setRest(!rest)}>Rest</Button>}
+        {rest && (
+          <Button
+            variant="destructive"
+            className="min-w-[80px]"
+            onClick={() => setRest(!rest)}
+          >
+            Rest
+          </Button>
+        )}
         {/* <Button onClick={debug} className="min-w-[69px]">
           Debug
         </Button> */}
@@ -169,16 +197,17 @@ function WorkoutDay({ day }) {
             value={weight}
           />
           <div className={styles.buttonsContainer}>
-            <Button type="submit">Add</Button>
-            <Button type="submit">Reuse</Button>
+            <Button type="submit">
+              <FaPlus />
+            </Button>
           </div>
         </form>
       )}
 
       {foundBoolean && (
-        <div className={`${styles.foundContainer} z-10`}>
+        <div className={`${styles.foundContainer} z-10 w-1/2`}>
           <h2>Found Exercises</h2>
-          <div className="flex flex-col gap-4 mt-4">
+          <div className="flex flex-col gap-4 mt-4 overflow-y-scroll no-scrollbar h-64">
             {foundExercises.map((exercise) => (
               <FoundExercise
                 exercise={exercise}
@@ -187,7 +216,14 @@ function WorkoutDay({ day }) {
                 addChosen={addChosen}
               />
             ))}
-            <Button onClick={() => setFoundBoolean(false)} className="">
+            <Button onClick={() => createNewExercise()} className="">
+              Create New Exercise
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => setFoundBoolean(false)}
+              className=""
+            >
               Cancel
             </Button>
           </div>
@@ -206,14 +242,18 @@ function WorkoutDay({ day }) {
         )}
         {workouts.map((workout) => (
           <article
-            className={`${styles.workouts} z-0 ${(foundBoolean ? " pointer-events-none " : "")}`}
+            className={`${styles.workouts} z-0 ${
+              foundBoolean ? " pointer-events-none " : ""
+            }`}
             key={workout.id}
           >
             <h1 className="justify-self-start">{workout.name}</h1>
             <h1>{workout.sets}</h1>
             <h1>{workout.reps}</h1>
             <h1>{workout.weight}</h1>
-            <Button variant="ghost" className={styles.trash}
+            <Button
+              variant="ghost"
+              className={styles.trash}
               onClick={(e) => {
                 e.preventDefault();
                 setWorkouts(workouts.filter((w) => w.id !== workout.id));
@@ -224,7 +264,7 @@ function WorkoutDay({ day }) {
           </article>
         ))}
       </div>
-      {workoutSaved ? (
+      {/* {workoutSaved ? (
         <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
           Workout Successfully Saved!
           <button onClick={closeWorkoutSaved} className="ml-5">
@@ -235,9 +275,8 @@ function WorkoutDay({ day }) {
         <div></div>
       )}
       <Button onClick={addDay} className="mb-6">
-        {/* <Button onClick={() => console.log(exerciseIDs)}> */}
         Save {day}
-      </Button>
+      </Button> */}
     </div>
   );
 }
