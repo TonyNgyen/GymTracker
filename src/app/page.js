@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <div className={styles.hero}>
-        <h1 className={styles.title}>Let&apos;s Improve Efficiently.</h1>
+        <h1 className={styles.title}>Workouts Made Easy.</h1>
         <div className={styles.buttons}>
           <Button className="min-w-[110px]" variant="secondary">
             <Link href="/about">

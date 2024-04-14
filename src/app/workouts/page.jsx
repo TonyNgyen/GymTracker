@@ -5,6 +5,7 @@ import { getWorkouts, getExercises } from "@/lib/data";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
+  console.log(workouts);
   const day = new Date().getDay();
   const exercises = await getExercises();
   const weekday = [
@@ -18,7 +19,7 @@ async function WorkoutsPage() {
   ];
   return (
     <div>
-      {!Object.keys(workouts).length ? (
+      {(workouts === undefined || !Object.keys(workouts).length) ? (
         <div className="flex flex-col items-center">
           <section className="p-10 flex justify-center w-1/2 mx-auto rounded-md">
             <h1 className="text-4xl">There are no workouts to display</h1>
@@ -31,7 +32,7 @@ async function WorkoutsPage() {
           </Link>
         </div>
       ) : (
-        <WorkoutList workouts={workouts} day={weekday[1]} exercises={exercises} />
+        <WorkoutList workouts={workouts} day={weekday[day]} exercises={exercises} />
       )}
     </div>
   );
