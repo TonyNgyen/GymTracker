@@ -214,6 +214,7 @@ function WorkoutDay({ day }) {
                 setFoundBoolean={setFoundBoolean}
                 foundBoolean={foundBoolean}
                 addChosen={addChosen}
+                key={exercise.id}
               />
             ))}
             <Button onClick={() => createNewExercise()} className="">
