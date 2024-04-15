@@ -42,14 +42,13 @@ function AutoUpdate({ exercises }) {
   const [exerciseContext, setExerciseContext] = useState(exercises);
   const [state, formAction] = useFormState(validateWorkoutId, undefined);
   const [title, setTitle] = useState("");
-  console.log(state);
 
   return (
     <ExerciseContext.Provider value={[exerciseContext, setExerciseContext]}>
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         {state?.success == undefined && (
           <div className="text-center">
-            <h1 className="text-2xl">What will be the name of the workout?</h1>
+            <h1 className="text-5xl font-semibold mb-12">What will be the name of the workout?</h1>
             <form
               action={formAction}
               className="flex flex-col gap-5 items-center"
@@ -67,13 +66,13 @@ function AutoUpdate({ exercises }) {
               ) : (
                 <></>
               )}
-              <Button type="submit">Submit</Button>
+              <Button className="text-xl py-6 px-5 bg-main hover:bg-main-foreground hover:text-foreground" type="submit">Submit</Button>
             </form>
           </div>
         )}
         {state?.success != undefined && (
           <div className="flex flex-col items-center">
-            <h1 className="text-center text-4xl mb-5">{title}</h1>
+            <h1 className="text-center text-5xl font-semibold mb-5">{title}</h1>
             <Carousel
               className="flex w-10/12 md:w-4/5"
               opts={{
@@ -95,7 +94,7 @@ function AutoUpdate({ exercises }) {
                 onClick={() =>
                   addWorkout(title, workoutContext, exerciseContext)
                 }
-                className="mt-6"
+                className="mt-6 bg-main hover:bg-main-foreground hover:text-foreground text-xl font-semibold p-7"
               >
                 Submit Workout
               </Button>

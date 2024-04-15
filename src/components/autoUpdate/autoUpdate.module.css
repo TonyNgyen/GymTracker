@@ -19,7 +19,7 @@
     border-bottom: 2px solid hsl(var(--foreground));
     width: 50%;
     margin: 1.5rem 0;
-    font-size: larger;
+    font-size: x-large;
     background-color: hsl(var(--background));
   }
   

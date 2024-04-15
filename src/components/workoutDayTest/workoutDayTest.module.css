@@ -70,7 +70,8 @@
 }
 
 .trash {
-  color: hsl(var(--destructive))
+  color: hsl(var(--destructive));
+  font-size: larger;
 }
 
 .workouts {

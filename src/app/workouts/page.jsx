@@ -5,7 +5,6 @@ import { getWorkouts, getExercises } from "@/lib/data";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
-  console.log(workouts);
   const day = new Date().getDay();
   const exercises = await getExercises();
   const weekday = [
@@ -26,7 +25,7 @@ async function WorkoutsPage() {
           </section>
           <Link
             href="/workouts/add"
-            className="py-2 px-4 bg-white text-black rounded-full"
+            className="py-2 px-4 bg-main text-background rounded-full"
           >
             Add Workout
           </Link>

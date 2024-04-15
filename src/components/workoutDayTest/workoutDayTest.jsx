@@ -19,7 +19,6 @@ function WorkoutDay({ day }) {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-  const [workoutSaved, setWorkoutSaved] = useState(false);
   const [exerciseIDs, setExerciseIDs] = useState([]);
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
@@ -119,7 +118,7 @@ function WorkoutDay({ day }) {
   // };
 
   const debug = (e) => {
-    console.log(workouts);
+    console.log(exerciseContext);
   };
 
   return (
@@ -130,22 +129,33 @@ function WorkoutDay({ day }) {
           foundBoolean ? " pointer-events-none blur" : ""
         }`}
       >
-        <Button onClick={() => setModal(!modal)} className="min-w-[80px]">
-          Add
-        </Button>
-        {!rest && (
+        {!modal ? (
+          <Button
+            onClick={() => setModal(!modal)}
+            className="min-w-[110px] text-lg bg-main hover:bg-main-foreground hover:text-foreground"
+          >
+            Add
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setModal(!modal)}
+            className="min-w-[110px] text-lg bg-main hover:bg-main-foreground hover:text-foreground"
+          >
+            Cancel
+          </Button>
+        )}
+        {!rest ? (
           <Button
             variant="secondary"
             onClick={() => setRest(!rest)}
-            className="min-w-[80px]"
+            className="min-w-[110px] text-lg"
           >
             Rest?
           </Button>
-        )}
-        {rest && (
+        ) : (
           <Button
             variant="destructive"
-            className="min-w-[80px]"
+            className="min-w-[110px] text-lg"
             onClick={() => setRest(!rest)}
           >
             Rest
@@ -217,12 +227,21 @@ function WorkoutDay({ day }) {
                 key={exercise.id}
               />
             ))}
-            <Button onClick={() => createNewExercise()} className="">
+            <Button
+              onClick={() => createNewExercise()}
+              className="bg-main hover:bg-main-foreground hover:text-foreground"
+            >
               Create New Exercise
             </Button>
             <Button
               variant="destructive"
-              onClick={() => setFoundBoolean(false)}
+              onClick={() => {
+                setFoundBoolean(false);
+                setName("");
+                setSets("");
+                setReps("");
+                setWeight("");
+              }}
               className=""
             >
               Cancel
@@ -241,29 +260,30 @@ function WorkoutDay({ day }) {
             Please add workouts or mark {day} as a rest day!
           </div>
         )}
-        {workouts.map((workout) => (
-          <article
-            className={`${styles.workouts} z-0 ${
-              foundBoolean ? " pointer-events-none " : ""
-            }`}
-            key={workout.id}
-          >
-            <h1 className="justify-self-start">{workout.name}</h1>
-            <h1>{workout.sets}</h1>
-            <h1>{workout.reps}</h1>
-            <h1>{workout.weight}</h1>
-            <Button
-              variant="ghost"
-              className={styles.trash}
-              onClick={(e) => {
-                e.preventDefault();
-                setWorkouts(workouts.filter((w) => w.id !== workout.id));
-              }}
+        {!foundBoolean &&
+          workouts.map((workout) => (
+            <article
+              className={`${styles.workouts} z-0 md:text-lg ${
+                foundBoolean ? " pointer-events-none " : ""
+              }`}
+              key={workout.id}
             >
-              <FaTrashAlt />
-            </Button>
-          </article>
-        ))}
+              <h1 className="justify-self-start">{workout.name}</h1>
+              <h1>{workout.sets}</h1>
+              <h1>{workout.reps}</h1>
+              <h1>{workout.weight}</h1>
+              <Button
+                variant="ghost"
+                className={styles.trash}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWorkouts(workouts.filter((w) => w.id !== workout.id));
+                }}
+              >
+                <FaTrashAlt />
+              </Button>
+            </article>
+          ))}
       </div>
       {/* {workoutSaved ? (
         <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
