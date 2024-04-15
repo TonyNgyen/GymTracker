@@ -123,9 +123,9 @@ function WorkoutDay({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl mt-10 mb-4">{day}</h1>
+      <h1 className="text-center text-3xl mt-10">{day}</h1>
       <div
-        className={`${styles.buttons} z-0 ${
+        className={`${styles.buttons} z-0 pt-4 ${
           foundBoolean ? " pointer-events-none blur" : ""
         }`}
       >
@@ -206,11 +206,9 @@ function WorkoutDay({ day }) {
             placeholder="Weight"
             value={weight}
           />
-          <div className={styles.buttonsContainer}>
-            <Button type="submit">
-              <FaPlus />
-            </Button>
-          </div>
+          <Button type="submit" className="bg-main hover:bg-main-foreground hover:text-foreground">
+            <FaPlus />
+          </Button>
         </form>
       )}
 
