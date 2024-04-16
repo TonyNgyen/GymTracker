@@ -11,7 +11,7 @@ function NavLink({ item }) {
 
   return (
     <Button
-      className={`${"min-w-[100px] p-[10px] bg-transparent text-black rounded-full text-center text-lg hover:bg-foreground hover:text-background "} ${
+      className={`${"min-w-[100px] p-[10px] bg-transparent text-black rounded-full text-center text-lg hover:bg-foreground hover:text-background text-foreground"} ${
         pathName === item.path && "bg-foreground text-background"
       }`}
     >
