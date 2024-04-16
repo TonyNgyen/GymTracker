@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import WorkoutList from "@/components/workoutList/workoutList";
 import { getWorkouts, getExercises } from "@/lib/data";
+import { Button } from "@/components/ui/button";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
@@ -18,20 +19,23 @@ async function WorkoutsPage() {
   ];
   return (
     <div>
-      {!Object.keys(workouts).length ? (
+      {workouts === undefined || !Object.keys(workouts).length ? (
         <div className="flex flex-col items-center">
           <section className="p-10 flex justify-center w-1/2 mx-auto rounded-md">
-            <h1 className="text-4xl">There are no workouts to display</h1>
+            <h1 className="text-5xl text-center leading-snug">
+              There are no workouts to display
+            </h1>
           </section>
-          <Link
-            href="/workouts/add"
-            className="py-2 px-4 bg-white text-black rounded-full"
-          >
-            Add Workout
-          </Link>
+          <Button className="bg-main text-background text-lg px-6 py-6 hover:bg-main-foreground hover:text-foreground">
+            <Link href="/workouts/add">Add Workout</Link>
+          </Button>
         </div>
       ) : (
-        <WorkoutList workouts={workouts} day={weekday[1]} exercises={exercises} />
+        <WorkoutList
+          workouts={workouts}
+          day={weekday[day]}
+          exercises={exercises}
+        />
       )}
     </div>
   );

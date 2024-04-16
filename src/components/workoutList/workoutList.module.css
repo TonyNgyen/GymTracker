@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   gap: 2%;
+  align-items: center;
 }
 
 .buttons {
   display: flex;
-  gap: 15px;
+  gap: 7px;
 }
 
 .container {
@@ -17,14 +18,17 @@
 
 .workoutHeader {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(17, 1fr);
   justify-items: center;
   width: 100%;
   align-items: center;
   margin: 0px auto;
   padding: 0rem 2rem;
-  font-size: x-large;
   font-weight: 600;
+}
+
+.headers, .stats {
+  grid-column: span 4;
 }
 
 .workoutContainer {
@@ -39,13 +43,14 @@
 
 .workouts {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(17, 1fr);
   justify-items: center;
   align-items: center;
   margin: 0px auto;
   padding: 2rem 2rem;
   border: hsl(var(--foreground)) solid 2px;
   border-radius: 10px;
+  background-color: hsl(var(--cardBG));
 }
 
 @media (max-width: 768px) {

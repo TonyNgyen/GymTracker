@@ -6,6 +6,8 @@
   margin: auto;
   border-radius: 50px;
   border: 2px hsl(var(--foreground)) solid;
+  /* FIND A COLOR THAT WORKS */
+  background-color: hsl(var(--cardBG));
 }
 
 .buttons {
@@ -70,7 +72,8 @@
 }
 
 .trash {
-  color: hsl(var(--destructive))
+  color: hsl(var(--destructive));
+  font-size: larger;
 }
 
 .workouts {

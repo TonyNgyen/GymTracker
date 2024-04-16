@@ -33,7 +33,7 @@ function WorkoutList({ workouts, day, exercises }) {
     <div className={styles.container}>
       <div className={styles.header}>
         <Select onValueChange={(value) => setSelect(value)}>
-          <SelectTrigger className="w-[280px] text-3xl mb-4 md:mb-0">
+          <SelectTrigger className="w-[280px] text-4xl mb-4 md:mb-0 border-transparent">
             <SelectValue placeholder={select} />
           </SelectTrigger>
           <SelectContent>
@@ -43,11 +43,11 @@ function WorkoutList({ workouts, day, exercises }) {
           </SelectContent>
         </Select>
         <div className={styles.buttons}>
-          <Button>
+          <Button className="bg-main hover:bg-main-foreground hover:text-foreground text-lg">
             <Link href="/workouts/add">Add Workout</Link>
           </Button>
 
-          <Button>
+          <Button className="text-lg">
             <Link href={`/workouts/${workouts[select].id}`}>Edit Workout</Link>
           </Button>
         </div>
@@ -56,19 +56,20 @@ function WorkoutList({ workouts, day, exercises }) {
         <div className="text-center">Today is a rest day</div>
       ) : (
         <div className={styles.workoutContainer}>
-          <div className={styles.workoutHeader}>
-            <h1>Workouts</h1>
-            <h1>Sets</h1>
-            <h1>Reps</h1>
-            <h1>Weight</h1>
+          <div className={`${styles.workoutHeader} text-3xl`}>
+            <h1 className={styles.headers}>Exercise</h1>
+            <h1 className={styles.headers}>Sets</h1>
+            <h1 className={styles.headers}>Reps</h1>
+            <h1 className={styles.headers}>Weight</h1>
           </div>
           {convertedExercises.map((workout) => (
             <div key={workout.id}>
-              <div className={styles.workouts}>
-                <h1>{workout.name}</h1>
-                <h1>{workout.sets}</h1>
-                <h1>{workout.reps}</h1>
-                <h1>{workout.weight}</h1>
+              <div className={`${styles.workouts} text-xl`}>
+                <h1 className={styles.stats}>{workout.name}</h1>
+                <h1 className={styles.stats}>{workout.sets}</h1>
+                <h1 className={styles.stats}>{workout.reps}</h1>
+                <h1 className={styles.stats}>{workout.weight}</h1>
+                <Button className={styles.edit}>Edit</Button>
               </div>
             </div>
           ))}

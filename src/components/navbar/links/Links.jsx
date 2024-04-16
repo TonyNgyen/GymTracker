@@ -6,6 +6,7 @@ import NavLink from "./navLink/navLink";
 import Image from "next/image";
 import { handleLogout } from "@/lib/actions";
 import { ModeToggle } from "@/components/ui/toggle-mode";
+import { Button } from "@/components/ui/button";
 
 const links = [
   {
@@ -41,7 +42,7 @@ function Links({ session }) {
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
             <form action={handleLogout}>
-              <button className="p-[10px] cursor-pointer font-bold bg-foreground text-background rounded-full">Logout</button>
+              <Button className="cursor-pointer text-lg font-semibold bg-foreground text-background rounded-full">Logout</Button>
             </form>
           </>
         ) : (
