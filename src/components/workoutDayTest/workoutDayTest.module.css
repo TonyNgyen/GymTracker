@@ -7,7 +7,7 @@
   border-radius: 50px;
   border: 2px hsl(var(--foreground)) solid;
   /* FIND A COLOR THAT WORKS */
-  /* background-color: hsl(var(--main-foreground)); */
+  background-color: hsl(var(--cardBG));
 }
 
 .buttons {

@@ -26,6 +26,13 @@ function WorkoutDay({ day }) {
 
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
+  useEffect(() => {
+    setWorkoutsContext({
+      ...workoutsContext,
+      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+    });
+  }, [exerciseIDs, rest])
+
   const add = (e) => {
     e.preventDefault();
     const newExerciseID = makeid();
@@ -59,6 +66,10 @@ function WorkoutDay({ day }) {
       setUnsavedExercises([...unsavedExercises, newExercise]);
       setExerciseIDs([...exerciseIDs, newExerciseID]);
       setExerciseContext([...exerciseContext, newExercise]);
+      setWorkoutsContext({
+        ...workoutsContext,
+        [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+      });
     }
     setName("");
     setSets("");
@@ -103,10 +114,10 @@ function WorkoutDay({ day }) {
 
   // const addDay = (e) => {
   //   e.preventDefault();
-  //   setWorkoutsContext({
-  //     ...workoutsContext,
-  //     [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-  //   });
+    // setWorkoutsContext({
+    //   ...workoutsContext,
+    //   [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+    // });
   //   setExerciseContext([...exerciseContext, ...unsavedExercises]);
   //   setUnsavedExercises([]);
   //   setWorkoutSaved(true);
@@ -123,7 +134,7 @@ function WorkoutDay({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl mt-10">{day}</h1>
+      <h1 className="text-center text-3xl font-semibold mt-10">{day}</h1>
       <div
         className={`${styles.buttons} z-0 pt-4 ${
           foundBoolean ? " pointer-events-none blur" : ""
@@ -146,7 +157,6 @@ function WorkoutDay({ day }) {
         )}
         {!rest ? (
           <Button
-            variant="secondary"
             onClick={() => setRest(!rest)}
             className="min-w-[110px] text-lg"
           >
