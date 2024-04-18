@@ -47,6 +47,10 @@ module.exports = {
           DEFAULT: "hsl(var(--main))",
           foreground: "hsl(var(--main-foreground))",
         },
+        greenConfirm: {
+          DEFAULT: "hsl(var(--greenConfirm))",
+          foreground: "hsl(var(--greenConfirm-foreground))"
+        },
         cardBG: {
           DEFAULT: "hsl(var(--cardBG))",
           foreground: "hsl(var(--cardBG-foreground))",

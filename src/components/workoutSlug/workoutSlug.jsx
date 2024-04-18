@@ -6,7 +6,7 @@ import { updateWorkout, addExercises, updateExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-import IndividualWorkout from "../individualWorkout/individualWorkout";
+import EditExercise from "../editExercise/editExercise";
 import { makeid } from "@/lib/utils";
 import {
   ExercisesContext,
@@ -183,7 +183,7 @@ function WorkoutSlug({ workout, day }) {
                 )}
                 {workoutContext.workouts[day].workouts.map((exercise) => (
                   <div key={exercise}>
-                    <IndividualWorkout exerciseID={exercise} day={day}/>
+                    <EditExercise exerciseID={exercise} day={day}/>
                   </div>
                 ))}
               </div>
