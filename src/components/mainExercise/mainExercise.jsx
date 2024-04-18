@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { FaEdit, FaCheck } from "react-icons/fa";
 import styles from "./mainExercise.module.css";
-import { ExercisesContext } from "../workoutList/context";
+import { ExercisesContext } from "../exerciseList/context";
 import { updateExercises } from "@/lib/actions";
 
 function MainExercise({ exercise }) {
@@ -55,7 +55,6 @@ function MainExercise({ exercise }) {
   
   return (
     <div className={`${styles.workouts} text-xl`}>
-    <Button onClick={() => console.log(exercisesContext)}>Debug</Button>
       <h1 className={styles.stats}>{exercise.name}</h1>
       <h1 className={styles.stats}>{exercise.sets}</h1>
       <h1 className={styles.stats}>{exercise.reps}</h1>

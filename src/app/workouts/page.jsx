@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import WorkoutList from "@/components/workoutList/exerciseListContainer";
+import ExerciseListContainer from "@/components/exerciseList/exerciseListContainer";
 import { getWorkouts, getExercises } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 
@@ -31,7 +31,7 @@ async function WorkoutsPage() {
           </Button>
         </div>
       ) : (
-        <WorkoutList
+        <ExerciseListContainer
           workouts={workouts}
           day={weekday[day]}
           exercises={exercises}
