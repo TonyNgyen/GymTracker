@@ -87,9 +87,9 @@ function WorkoutSlug({ workout, day }) {
   };
 
   return (
-      <NewExercisesContext.Provider
-        value={[newExercisesContext, setNewExercisesContext]}
-      >
+    <NewExercisesContext.Provider
+      value={[newExercisesContext, setNewExercisesContext]}
+    >
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         <div className={styles.container}>
           <div className={styles.cardContainer}>
@@ -183,15 +183,15 @@ function WorkoutSlug({ workout, day }) {
                 )}
                 {workoutContext.workouts[day].workouts.map((exercise) => (
                   <div key={exercise}>
-                    <EditExercise exerciseID={exercise} day={day}/>
+                    <EditExercise exerciseID={exercise} day={day} />
                   </div>
                 ))}
               </div>
             )}
           </div>
         </div>
-        </WorkoutContext.Provider>
-      </NewExercisesContext.Provider>
+      </WorkoutContext.Provider>
+    </NewExercisesContext.Provider>
   );
 }
 

@@ -74,14 +74,15 @@ function Links({ session }) {
                 <NavLink item={{ title: "Admin", path: "/admin" }} />
               )}
               <form action={handleLogout}>
-                <button className="p-[10px] cursor-pointer font-bold bg-foreground text-background text-2xl">
+                <Button className="cursor-pointer text-lg font-semibold bg-foreground text-background rounded-full">
                   Logout
-                </button>
+                </Button>
               </form>
             </>
           ) : (
             <NavLink item={{ title: "Login", path: "/login" }} />
           )}
+          <ModeToggle />
         </div>
       )}
     </div>

@@ -90,6 +90,10 @@ function WorkoutDay({ day }) {
       },
     ]);
     setExerciseIDs([...exerciseIDs, exerciseID]);
+    setName("");
+    setSets("");
+    setReps("");
+    setWeight("");
   };
 
   const createNewExercise = () => {

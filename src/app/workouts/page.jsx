@@ -26,7 +26,7 @@ async function WorkoutsPage() {
               There are no workouts to display
             </h1>
           </section>
-          <Button className="bg-main text-background text-lg px-6 py-6 hover:bg-main-foreground hover:text-foreground">
+          <Button asChild className="bg-main text-background text-lg px-6 py-6 hover:bg-main-foreground hover:text-foreground">
             <Link href="/workouts/add">Add Workout</Link>
           </Button>
         </div>

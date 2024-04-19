@@ -20,7 +20,7 @@ import MainExercise from "../mainExercise/mainExercise";
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const workoutForDay = workouts[select].workouts["Monday"];
-  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext)
+  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
 
   const convertedExercises = [];
 
@@ -47,12 +47,16 @@ function ExerciseList({ workouts, day }) {
           </SelectContent>
         </Select>
         <div className={styles.buttons}>
-          <Button className="bg-main hover:bg-main-foreground hover:text-foreground text-lg">
-            <Link href="/workouts/add">Add Workout</Link>
+          <Button asChild className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg">
+            <Link href="/workouts/add">Start</Link>
           </Button>
 
-          <Button className="text-lg">
-            <Link href={`/workouts/${workouts[select].id}`}>Edit Workout</Link>
+          <Button asChild className="bg-main hover:bg-main-foreground hover:text-foreground text-lg">
+            <Link href="/workouts/add">Add</Link>
+          </Button>
+
+          <Button asChild className="text-lg">
+            <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
           </Button>
         </div>
       </div>

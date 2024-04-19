@@ -10,7 +10,7 @@ function NavLink({ item }) {
   const pathName = usePathname();
 
   return (
-    <Button
+    <Button asChild
       className={`${"min-w-[100px] p-[10px] bg-transparent text-black rounded-full text-center text-lg hover:bg-foreground hover:text-background text-foreground"} ${
         pathName === item.path && "bg-foreground text-background"
       }`}

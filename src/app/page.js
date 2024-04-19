@@ -9,12 +9,12 @@ export default function Home() {
       <div className={styles.hero}>
         <h1 className={styles.title}>Workouts Made Easy.</h1>
         <div className={styles.buttons}>
-          <Button className="min-w-[110px]" variant="secondary">
+          <Button asChild className="min-w-[110px]" variant="secondary">
             <Link href="/about">
               Learn More
             </Link>
           </Button>
-          <Button className="min-w-[110px]">
+          <Button asChild className="min-w-[110px]">
             <Link href="/register">
               Sign Up
             </Link>

@@ -17,6 +17,7 @@ export const authConfig = {
         session.user.id = token.id;
         session.user.isAdmin = token.isAdmin;
         session.user.workouts = token.workouts;
+        session.user.exercises = token.exercises;
       }
       return session;
     },

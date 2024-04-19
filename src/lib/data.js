@@ -29,6 +29,16 @@ export const getExercises = async () => {
   }
 };
 
+export const getUserExercises = async (userEmail) => {
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    return user.exercises;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getWorkout = async (id) => {
   noStore();
   try {
