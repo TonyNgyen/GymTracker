@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import styles from "./displayDay.module.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import DisplayExercise from "../displayExercise/displayExercise";
 
-function DisplayDay({ workout, day }) {
+function DisplayDay({ workout, day, exercises }) {
   const [drop, setDrop] = useState(false);
   return (
     <div className={styles.container}>
@@ -33,14 +34,13 @@ function DisplayDay({ workout, day }) {
               <h1 className={styles.headers}>Weight</h1>
               <button
                 className={styles.add + " text-2xl font-bold"}
-                onClick={toggle}
               >
                 +
               </button>
             </div>
-            {workoutContext.workouts[day].workouts.map((exercise) => (
-              <div key={exercise}>
-                <EditExercise exerciseID={exercise} day={day} />
+            {workout.workouts.map((exerciseID) => (
+              <div key={exerciseID}>
+                <DisplayExercise exerciseID={exerciseID} exercises={exercises} />
               </div>
             ))}
           </div>

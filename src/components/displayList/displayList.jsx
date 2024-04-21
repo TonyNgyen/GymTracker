@@ -7,7 +7,7 @@ function DisplayWorkout({ workout, exercises }) {
   return (
     <div className={styles.slugContainer}>
     {Object.keys(workout.workouts).map((day) => (
-      <DisplayDay day={day} workout={workout} key={day} />
+      <DisplayDay day={day} workout={workout.workouts[day]} key={day} exercises={exercises} />
     ))}
   </div>
   )
