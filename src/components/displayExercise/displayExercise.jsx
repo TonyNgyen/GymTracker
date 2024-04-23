@@ -10,7 +10,7 @@ function DisplayExercise({ exerciseID, exercises }) {
     }
   }
   return (
-    <div className={styles.workouts}>
+    <div className={`${styles.exercises} text-xl`}>
       <h1 className={styles.stats}>{exercise.name}</h1>
       <h1 className={styles.stats}>{exercise.sets}</h1>
       <h1 className={styles.stats}>{exercise.reps}</h1>

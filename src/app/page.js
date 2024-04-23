@@ -9,7 +9,7 @@ export default function Home() {
       <div className={styles.hero}>
         <h1 className={styles.title}>Workouts Made Easy.</h1>
         <div className={styles.buttons}>
-          <Button asChild className="min-w-[110px]" variant="secondary">
+          <Button asChild className="min-w-[110px] bg-main text-background hover:bg-main-foreground hover:text-foreground">
             <Link href="/about">
               Learn More
             </Link>
