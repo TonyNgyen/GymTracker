@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./displayExercise.module.css"
 
 function DisplayExercise({ exerciseID, exercises }) {
   // console.log(exercise)

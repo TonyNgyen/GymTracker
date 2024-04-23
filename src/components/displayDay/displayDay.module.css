@@ -1,0 +1,130 @@
+.dayHeader {
+    font-size: x-large;
+    margin-right: 1rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .textContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .workoutHeader {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    justify-items: center;
+    width: 100%;
+    align-items: center;
+    margin: 0px auto;
+    padding: 2rem 2rem;
+  }
+  
+  .addHeader {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    justify-items: center;
+    width: 100%;
+    align-items: center;
+    margin: 0px auto;
+    padding: 2rem 2rem;
+    border: 2px solid hsl(var(--foreground));
+    border-radius: 18px;
+    background-color: hsl(var(--muted));
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 3%;
+    width: 80%;
+    margin: 0px auto;
+    border-radius: 20px;
+    border: 2px solid hsl(var(--foreground));
+  }
+  
+  .workouts {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    justify-items: center;
+    align-items: center;
+    margin: 0px auto;
+    padding: 2rem 2rem;
+  }
+  
+  .stats,
+  .headers,
+  .inputs,
+  .addInputs {
+    grid-column: span 3;
+  }
+  
+  .addInputs {
+    width: 90%;
+    text-align: center;
+    border-bottom: 2px solid hsl(var(--foreground));
+    background-color: hsl(var(--muted));
+    margin-bottom: -2px;
+    -moz-appearance: textfield;
+  }
+  
+  .addInputs::placeholder {
+    color: hsl(var(--foreground));
+    opacity: 1; /* Firefox */
+  }
+  
+  .addInputs:focus::placeholder {
+    color: transparent;
+  }
+  
+  .inputs {
+    width: 30%;
+    text-align: center;
+    border-bottom: 2px solid hsl(var(--foreground));
+    margin-bottom: -2px;
+    -moz-appearance: textfield;
+  }
+  
+  .inputs::-webkit-outer-spin-button,
+  .inputs::-webkit-inner-spin-button,
+  .addInputs::-webkit-outer-spin-button,
+  .addInputs::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .edit,
+  .empty {
+    justify-self: start;
+    grid-column: span 1;
+  }
+  
+  .add {
+    grid-column: span 1;
+  }
+  
+  .workoutContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  @media (max-width: 768px) {
+    .cardContainer {
+      width: 100%;
+    }
+  
+    .workoutHeader, .addHeader, .workouts {
+      padding: 2rem .5rem;
+    }
+  }
