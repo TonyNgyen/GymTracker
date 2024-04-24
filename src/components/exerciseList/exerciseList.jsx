@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styles from "./workoutList.module.css";
 import { Button } from "../ui/button";
-import { ExercisesContext } from "./context";
 
 import {
   Select,
@@ -19,18 +18,10 @@ import MainExercise from "../mainExercise/mainExercise";
 
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
-  const workoutForDay = workouts[select].workouts["Monday"];
-  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
+  const workoutForDay = workouts[select].workouts[day];
 
   const convertedExercises = [];
 
-  workoutForDay.workouts.map((id) => {
-    exercisesContext.map((exercise) => {
-      if (id == exercise.id) {
-        convertedExercises.push(exercise);
-      }
-    });
-  });
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -47,11 +38,17 @@ function ExerciseList({ workouts, day }) {
           </SelectContent>
         </Select>
         <div className={styles.buttons}>
-          <Button asChild className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg">
-            <Link href="/workouts/add">Start</Link>
+          <Button
+            asChild
+            className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg"
+          >
+            <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
           </Button>
 
-          <Button asChild className="bg-main hover:bg-main-foreground hover:text-foreground text-lg">
+          <Button
+            asChild
+            className="bg-main hover:bg-main-foreground hover:text-foreground text-lg"
+          >
             <Link href="/workouts/add">Add</Link>
           </Button>
 

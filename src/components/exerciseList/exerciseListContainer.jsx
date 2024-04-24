@@ -1,26 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
-import styles from "./workoutList.module.css";
-import { Button } from "../ui/button";
 import { ExercisesContext } from "./context";
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import MainExercise from "../mainExercise/mainExercise";
 import ExerciseList from "./exerciseList";
 
 function ExerciseListContainer({ workouts, day, exercises }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
-  const workoutForDay = workouts[select].workouts["Monday"];
+  const workoutForDay = workouts[select].workouts[day];
   const [exercisesContext, setExercisesContext] = useState(exercises);
 
   const convertedExercises = [];
@@ -35,7 +21,7 @@ function ExerciseListContainer({ workouts, day, exercises }) {
 
   return (
     <ExercisesContext.Provider value={[exercisesContext, setExercisesContext]}>
-      <ExerciseList workouts={workouts}/>
+      <ExerciseList workouts={workouts} day={day}/>
     </ExercisesContext.Provider>
   );
 }
