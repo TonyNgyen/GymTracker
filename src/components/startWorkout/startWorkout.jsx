@@ -14,7 +14,7 @@ function StartWorkout({ workout, exercises }) {
   });
   return (
     <div>
-      <h1>Ready to begin {workout.name}?</h1>
+      {!begin ? <h1>Ready to begin {workout.name}?</h1> : ""}
       {begin ? <WorkoutTimer pause={pause} /> : ""}
       <Button
         onClick={() => {
