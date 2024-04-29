@@ -17,7 +17,7 @@ function WorkoutTimer({pause}) {
 
   return (
     <div>
-      <p className="stopwatch-time">
+      <p className="text-4xl">
         {hours.toString().padStart(2, "0")}:{minutes.toString().padStart(2, "0")}:
         {seconds.toString().padStart(2, "0")}
       </p>

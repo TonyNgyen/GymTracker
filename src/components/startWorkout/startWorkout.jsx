@@ -13,22 +13,24 @@ function StartWorkout({ workout, exercises }) {
     setBegin(getItem());
   });
   return (
-    <div>
+    <div className="flex flex-col w-fit items-center mx-auto">
       {!begin ? <h1>Ready to begin {workout.name}?</h1> : ""}
       {begin ? <WorkoutTimer pause={pause} /> : ""}
-      <Button
-        onClick={() => {
-          setItem(true);
-          setBegin(true);
-        }}
-      >
-        {begin ? "Begined" : "Begin Workout"}
-      </Button>
-      {!pause ? (
-        <Button onClick={() => setPause(true)}>Pause</Button>
-      ) : (
-        <Button onClick={() => setPause(false)}>Resume</Button>
-      )}
+      <div className="flex gap-3">
+        <Button
+          onClick={() => {
+            setItem(true);
+            setBegin(true);
+          }}
+        >
+          {begin ? "Begined" : "Begin Workout"}
+        </Button>
+        {!pause ? (
+          <Button onClick={() => setPause(true)}>Pause</Button>
+        ) : (
+          <Button onClick={() => setPause(false)}>Resume</Button>
+        )}
+      </div>
     </div>
   );
 }
