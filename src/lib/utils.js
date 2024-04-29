@@ -22,7 +22,7 @@ export function makeid() {
 export const useLocalStorage = (key) => {
   const setItem = (value) => {
     try {
-      window.sessionStorage.setItem(key, JSON.stringify(value));
+      window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       console.log(error)
     }
@@ -30,7 +30,7 @@ export const useLocalStorage = (key) => {
 
   const getItem = () => {
     try {
-      const item = window.sessionStorage.getItem(key);
+      const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : false;
     } catch (error) {
       console.log(error)
