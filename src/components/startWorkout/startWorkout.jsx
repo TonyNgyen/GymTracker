@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useLocalStorage } from "@/lib/utils";
 import WorkoutTimer from "../workoutTimer/workoutTimer";
+import StartExerciseList from "../startExerciseList/startExerciseList";
 
-function StartWorkout({ workout, exercises }) {
+function StartWorkout({ workout, exercises, day }) {
   const { setItem, getItem } = useLocalStorage("Start");
   const [begin, setBegin] = useState("");
   const [pause, setPause] = useState(false);
@@ -31,6 +32,7 @@ function StartWorkout({ workout, exercises }) {
           <Button onClick={() => setPause(false)}>Resume</Button>
         )}
       </div>
+      {begin && <StartExerciseList />}
     </div>
   );
 }
