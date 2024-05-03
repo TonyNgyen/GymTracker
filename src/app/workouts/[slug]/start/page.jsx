@@ -1,6 +1,6 @@
 import React from "react";
 import { getWorkout, getUserExercises } from "@/lib/data";
-import StartWorkout from "@/components/startWorkout/startWorkout";
+import StartWorkoutContainer from "@/components/startWorkoutContainer/startWorkoutContainer";
 
 async function StartPage({ params }) {
   const { slug } = params;
@@ -18,7 +18,7 @@ async function StartPage({ params }) {
   const day = new Date().getDay();
   return (
     <div>
-      <StartWorkout workout={workout} exercises={exercises} day={weekday[day]} />
+      <StartWorkoutContainer workout={workout} exercises={exercises} day={weekday[day]} />
     </div>
   );
 }

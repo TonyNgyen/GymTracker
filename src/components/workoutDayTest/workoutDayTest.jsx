@@ -5,7 +5,6 @@ import styles from "./workoutDayTest.module.css";
 import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
-import { addExercises } from "@/lib/actions";
 import { makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
 

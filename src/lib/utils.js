@@ -19,6 +19,10 @@ export function makeid() {
   return result;
 }
 
+export const convertExercises = (originalExercises, exercises) => {
+  
+}
+
 export const useLocalStorage = (key) => {
   const setItem = (value) => {
     try {
