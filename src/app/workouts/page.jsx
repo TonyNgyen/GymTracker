@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import ExerciseListContainer from "@/components/exerciseList/exerciseListContainer";
+import ExerciseListContainer from "@/components/exerciseListContainer/exerciseListContainer";
 import { getWorkouts, getExercises } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 

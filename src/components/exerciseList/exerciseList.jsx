@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useContext, useState } from "react";
 import styles from "./workoutList.module.css";
 import { Button } from "../ui/button";
-import { ExercisesContext } from "./context";
+import { ExercisesContext } from "../exerciseListContainer/context";
 
 import {
   Select,

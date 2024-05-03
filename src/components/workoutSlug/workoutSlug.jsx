@@ -31,8 +31,6 @@ function WorkoutSlug({ workout, day }) {
   const [newWeight, setNewWeight] = useState("");
   const [modal, setModal] = useState(false);
 
-  console.log(exercisesContext);
-
   const toggle = () => {
     setModal(!modal);
   };

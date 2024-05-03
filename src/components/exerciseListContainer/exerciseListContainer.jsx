@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ExercisesContext } from "./context";
-import ExerciseList from "./exerciseList";
+import ExerciseList from "../exerciseList/exerciseList";
 
 function ExerciseListContainer({ workouts, day, exercises }) {
   const [exercisesContext, setExercisesContext] = useState(exercises);

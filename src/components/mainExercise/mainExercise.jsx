@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { FaEdit, FaCheck } from "react-icons/fa";
 import styles from "./mainExercise.module.css";
-import { ExercisesContext } from "../exerciseList/context";
+import { ExercisesContext } from "../exerciseListContainer/context";
 import { updateExercises } from "@/lib/actions";
 
 function MainExercise({ exercise }) {
@@ -11,24 +11,24 @@ function MainExercise({ exercise }) {
   const [weight, setWeight] = useState(exercise.weight);
 
   useEffect(() => {
-    updateExercises(exercisesContext)
-  }, [exercisesContext])
+    updateExercises(exercisesContext);
+  }, [exercisesContext]);
 
   const confirmEditSubmit = (e) => {
     e.preventDefault();
     setEditToggle(!editToggle);
-    let copyExercises = [];
+    let copyExercises = {};
     for (let exerciseIndex in exercisesContext) {
       if (exercisesContext[exerciseIndex].id == exercise.id) {
-        copyExercises.push({
+        copyExercises[exercise.id] = {
           id: exercise.id,
           name: exercise.name,
           sets: exercise.sets,
           reps: exercise.reps,
           weight: weight,
-        });
+        };
       } else {
-        copyExercises.push(exercisesContext[exerciseIndex]);
+        copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];
       }
     }
     setExercisesContext(copyExercises);
@@ -36,23 +36,23 @@ function MainExercise({ exercise }) {
 
   const confirmEditClick = () => {
     setEditToggle(!editToggle);
-    let copyExercises = [];
-    for (let exercise in exercisesContext) {
-      if (exercisesContext[exercise].id == exercise.id) {
-        copyExercises.push({
+    let copyExercises = {};
+    for (let exerciseIndex in exercisesContext) {
+      if (exercisesContext[exerciseIndex].id == exercise.id) {
+        copyExercises[exercise.id] = {
           id: exercise.id,
           name: exercise.name,
           sets: exercise.sets,
           reps: exercise.reps,
           weight: weight,
-        });
+        };
       } else {
-        copyExercises.push(exercisesContext[exercise]);
+        copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];
       }
     }
     setExercisesContext(copyExercises);
   };
-  
+
   return (
     <div className={`${styles.workouts} text-xl`}>
       <h1 className={styles.stats}>{exercise.name}</h1>
