@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./workoutList.module.css";
 import { Button } from "../ui/button";
+import { ExercisesContext } from "./context";
 
 import {
   Select,
@@ -18,9 +19,14 @@ import MainExercise from "../mainExercise/mainExercise";
 
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
+  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const workoutForDay = workouts[select].workouts[day];
 
   const convertedExercises = [];
+
+  workoutForDay.workouts.map((id) => {
+    convertedExercises.push(exercisesContext[id]);
+  });
 
   return (
     <div className={styles.container}>

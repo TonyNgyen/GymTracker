@@ -30,7 +30,7 @@ function WorkoutDay({ day }) {
       ...workoutsContext,
       [day]: { completed: true, workouts: exerciseIDs, rest: rest },
     });
-  }, [exerciseIDs, rest])
+  }, [exerciseIDs, rest]);
 
   const add = (e) => {
     e.preventDefault();
@@ -53,23 +53,22 @@ function WorkoutDay({ day }) {
       setFoundBoolean(true);
       setModal(false);
       return;
-    } else {
-      let newExercise = {
-        id: newExerciseID,
-        name: name,
-        sets: sets,
-        reps: reps,
-        weight: weight,
-      };
-      setWorkouts([...workouts, newExercise]);
-      setUnsavedExercises([...unsavedExercises, newExercise]);
-      setExerciseIDs([...exerciseIDs, newExerciseID]);
-      setExerciseContext([...exerciseContext, newExercise]);
-      setWorkoutsContext({
-        ...workoutsContext,
-        [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-      });
     }
+    let newExercise = {
+      id: newExerciseID,
+      name: name,
+      sets: sets,
+      reps: reps,
+      weight: weight,
+    };
+    setWorkouts([...workouts, newExercise]);
+    setUnsavedExercises([...unsavedExercises, newExercise]);
+    setExerciseIDs([...exerciseIDs, newExerciseID]);
+    setExerciseContext({ ...exerciseContext, [newExerciseID]: newExercise });
+    setWorkoutsContext({
+      ...workoutsContext,
+      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+    });
     setName("");
     setSets("");
     setReps("");
@@ -107,7 +106,7 @@ function WorkoutDay({ day }) {
     setWorkouts([...workouts, newExercise]);
     setUnsavedExercises([...unsavedExercises, newExercise]);
     setExerciseIDs([...exerciseIDs, newExerciseID]);
-    setExerciseContext([...exerciseContext, newExercise]);
+    setExerciseContext({ ...exerciseContext, [newExerciseID]: newExercise });
     setName("");
     setSets("");
     setReps("");
@@ -117,10 +116,10 @@ function WorkoutDay({ day }) {
 
   // const addDay = (e) => {
   //   e.preventDefault();
-    // setWorkoutsContext({
-    //   ...workoutsContext,
-    //   [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-    // });
+  // setWorkoutsContext({
+  //   ...workoutsContext,
+  //   [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+  // });
   //   setExerciseContext([...exerciseContext, ...unsavedExercises]);
   //   setUnsavedExercises([]);
   //   setWorkoutSaved(true);
@@ -174,9 +173,9 @@ function WorkoutDay({ day }) {
             Rest
           </Button>
         )}
-        {/* <Button onClick={debug} className="min-w-[69px]">
+        <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button> */}
+        </Button>
       </div>
 
       {modal && (
@@ -219,7 +218,10 @@ function WorkoutDay({ day }) {
             placeholder="Weight"
             value={weight}
           />
-          <Button type="submit" className="bg-main hover:bg-main-foreground hover:text-foreground">
+          <Button
+            type="submit"
+            className="bg-main hover:bg-main-foreground hover:text-foreground"
+          >
             <FaPlus />
           </Button>
         </form>

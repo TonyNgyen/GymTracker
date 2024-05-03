@@ -2,12 +2,17 @@ import React, { useState, useContext, useEffect } from "react";
 import styles from "./editExercise.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { WorkoutContext, ExercisesContext, NewExercisesContext } from "../editList/context";
+import {
+  WorkoutContext,
+  ExercisesContext,
+  NewExercisesContext,
+} from "../editList/context";
 
 function EditExercise({ exerciseID, day }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const [newExercisesContext, setNewExercisesContext] = useContext(NewExercisesContext);
+  const [newExercisesContext, setNewExercisesContext] =
+    useContext(NewExercisesContext);
 
   let workout = {};
 
@@ -32,20 +37,27 @@ function EditExercise({ exerciseID, day }) {
 
   const editExercise = (exerciseID, name, sets, reps, weight) => {
     editSelect(exerciseID);
-    let copyExercises = [];
-    for (let exercise in exercisesContext) {
-      if (exercisesContext[exercise].id == exerciseID) {
-        copyExercises.push({
-          id: exerciseID,
-          name: name,
-          sets: sets,
-          reps: reps,
-          weight: weight,
-        });
-      } else {
-        copyExercises.push(exercisesContext[exercise]);
-      }
-    }
+    let copyExercises = exercisesContext;
+    copyExercises[exerciseID] = {
+      id: exerciseID,
+      name: name,
+      sets: sets,
+      reps: reps,
+      weight: weight,
+    };
+    // for (let exercise in exercisesContext) {
+    //   if (exercisesContext[exercise].id == exerciseID) {
+    //     copyExercises.push({
+    //       id: exerciseID,
+    //       name: name,
+    //       sets: sets,
+    //       reps: reps,
+    //       weight: weight,
+    //     });
+    //   } else {
+    //     copyExercises.push(exercisesContext[exercise]);
+    //   }
+    // }
     setExercisesContext(copyExercises);
 
     copyExercises = [];

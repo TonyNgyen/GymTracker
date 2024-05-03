@@ -31,6 +31,8 @@ function WorkoutSlug({ workout, day }) {
   const [newWeight, setNewWeight] = useState("");
   const [modal, setModal] = useState(false);
 
+  console.log(exercisesContext);
+
   const toggle = () => {
     setModal(!modal);
   };
@@ -41,27 +43,27 @@ function WorkoutSlug({ workout, day }) {
 
     setExerciseIds([...exerciseIds, newExerciseId]);
 
-    setExercisesContext([
+    setExercisesContext({
       ...exercisesContext,
-      {
+      [newExerciseId]: {
         id: newExerciseId,
         name: newName,
         sets: newSets,
         reps: newReps,
         weight: newWeight,
       },
-    ]);
+    });
 
-    setNewExercisesContext([
+    setNewExercisesContext({
       ...newExercisesContext,
-      {
+      [newExerciseId]: {
         id: newExerciseId,
         name: newName,
         sets: newSets,
         reps: newReps,
         weight: newWeight,
       },
-    ]);
+    });
 
     setWorkoutContext({
       ...workoutContext,

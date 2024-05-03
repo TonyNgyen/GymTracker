@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema(
       default: {},
     },
     exercises: {
-      type: Array,
-      default: [],
+      type: Map,
+      default: {},
     },
     workoutHistory: {
       type: Map,

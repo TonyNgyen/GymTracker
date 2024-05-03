@@ -116,6 +116,7 @@ export const addExercises = async (exercises) => {
 };
 
 export const updateExercises = async (exercises) => {
+  console.log(exercises);
   const session = await auth();
   connectToDb();
   await User.findOneAndUpdate(
