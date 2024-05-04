@@ -5,18 +5,23 @@ import StartWorkout from "../startWorkout/startWorkout";
 import {
   WorkoutContext,
   ExercisesContext,
+  StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
 
 function StartWorkoutContainer({ workout, exercises, day }) {
   const [workoutContext, setWorkoutContext] = useState(workout);
   const [exercisesContext, setExercisesContext] = useState(exercises);
-  console.log(workoutContext.workouts[day].workouts);
+  const [startWorkoutContext, setStartWorkoutContext] = useState();
   return (
     <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
       <ExercisesContext.Provider
         value={[exercisesContext, setExercisesContext]}
       >
-        <StartWorkout day={day} />
+        <StartWorkoutContext.Provider
+          value={[startWorkoutContext, setStartWorkoutContext]}
+        >
+          <StartWorkout day={day} />
+        </StartWorkoutContext.Provider>
       </ExercisesContext.Provider>
     </WorkoutContext.Provider>
   );

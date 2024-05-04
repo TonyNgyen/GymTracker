@@ -20,7 +20,11 @@ export function makeid() {
 }
 
 export const convertExercises = (originalExercises, exercises) => {
-  
+  let convertedExercises = [];
+  for (let index in originalExercises) {
+    convertedExercises.push(exercises[originalExercises[index]]);
+  }
+  return convertedExercises;
 }
 
 export const useLocalStorage = (key) => {
