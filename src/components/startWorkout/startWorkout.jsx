@@ -29,19 +29,30 @@ function StartWorkout({ day }) {
         {!begin ? <h1>Ready to begin {workoutContext.name}?</h1> : ""}
         {begin ? <WorkoutTimer pause={pause} /> : ""}
         <div className="flex gap-3">
+          {!pause ? (
+            <Button
+              className="text-lg min-w-[105px]"
+              onClick={() => setPause(true)}
+            >
+              Pause
+            </Button>
+          ) : (
+            <Button
+              className="text-lg min-w-[105px]"
+              onClick={() => setPause(false)}
+            >
+              Resume
+            </Button>
+          )}
           <Button
+            className="text-lg min-w-[105px]"
             onClick={() => {
               setItem(true);
               setBegin(true);
             }}
           >
-            {begin ? "Begined" : "Begin Workout"}
+            {begin ? "End" : "Begin Workout"}
           </Button>
-          {!pause ? (
-            <Button onClick={() => setPause(true)}>Pause</Button>
-          ) : (
-            <Button onClick={() => setPause(false)}>Resume</Button>
-          )}
         </div>
       </div>
       <div>{begin && <StartExerciseList day={day} />}</div>

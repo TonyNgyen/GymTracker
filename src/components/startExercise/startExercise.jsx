@@ -10,6 +10,11 @@ function StartExercise({ exercise }) {
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(exercise.weight);
 
+  const rows = [];
+  for (let i = 0; i < exercise.sets; i++) {
+    rows.push(1);
+  }
+
   useEffect(() => {
     updateExercises(exercisesContext);
   }, [exercisesContext]);
@@ -53,44 +58,49 @@ function StartExercise({ exercise }) {
     setExercisesContext(copyExercises);
   };
   return (
-    <div className={`${styles.workouts} text-xl`}>
-      <h1 className={styles.stats}>{exercise.name}</h1>
-      <h1 className={styles.stats}>{exercise.sets}</h1>
-      <h1 className={styles.stats}>{exercise.reps}</h1>
-      <h1 className={styles.stats}>
-        {!editToggle ? (
-          exercise.weight
-        ) : (
-          <form className="text-center" onSubmit={confirmEditSubmit}>
-            <input
-              type="number"
-              name="weight"
-              id=""
-              onChange={(e) => {
-                setWeight(e.target.value);
-              }}
-              placeholder="Weight"
-              value={weight}
-              className={styles.inputs}
-            />
-          </form>
-        )}
-      </h1>
-      {!editToggle ? (
-        <Button
-          className={`${styles.edit} bg-main hover:bg-main-foreground hover:text-foreground`}
-          onClick={() => setEditToggle(!editToggle)}
-        >
-          <FaEdit />
-        </Button>
-      ) : (
-        <Button
-          className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground`}
-          onClick={confirmEditClick}
-        >
-          <FaCheck />
-        </Button>
-      )}
+    <div>
+      <h1 className="text-3xl text-center mb-4">{exercise.name}</h1>
+      <div className="flex flex-auto flex-col gap-5">
+        {rows.map((row) => (
+          <div className={`${styles.workouts} text-xl w-full`}>
+            <h1 className={styles.stats}>{exercise.reps}</h1>
+            <h1 className={styles.stats}>
+              {!editToggle ? (
+                exercise.weight
+              ) : (
+                <form className="text-center" onSubmit={confirmEditSubmit}>
+                  <input
+                    type="number"
+                    name="weight"
+                    id=""
+                    onChange={(e) => {
+                      setWeight(e.target.value);
+                    }}
+                    placeholder="Weight"
+                    value={weight}
+                    className={styles.inputs}
+                  />
+                </form>
+              )}
+            </h1>
+            {!editToggle ? (
+              <Button
+                className={`${styles.edit} bg-main hover:bg-main-foreground hover:text-foreground`}
+                onClick={() => setEditToggle(!editToggle)}
+              >
+                <FaEdit />
+              </Button>
+            ) : (
+              <Button
+                className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground`}
+                onClick={confirmEditClick}
+              >
+                <FaCheck />
+              </Button>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

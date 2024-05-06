@@ -46,19 +46,19 @@ function ExerciseList({ workouts, day }) {
         <div className={styles.buttons}>
           <Button
             asChild
-            className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg"
+            className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg min-w-[76px]"
           >
             <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
           </Button>
 
           <Button
             asChild
-            className="bg-main hover:bg-main-foreground hover:text-foreground text-lg"
+            className="bg-main hover:bg-main-foreground hover:text-foreground text-lg min-w-[76px]"
           >
             <Link href="/workouts/add">Add</Link>
           </Button>
 
-          <Button asChild className="text-lg">
+          <Button asChild className="text-lg min-w-[76px]">
             <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
           </Button>
         </div>

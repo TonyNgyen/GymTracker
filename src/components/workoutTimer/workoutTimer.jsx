@@ -16,7 +16,7 @@ function WorkoutTimer({pause}) {
   const seconds = Math.floor(time % 60)
 
   return (
-    <div>
+    <div className="mb-2">
       <p className="text-4xl">
         {hours.toString().padStart(2, "0")}:{minutes.toString().padStart(2, "0")}:
         {seconds.toString().padStart(2, "0")}
