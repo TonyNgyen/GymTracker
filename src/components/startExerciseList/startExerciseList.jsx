@@ -23,7 +23,7 @@ function StartExerciseList({ day }) {
     exercisesContext
   );
   return (
-    <div className="m-2">
+    <div className="">
       <Carousel>
         <CarouselContent>
           {convertedExercises.map((exercise) => (

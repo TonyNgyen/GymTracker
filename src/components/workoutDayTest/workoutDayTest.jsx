@@ -173,9 +173,9 @@ function WorkoutDay({ day }) {
             Rest
           </Button>
         )}
-        <Button onClick={debug} className="min-w-[69px]">
+        {/* <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button>
+        </Button> */}
       </div>
 
       {modal && (
