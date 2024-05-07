@@ -62,7 +62,7 @@ function StartExercise({ exercise }) {
       <h1 className="text-3xl text-center mb-4">{exercise.name}</h1>
       <div className="flex flex-auto flex-col gap-5">
         {rows.map((row) => (
-          <div className={`${styles.workouts} text-xl w-full`}>
+          <div className={`${styles.workouts} text-xl w-full`} key={row}>
             <h1 className={styles.stats}>{exercise.reps}</h1>
             <h1 className={styles.stats}>
               {!editToggle ? (

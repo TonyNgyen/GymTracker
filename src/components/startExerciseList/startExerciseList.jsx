@@ -27,7 +27,7 @@ function StartExerciseList({ day }) {
       <Carousel>
         <CarouselContent>
           {convertedExercises.map((exercise) => (
-            <CarouselItem>
+            <CarouselItem key={exercise.id}>
               <StartExercise exercise={exercise} />
             </CarouselItem>
           ))}
