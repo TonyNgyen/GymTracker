@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import StartExerciseContainer from "../startExerciseContainer/startExerciseContainer";
 
 function StartExerciseList({ day }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
@@ -28,7 +29,7 @@ function StartExerciseList({ day }) {
         <CarouselContent>
           {convertedExercises.map((exercise) => (
             <CarouselItem key={exercise.id}>
-              <StartExercise exercise={exercise} />
+              <StartExerciseContainer exercise={exercise} />
             </CarouselItem>
           ))}
         </CarouselContent>
