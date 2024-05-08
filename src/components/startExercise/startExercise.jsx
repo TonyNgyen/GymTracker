@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import styles from "./startExercise.module.css";
-import { ExercisesContext, WorkoutContext } from "@/app/workouts/[slug]/start/context";
+import { ExercisesContext } from "@/app/workouts/[slug]/start/context";
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { updateExercises } from "@/lib/actions";
 
 function StartExercise({ exercise }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const isFirstRender = useRef(true)
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(exercise.weight);

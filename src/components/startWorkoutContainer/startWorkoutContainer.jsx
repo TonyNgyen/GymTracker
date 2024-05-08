@@ -11,7 +11,7 @@ import {
 function StartWorkoutContainer({ workout, exercises, day }) {
   const [workoutContext, setWorkoutContext] = useState(workout);
   const [exercisesContext, setExercisesContext] = useState(exercises);
-  const [startWorkoutContext, setStartWorkoutContext] = useState();
+  const [startWorkoutContext, setStartWorkoutContext] = useState({});
   return (
     <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
       <ExercisesContext.Provider
