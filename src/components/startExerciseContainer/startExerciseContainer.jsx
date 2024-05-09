@@ -7,14 +7,14 @@ function StartExerciseContainer({ exercise }) {
     rows.push(i);
   }
   return (
-    <div>
+    <>
       <h1 className="text-3xl text-center mb-4">{exercise.name}</h1>
       <div className="flex flex-col gap-3">
         {rows.map((row) => (
           <StartExercise exercise={exercise} key={row} />
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

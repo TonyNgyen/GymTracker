@@ -93,7 +93,7 @@ function EditExercise({ exerciseID, day }) {
   };
 
   return (
-    <div>
+    <>
       {workout.id == exerciseSelect && edit ? (
         <form className={styles.workouts}>
           <button
@@ -165,7 +165,7 @@ function EditExercise({ exerciseID, day }) {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

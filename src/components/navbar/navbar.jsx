@@ -12,9 +12,7 @@ async function Navbar() {
       <Link href="/" className={styles.logo}>
         Gym<span className="text-main">Tracker</span>
       </Link>
-      <div>
-        <Links session={session} />
-      </div>
+      <Links session={session} />
     </div>
   );
 }

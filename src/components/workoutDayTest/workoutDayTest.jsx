@@ -298,19 +298,6 @@ function WorkoutDay({ day }) {
             </article>
           ))}
       </div>
-      {/* {workoutSaved ? (
-        <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
-          Workout Successfully Saved!
-          <button onClick={closeWorkoutSaved} className="ml-5">
-            X
-          </button>
-        </div>
-      ) : (
-        <div></div>
-      )}
-      <Button onClick={addDay} className="mb-6">
-        Save {day}
-      </Button> */}
     </div>
   );
 }
