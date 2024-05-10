@@ -12,6 +12,7 @@ function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
+  console.log(workoutsContext);
   const [rest, setRest] = useState(workoutsContext[day].rest);
   const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
   const [name, setName] = useState("");
