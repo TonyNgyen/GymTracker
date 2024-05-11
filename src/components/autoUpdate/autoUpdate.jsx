@@ -52,8 +52,6 @@ function AutoUpdate({ exercises }) {
     daysDict[i] = { completed: false, workouts: [], rest: false };
   }
 
-  console.log(days);
-
   return (
     <>
       {nameState?.success == undefined && (
