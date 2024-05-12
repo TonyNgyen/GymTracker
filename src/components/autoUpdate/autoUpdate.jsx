@@ -40,8 +40,6 @@ function AutoUpdate({ exercises }) {
     validateWorkoutDays,
     undefined
   );
-  const [titleMessage, setTitleMessage] = useState(false);
-  const [daysMessage, setDaysMessage] = useState(false);
   const [daysNeeded, setDaysNeeded] = useState(0);
   const [title, setTitle] = useState("");
 

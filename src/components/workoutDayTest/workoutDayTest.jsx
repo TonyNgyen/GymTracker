@@ -12,7 +12,6 @@ function WorkoutDay({ day }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
-  console.log(workoutsContext);
   const [rest, setRest] = useState(workoutsContext[day].rest);
   const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
   const [name, setName] = useState("");
@@ -114,22 +113,6 @@ function WorkoutDay({ day }) {
     setWeight("");
     setFoundBoolean(false);
   };
-
-  // const addDay = (e) => {
-  //   e.preventDefault();
-  // setWorkoutsContext({
-  //   ...workoutsContext,
-  //   [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-  // });
-  //   setExerciseContext([...exerciseContext, ...unsavedExercises]);
-  //   setUnsavedExercises([]);
-  //   setWorkoutSaved(true);
-  // };
-
-  // const closeWorkoutSaved = (e) => {
-  //   e.preventDefault();
-  //   setWorkoutSaved(false);
-  // };
 
   const debug = (e) => {
     console.log(exerciseContext);

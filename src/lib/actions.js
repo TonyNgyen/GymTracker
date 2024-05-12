@@ -59,7 +59,7 @@ export const validateWorkoutDays = async (prevState, formData) => {
   }
 };
 
-export const addWorkout = async (name, workout, exercises) => {
+export const addWorkout = async (name, workout, exercises, startDate) => {
   const session = await auth();
   connectToDb();
   try {
@@ -67,6 +67,7 @@ export const addWorkout = async (name, workout, exercises) => {
       id: makeid(),
       name: name,
       creator: session.user?.email,
+      date: startDate,
       workouts: workout,
     });
     await newWorkout.save();

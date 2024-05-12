@@ -3,20 +3,12 @@ import React from "react";
 import ExerciseListContainer from "@/components/exerciseListContainer/exerciseListContainer";
 import { getWorkouts, getExercises } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
 
 async function WorkoutsPage() {
   const workouts = await getWorkouts();
-  const day = new Date().getDay();
+  const day = format(new Date(), "P");
   const exercises = await getExercises();
-  const weekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
   return (
     <div>
       {workouts === undefined || !Object.keys(workouts).length ? (
@@ -33,7 +25,7 @@ async function WorkoutsPage() {
       ) : (
         <ExerciseListContainer
           workouts={workouts}
-          day={weekday[day]}
+          day={day}
           exercises={exercises}
         />
       )}
