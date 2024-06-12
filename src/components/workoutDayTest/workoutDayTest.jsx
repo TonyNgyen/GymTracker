@@ -7,8 +7,9 @@ import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 import { makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
+import { format } from "date-fns";
 
-function WorkoutDay({ day }) {
+function WorkoutDayTest({ day }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
@@ -120,7 +121,7 @@ function WorkoutDay({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl font-semibold mt-10">{day}</h1>
+      <h1 className="text-center text-3xl font-semibold mt-10">{day.length == 1 ? day : format(day, "P")}</h1>
       <div
         className={`${styles.buttons} z-0 pt-4 ${
           foundBoolean ? " pointer-events-none blur" : ""
@@ -254,7 +255,7 @@ function WorkoutDay({ day }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark {day} as a rest day!
+            Please add workouts or mark {day.length == 1 ? "day " + day : format(day, "P").slice(0,-5)} as a rest day!
           </div>
         )}
         {!foundBoolean &&
@@ -286,4 +287,4 @@ function WorkoutDay({ day }) {
   );
 }
 
-export default WorkoutDay;
+export default WorkoutDayTest;

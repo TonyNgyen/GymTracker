@@ -57,7 +57,10 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     default: "No Creator",
   },
-  date: {
+  dateCreated: {
+    type: String,
+  },
+  dateLast: {
     type: String,
   },
   workouts: {},

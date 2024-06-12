@@ -67,7 +67,8 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
       id: makeid(),
       name: name,
       creator: session.user?.email,
-      date: startDate,
+      dateCreated: startDate,
+      dateLast: startDate,
       workouts: workout,
     });
     await newWorkout.save();

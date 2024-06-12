@@ -5,6 +5,7 @@ import React, { useContext, useState } from "react";
 import styles from "./workoutList.module.css";
 import { Button } from "../ui/button";
 import { ExercisesContext } from "../exerciseListContainer/context";
+import { format } from "date-fns";
 
 import {
   Select,
@@ -20,7 +21,6 @@ import MainExercise from "../mainExercise/mainExercise";
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  console.log(workouts);
   const workoutForDay = workouts[select].workouts[day];
 
   const convertedExercises = [];
@@ -28,6 +28,11 @@ function ExerciseList({ workouts, day }) {
     workoutForDay.workouts.map((id) => {
       convertedExercises.push(exercisesContext[id]);
     });
+  } else {
+    console.log(workouts[select].workouts);
+    for (let day in workouts[select].workouts) {
+      console.log(day)
+    }
   }
 
   return (

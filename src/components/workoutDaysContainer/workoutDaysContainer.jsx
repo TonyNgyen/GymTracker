@@ -42,16 +42,21 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
   const [newDays, setNewDays] = useState(days);
 
   useEffect(() => {
-    if (date) {
-      let workoutWithDays = {};
-      let updatedDays = []
-      for (let key in workoutContext) {
-        workoutWithDays[format(addDays(date, key - 1), "P")] =
-          workoutContext[key];
-        updatedDays.push(format(addDays(date, key - 1), "P"));
+    try {
+      if (date) {
+        let workoutWithDays = {};
+        let updatedDays = []
+        for (let key in daysDict) {
+          console.log(key)
+          workoutWithDays[addDays(date, key - 1)] =
+            daysDict[key];
+          updatedDays.push(addDays(date, key - 1));
+        }
+        setWorkoutContext(workoutWithDays);
+        setNewDays(updatedDays);
       }
-      setWorkoutContext(workoutWithDays);
-      setNewDays(updatedDays);
+    } catch (error) {
+      console.log("ERROR IS HERE");
     }
   }, [date]);
 
@@ -68,8 +73,8 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
           >
             <CarouselContent className="text-center">
               {newDays.map((day) => (
-                <CarouselItem key={day}>
-                  <WorkoutDayTest day={day} />
+                <CarouselItem key={day.toString()}>
+                  <WorkoutDayTest day={day.toString()} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -113,6 +118,9 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
                     mode="single"
                     selected={date}
                     onSelect={setDate}
+                    disabled={(date) =>
+                      date <= new Date(new Date().setDate(new Date().getDate()-1))
+                    }
                   />
                 </PopoverContent>
               </Popover>

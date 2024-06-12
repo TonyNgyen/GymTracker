@@ -4,7 +4,6 @@ import { WorkoutContext } from "@/app/workouts/add/context";
 import { Button } from "../ui/button";
 
 function WorkoutDay({ day }) {
-
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
