@@ -113,7 +113,6 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    initialFocus
                   />
                 </PopoverContent>
               </Popover>
