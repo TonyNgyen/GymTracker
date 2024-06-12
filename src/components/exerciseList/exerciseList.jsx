@@ -20,13 +20,15 @@ import MainExercise from "../mainExercise/mainExercise";
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
+  console.log(workouts);
   const workoutForDay = workouts[select].workouts[day];
 
   const convertedExercises = [];
-
-  workoutForDay.workouts.map((id) => {
-    convertedExercises.push(exercisesContext[id]);
-  });
+  if (workoutForDay != undefined) {
+    workoutForDay.workouts.map((id) => {
+      convertedExercises.push(exercisesContext[id]);
+    });
+  }
 
   return (
     <div className={styles.container}>
@@ -63,22 +65,26 @@ function ExerciseList({ workouts, day }) {
           </Button>
         </div>
       </div>
-      {workoutForDay.rest ? (
-        <div className="text-center">Today is a rest day</div>
-      ) : (
-        <div className={styles.workoutContainer}>
-          <div className={`${styles.workoutHeader} text-3xl`}>
-            <h1 className={styles.headers}>Exercise</h1>
-            <h1 className={styles.headers}>Sets</h1>
-            <h1 className={styles.headers}>Reps</h1>
-            <h1 className={styles.headers}>Weight</h1>
-          </div>
-          {convertedExercises.map((exercise) => (
-            <div key={exercise.id}>
-              <MainExercise exercise={exercise} />
+      {workoutForDay !== undefined ? (
+        workoutForDay.rest ? (
+          <div className="text-center">Today is a rest day</div>
+        ) : (
+          <div className={styles.workoutContainer}>
+            <div className={`${styles.workoutHeader} text-3xl`}>
+              <h1 className={styles.headers}>Exercise</h1>
+              <h1 className={styles.headers}>Sets</h1>
+              <h1 className={styles.headers}>Reps</h1>
+              <h1 className={styles.headers}>Weight</h1>
             </div>
-          ))}
-        </div>
+            {convertedExercises.map((exercise) => (
+              <div key={exercise.id}>
+                <MainExercise exercise={exercise} />
+              </div>
+            ))}
+          </div>
+        )
+      ) : (
+        <div>There seems to be an error</div>
       )}
     </div>
   );
