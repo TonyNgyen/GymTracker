@@ -23,15 +23,7 @@ import styles from "./autoUpdate.module.css";
 import WorkoutDaysContainer from "../workoutDaysContainer/workoutDaysContainer";
 
 function AutoUpdate({ exercises }) {
-  const daysDict = {
-    // Monday: { completed: false, workouts: [], rest: false },
-    // Tuesday: { completed: false, workouts: [], rest: false },
-    // Wednesday: { completed: false, workouts: [], rest: false },
-    // Thursday: { completed: false, workouts: [], rest: false },
-    // Friday: { completed: false, workouts: [], rest: false },
-    // Saturday: { completed: false, workouts: [], rest: false },
-    // Sunday: { completed: false, workouts: [], rest: false },
-  };
+  const [daysDict, setDaysDict] = useState({});
   const [nameState, nameFormAction] = useFormState(
     validateWorkoutName,
     undefined
@@ -43,12 +35,20 @@ function AutoUpdate({ exercises }) {
   const [daysNeeded, setDaysNeeded] = useState(0);
   const [title, setTitle] = useState("");
 
-  const days = [];
+  const [days, setDays] = useState([]);
 
-  for (let i = 1; i <= daysNeeded; i++) {
-    days.push(i);
-    daysDict[i] = { completed: false, workouts: [], rest: false };
-  }
+  useEffect(() => {
+    if (daysNeeded > 0) {
+      const newDaysDict = {};
+      const newDays = [];
+      for (let i = 1; i <= daysNeeded; i++) {
+        newDaysDict[i] = { completed: false, workouts: [], rest: false, date: i.toString() };
+        newDays.push(i);
+      }
+      setDaysDict(newDaysDict);
+      setDays(newDays);
+    }
+  }, [daysNeeded]);
 
   return (
     <>

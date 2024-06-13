@@ -2,7 +2,11 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDayTest.module.css";
-import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
+import {
+  ExerciseContext,
+  WorkoutContext,
+  OriginalDaysContext,
+} from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 import { makeid } from "@/lib/utils";
@@ -10,6 +14,7 @@ import FoundExercise from "../foundExercises/foundExercise";
 import { format } from "date-fns";
 
 function WorkoutDayTest({ day }) {
+  console.log(day);
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
@@ -27,10 +32,12 @@ function WorkoutDayTest({ day }) {
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   useEffect(() => {
-    setWorkoutsContext({
-      ...workoutsContext,
-      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-    });
+    if (workouts.length != 0) {
+      setWorkoutsContext({
+        ...workoutsContext,
+        [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+      });
+    }
   }, [exerciseIDs, rest]);
 
   const add = (e) => {
@@ -121,7 +128,9 @@ function WorkoutDayTest({ day }) {
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl font-semibold mt-10">{day.length == 1 ? day : format(day, "P")}</h1>
+      <h1 className="text-center text-3xl font-semibold mt-10">
+        {day.length == 1 ? day : format(day, "P")}
+      </h1>
       <div
         className={`${styles.buttons} z-0 pt-4 ${
           foundBoolean ? " pointer-events-none blur" : ""
@@ -255,7 +264,9 @@ function WorkoutDayTest({ day }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark {day.length == 1 ? "day " + day : format(day, "P").slice(0,-5)} as a rest day!
+            Please add workouts or mark{" "}
+            {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
+            a rest day!
           </div>
         )}
         {!foundBoolean &&
