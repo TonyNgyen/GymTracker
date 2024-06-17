@@ -13,13 +13,12 @@ import { makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
 import { format } from "date-fns";
 
-function WorkoutDayTest({ day }) {
-  console.log(day);
+function WorkoutDayTest({ day, index }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
-  const [rest, setRest] = useState(workoutsContext[day].rest);
-  const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
+  const [rest, setRest] = useState(workoutsContext[index].rest);
+  const [workouts, setWorkouts] = useState(workoutsContext[index].workouts);
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -35,7 +34,7 @@ function WorkoutDayTest({ day }) {
     if (workouts.length != 0) {
       setWorkoutsContext({
         ...workoutsContext,
-        [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+        [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
       });
     }
   }, [exerciseIDs, rest]);
@@ -75,7 +74,7 @@ function WorkoutDayTest({ day }) {
     setExerciseContext({ ...exerciseContext, [newExerciseID]: newExercise });
     setWorkoutsContext({
       ...workoutsContext,
-      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
+      [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
     });
     setName("");
     setSets("");
@@ -123,7 +122,7 @@ function WorkoutDayTest({ day }) {
   };
 
   const debug = (e) => {
-    console.log(exerciseContext);
+    console.log(workouts);
   };
 
   return (
@@ -167,9 +166,9 @@ function WorkoutDayTest({ day }) {
             Rest
           </Button>
         )}
-        {/* <Button onClick={debug} className="min-w-[69px]">
+        <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button> */}
+        </Button>
       </div>
 
       {modal && (
