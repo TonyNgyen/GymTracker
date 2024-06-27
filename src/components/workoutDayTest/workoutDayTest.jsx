@@ -9,7 +9,7 @@ import {
 } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
-import { makeid } from "@/lib/utils";
+import { convertExercises, makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
 import { format } from "date-fns";
 
@@ -18,12 +18,12 @@ function WorkoutDayTest({ day, index }) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
   const [rest, setRest] = useState(workoutsContext[index].rest);
-  const [workouts, setWorkouts] = useState(workoutsContext[index].workouts);
+  const [workouts, setWorkouts] = useState(convertExercises(workoutsContext[index].workouts, exerciseContext));
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-  const [exerciseIDs, setExerciseIDs] = useState([]);
+  const [exerciseIDs, setExerciseIDs] = useState(workoutsContext[index].workouts);
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
@@ -31,13 +31,16 @@ function WorkoutDayTest({ day, index }) {
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   useEffect(() => {
+    console.log("USE EFFECT IS GOING OFF")
+    console.log(index)
+    console.log(exerciseIDs)
     if (workouts.length != 0) {
       setWorkoutsContext({
         ...workoutsContext,
         [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
       });
     }
-  }, [exerciseIDs, rest]);
+  }, [exerciseIDs, rest, workouts]);
 
   const add = (e) => {
     e.preventDefault();
@@ -72,10 +75,6 @@ function WorkoutDayTest({ day, index }) {
     setUnsavedExercises([...unsavedExercises, newExercise]);
     setExerciseIDs([...exerciseIDs, newExerciseID]);
     setExerciseContext({ ...exerciseContext, [newExerciseID]: newExercise });
-    setWorkoutsContext({
-      ...workoutsContext,
-      [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
-    });
     setName("");
     setSets("");
     setReps("");
@@ -122,7 +121,7 @@ function WorkoutDayTest({ day, index }) {
   };
 
   const debug = (e) => {
-    console.log(workouts);
+    console.log(workoutsContext);
   };
 
   return (

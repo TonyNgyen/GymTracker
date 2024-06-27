@@ -32,57 +32,67 @@ import { addWorkout } from "@/lib/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import styles from "./workoutDaysContainer.module.css";
-import { format, addDays, differenceInCalendarDays, isAfter, isBefore, differenceInDays, subDays } from "date-fns";
+import {
+  format,
+  addDays,
+  differenceInCalendarDays,
+  isAfter,
+  isBefore,
+  differenceInDays,
+  subDays,
+} from "date-fns";
 import { FaCalendar } from "react-icons/fa";
 
-function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
-  const newDict = daysDict;
+function WorkoutDaysContainer({ daysDict, title, exercises }) {
   const [workoutContext, setWorkoutContext] = useState(daysDict);
-  console.log(workoutContext);
   const [exerciseContext, setExerciseContext] = useState(exercises);
   const [date, setDate] = useState();
-  const [newDays, setNewDays] = useState(days);
 
   useEffect(() => {
     try {
       if (date) {
         let workoutWithDays = {};
-        let updatedDays = []
         if (workoutContext[1].date.length == 1) {
           for (let key in workoutContext) {
+            console.log(workoutContext[key])
             workoutWithDays[key] = workoutContext[key];
             workoutWithDays[key].date = addDays(date, key - 1);
           }
         } else {
-          let difference = differenceInDays(date, workoutContext[1].date)
+          let difference = differenceInDays(date, workoutContext[1].date);
           if (isAfter(date, workoutContext[1].date)) {
             for (let key in workoutContext) {
+              console.log(workoutContext[key])
               workoutWithDays[key] = workoutContext[key];
-              workoutWithDays[key].date = addDays(workoutWithDays[key].date, difference);
+              workoutWithDays[key].date = addDays(
+                workoutWithDays[key].date,
+                difference
+              );
             }
           }
           if (isBefore(date, workoutContext[1].date)) {
-            console.log(difference);
             for (let key in workoutContext) {
               workoutWithDays[key] = workoutContext[key];
-              workoutWithDays[key].date = addDays(workoutWithDays[key].date, difference);
+              workoutWithDays[key].date = addDays(
+                workoutWithDays[key].date,
+                difference
+              );
             }
           }
         }
+        console.log(workoutWithDays);
         setWorkoutContext(workoutWithDays);
-        setNewDays(updatedDays);
       }
     } catch (error) {
       console.log(error);
     }
   }, [date]);
 
-  console.log(workoutContext);
-
   return (
     <ExerciseContext.Provider value={[exerciseContext, setExerciseContext]}>
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         <div className="flex flex-col items-center">
+          {/* <Button onClick={() => console.log(workoutC ontext)} /> */}
           <h1 className="text-center text-5xl font-semibold mb-5">{title}</h1>
           <Carousel
             className="flex w-10/12 md:w-4/5"
@@ -92,7 +102,7 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
           >
             <CarouselContent className="text-center">
               {Object.entries(workoutContext).map(([key, value]) => (
-                <CarouselItem key={value.date}>
+                <CarouselItem key={key}>
                   <WorkoutDayTest day={value.date} index={key} />
                 </CarouselItem>
               ))}
@@ -138,7 +148,8 @@ function WorkoutDaysContainer({ days, daysDict, title, exercises }) {
                     selected={date}
                     onSelect={setDate}
                     disabled={(date) =>
-                      date <= new Date(new Date().setDate(new Date().getDate()-1))
+                      date <=
+                      new Date(new Date().setDate(new Date().getDate() - 1))
                     }
                   />
                 </PopoverContent>

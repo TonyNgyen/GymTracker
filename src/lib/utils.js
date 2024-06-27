@@ -19,20 +19,20 @@ export function makeid() {
   return result;
 }
 
-export const convertExercises = (originalExercises, exercises) => {
+export const convertExercises = (exerciseIDs, exercises) => {
   let convertedExercises = [];
-  for (let index in originalExercises) {
-    convertedExercises.push(exercises[originalExercises[index]]);
+  for (let index in exerciseIDs) {
+    convertedExercises.push(exercises[exerciseIDs[index]]);
   }
   return convertedExercises;
-}
+};
 
 export const useLocalStorage = (key) => {
   const setItem = (value) => {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -41,7 +41,7 @@ export const useLocalStorage = (key) => {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : false;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -49,9 +49,9 @@ export const useLocalStorage = (key) => {
     try {
       window.localStorage.removeItem(key);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return { setItem, getItem };
 };
