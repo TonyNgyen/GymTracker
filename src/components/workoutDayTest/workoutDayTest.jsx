@@ -31,9 +31,6 @@ function WorkoutDayTest({ day, index }) {
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   useEffect(() => {
-    console.log("USE EFFECT IS GOING OFF")
-    console.log(index)
-    console.log(exerciseIDs)
     if (workouts.length != 0) {
       setWorkoutsContext({
         ...workoutsContext,
@@ -121,7 +118,7 @@ function WorkoutDayTest({ day, index }) {
   };
 
   const debug = (e) => {
-    console.log(workoutsContext);
+    console.log(exerciseIDs);
   };
 
   return (
@@ -262,7 +259,7 @@ function WorkoutDayTest({ day, index }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark{" "}
+            Please add workouts or mark
             {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
             a rest day!
           </div>
@@ -285,6 +282,7 @@ function WorkoutDayTest({ day, index }) {
                 onClick={(e) => {
                   e.preventDefault();
                   setWorkouts(workouts.filter((w) => w.id !== workout.id));
+                  setExerciseIDs(exerciseIDs.filter((w) => w !== workout.id));
                 }}
               >
                 <FaTrashAlt />
