@@ -5,11 +5,11 @@ import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { updateExercises } from "@/lib/actions";
 
-function StartExercise({ exercise }) {
+function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const isFirstRender = useRef(true)
   const [editToggle, setEditToggle] = useState(false);
-  const [weight, setWeight] = useState(exercise.weight);
+  const [weight, setWeight] = useState(set.weight);
   const [submitWeight, setSubmitWeight] = useState(0);
 
   useEffect(() => {
@@ -25,12 +25,12 @@ function StartExercise({ exercise }) {
     setEditToggle(!editToggle);
     let copyExercises = {};
     for (let exerciseIndex in exercisesContext) {
-      if (exercisesContext[exerciseIndex].id == exercise.id) {
-        copyExercises[exercise.id] = {
-          id: exercise.id,
-          name: exercise.name,
-          sets: exercise.sets,
-          reps: exercise.reps,
+      if (exercisesContext[exerciseIndex].id == set.id) {
+        copyExercises[set.id] = {
+          id: set.id,
+          name: set.name,
+          sets: set.sets,
+          reps: set.reps,
           weight: weight,
         };
       } else {
@@ -45,12 +45,12 @@ function StartExercise({ exercise }) {
     setEditToggle(!editToggle);
     let copyExercises = {};
     for (let exerciseIndex in exercisesContext) {
-      if (exercisesContext[exerciseIndex].id == exercise.id) {
-        copyExercises[exercise.id] = {
-          id: exercise.id,
-          name: exercise.name,
-          sets: exercise.sets,
-          reps: exercise.reps,
+      if (exercisesContext[exerciseIndex].id == set.id) {
+        copyExercises[set.id] = {
+          id: set.id,
+          name: set.name,
+          sets: set.sets,
+          reps: set.reps,
           weight: weight,
         };
       } else {
@@ -63,10 +63,10 @@ function StartExercise({ exercise }) {
   return (
     <div className="flex flex-auto flex-col gap-5">
       <div className={`${styles.workouts} text-xl w-full`}>
-        <h1 className={styles.stats}>{exercise.reps}</h1>
+        <h1 className={styles.stats}>{set.reps}</h1>
         <h1 className={styles.stats}>
           {!editToggle ? (
-            exercise.weight
+            set.weight
           ) : (
             <form className="text-center" onSubmit={confirmEditSubmit}>
               <input
