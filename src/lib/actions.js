@@ -31,7 +31,7 @@ export const addLog = async (prevState, formData) => {
   }
 };
 
-export const validateWorkoutId = async (previousState, formData) => {
+export const validateWorkoutName = async (previousState, formData) => {
   const { title } = Object.fromEntries(formData);
   if (title == "") {
     return { error: "Please fill in required fields" };
@@ -43,7 +43,23 @@ export const validateWorkoutId = async (previousState, formData) => {
   }
 };
 
-export const addWorkout = async (name, workout, exercises) => {
+export const validateWorkoutDays = async (prevState, formData) => {
+  const { numOfDays } = Object.fromEntries(formData);
+  if (numOfDays == "") {
+    return { error: "Please fill in required fields" };
+  }
+  if (numOfDays < 1) {
+    return { error: "Please put in a proper input" };
+  }
+  
+  try {
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addWorkout = async (name, workout, exercises, startDate) => {
   const session = await auth();
   connectToDb();
   try {
@@ -51,6 +67,9 @@ export const addWorkout = async (name, workout, exercises) => {
       id: makeid(),
       name: name,
       creator: session.user?.email,
+      dateCreated: startDate,
+      dateLast: startDate,
+      currentWorkout: 1,
       workouts: workout,
     });
     await newWorkout.save();

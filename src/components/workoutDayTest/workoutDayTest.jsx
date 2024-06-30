@@ -2,23 +2,28 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDayTest.module.css";
-import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
+import {
+  ExerciseContext,
+  WorkoutContext,
+  OriginalDaysContext,
+} from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
-import { makeid } from "@/lib/utils";
+import { convertExercises, makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
+import { format } from "date-fns";
 
-function WorkoutDay({ day }) {
+function WorkoutDayTest({ day, index }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
-  const [rest, setRest] = useState(workoutsContext[day].rest);
-  const [workouts, setWorkouts] = useState(workoutsContext[day].workouts);
+  const [rest, setRest] = useState(workoutsContext[index].rest);
+  const [workouts, setWorkouts] = useState(convertExercises(workoutsContext[index].workouts, exerciseContext));
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-  const [exerciseIDs, setExerciseIDs] = useState([]);
+  const [exerciseIDs, setExerciseIDs] = useState(workoutsContext[index].workouts);
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
@@ -26,11 +31,13 @@ function WorkoutDay({ day }) {
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   useEffect(() => {
-    setWorkoutsContext({
-      ...workoutsContext,
-      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-    });
-  }, [exerciseIDs, rest]);
+    if (workouts.length != 0) {
+      setWorkoutsContext({
+        ...workoutsContext,
+        [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
+      });
+    }
+  }, [exerciseIDs, rest, workouts]);
 
   const add = (e) => {
     e.preventDefault();
@@ -65,10 +72,6 @@ function WorkoutDay({ day }) {
     setUnsavedExercises([...unsavedExercises, newExercise]);
     setExerciseIDs([...exerciseIDs, newExerciseID]);
     setExerciseContext({ ...exerciseContext, [newExerciseID]: newExercise });
-    setWorkoutsContext({
-      ...workoutsContext,
-      [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-    });
     setName("");
     setSets("");
     setReps("");
@@ -114,29 +117,15 @@ function WorkoutDay({ day }) {
     setFoundBoolean(false);
   };
 
-  // const addDay = (e) => {
-  //   e.preventDefault();
-  // setWorkoutsContext({
-  //   ...workoutsContext,
-  //   [day]: { completed: true, workouts: exerciseIDs, rest: rest },
-  // });
-  //   setExerciseContext([...exerciseContext, ...unsavedExercises]);
-  //   setUnsavedExercises([]);
-  //   setWorkoutSaved(true);
-  // };
-
-  // const closeWorkoutSaved = (e) => {
-  //   e.preventDefault();
-  //   setWorkoutSaved(false);
-  // };
-
   const debug = (e) => {
-    console.log(exerciseContext);
+    console.log(exerciseIDs);
   };
 
   return (
     <div className={styles.card}>
-      <h1 className="text-center text-3xl font-semibold mt-10">{day}</h1>
+      <h1 className="text-center text-3xl font-semibold mt-10">
+        {day.length == 1 ? `Day ${day}` : format(day, "P")}
+      </h1>
       <div
         className={`${styles.buttons} z-0 pt-4 ${
           foundBoolean ? " pointer-events-none blur" : ""
@@ -173,9 +162,9 @@ function WorkoutDay({ day }) {
             Rest
           </Button>
         )}
-        {/* <Button onClick={debug} className="min-w-[69px]">
+        <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button> */}
+        </Button>
       </div>
 
       {modal && (
@@ -270,7 +259,9 @@ function WorkoutDay({ day }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark {day} as a rest day!
+            Please add workouts or mark
+            {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
+            a rest day!
           </div>
         )}
         {!foundBoolean &&
@@ -291,6 +282,7 @@ function WorkoutDay({ day }) {
                 onClick={(e) => {
                   e.preventDefault();
                   setWorkouts(workouts.filter((w) => w.id !== workout.id));
+                  setExerciseIDs(exerciseIDs.filter((w) => w !== workout.id));
                 }}
               >
                 <FaTrashAlt />
@@ -298,21 +290,8 @@ function WorkoutDay({ day }) {
             </article>
           ))}
       </div>
-      {/* {workoutSaved ? (
-        <div className="bg-green-500 px-4 py-2 rounded-md mb-5">
-          Workout Successfully Saved!
-          <button onClick={closeWorkoutSaved} className="ml-5">
-            X
-          </button>
-        </div>
-      ) : (
-        <div></div>
-      )}
-      <Button onClick={addDay} className="mb-6">
-        Save {day}
-      </Button> */}
     </div>
   );
 }
 
-export default WorkoutDay;
+export default WorkoutDayTest;

@@ -6,10 +6,10 @@ import DisplayDay from "../displayDay/displayDay";
 function DisplayWorkout({ workout, exercises }) {
   return (
     <div className={styles.daysContainer}>
-      <div>
+      <>
         <h1 className="text-center font-bold text-5xl mb-2">{workout.name}</h1>
         <h2 className="text-center font-medium text-xl">{workout.creator}</h2>
-      </div>
+      </>
       {Object.keys(workout.workouts).map((day) => (
         <DisplayDay
           day={day}
