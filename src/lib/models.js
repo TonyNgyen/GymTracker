@@ -63,6 +63,9 @@ const workoutSchema = new mongoose.Schema({
   dateLast: {
     type: String,
   },
+  currentWorkout: {
+    type: Number,
+  },
   workouts: {},
 });
 

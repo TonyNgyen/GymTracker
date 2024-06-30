@@ -20,9 +20,10 @@ function StartExerciseList({ day }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   let convertedExercises = convertExercises(
-    workoutContext.workouts[day].workouts,
+    workoutContext.workouts[workoutContext.currentWorkout].workouts,
     exercisesContext
   );
+  console.log(convertedExercises)
   return (
     <div className="">
       <Carousel>

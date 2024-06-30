@@ -124,7 +124,7 @@ function WorkoutDayTest({ day, index }) {
   return (
     <div className={styles.card}>
       <h1 className="text-center text-3xl font-semibold mt-10">
-        {day.length == 1 ? day : format(day, "P")}
+        {day.length == 1 ? `Day ${day}` : format(day, "P")}
       </h1>
       <div
         className={`${styles.buttons} z-0 pt-4 ${

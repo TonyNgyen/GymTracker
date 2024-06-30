@@ -13,7 +13,7 @@ import {
 import style from "./startWorkout.module.css";
 
 function StartWorkout({ day }) {
-  const { setItem, getItem } = useLocalStorage("Start");
+  const { setItem, getItem, removeItem } = useLocalStorage("Start");
   const [begin, setBegin] = useState("");
   const [pause, setPause] = useState(false);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
@@ -29,30 +29,46 @@ function StartWorkout({ day }) {
         {!begin ? <h1>Ready to begin {workoutContext.name}?</h1> : ""}
         {begin ? <WorkoutTimer pause={pause} /> : ""}
         <div className="flex gap-3">
-          {!pause ? (
+          {begin ? (
+            !pause ? (
+              <Button
+                className="text-lg min-w-[105px]"
+                onClick={() => setPause(true)}
+              >
+                Pause
+              </Button>
+            ) : (
+              <Button
+                className="text-lg min-w-[105px]"
+                onClick={() => setPause(false)}
+              >
+                Resume
+              </Button>
+            )
+          ) : (
+            <></>
+          )}
+          {begin ? (
             <Button
               className="text-lg min-w-[105px]"
-              onClick={() => setPause(true)}
+              onClick={() => {
+                setItem(false);
+                setPause(true);
+              }}
             >
-              Pause
+              End
             </Button>
           ) : (
             <Button
               className="text-lg min-w-[105px]"
-              onClick={() => setPause(false)}
+              onClick={() => {
+                setItem(true);
+                setBegin(true);
+              }}
             >
-              Resume
+              {begin ? "End" : "Begin Workout"}
             </Button>
           )}
-          <Button
-            className="text-lg min-w-[105px]"
-            onClick={() => {
-              setItem(true);
-              setBegin(true);
-            }}
-          >
-            {begin ? "End" : "Begin Workout"}
-          </Button>
         </div>
       </div>
       <div>{begin && <StartExerciseList day={day} />}</div>

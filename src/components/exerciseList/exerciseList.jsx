@@ -21,7 +21,7 @@ import MainExercise from "../mainExercise/mainExercise";
 function ExerciseList({ workouts, day }) {
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const workoutForDay = workouts[select].workouts[day];
+  const workoutForDay = workouts[select].workouts[workouts[select].currentWorkout];
 
   const convertedExercises = [];
   if (workoutForDay != undefined) {
