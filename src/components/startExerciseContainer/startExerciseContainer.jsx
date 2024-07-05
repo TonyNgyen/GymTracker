@@ -3,7 +3,6 @@ import StartExercise from "../startExercise/startExercise";
 
 function StartExerciseContainer({ exercise }) {
   const sets = [];
-  console.log(exercise)
   for (let i = 0; i < exercise.sets; i++) {
     sets.push({id: i, reps: exercise.reps, weight: exercise.weight});
   }

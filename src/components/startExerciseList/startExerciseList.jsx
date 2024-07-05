@@ -23,7 +23,6 @@ function StartExerciseList({ day }) {
     workoutContext.workouts[workoutContext.currentWorkout].workouts,
     exercisesContext
   );
-  console.log(convertedExercises)
   return (
     <div className="">
       <Carousel>
