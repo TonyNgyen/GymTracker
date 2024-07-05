@@ -25,6 +25,7 @@ function StartWorkoutContainer({ workout, exercises, day }) {
   //   return acc;
   // }, {});
   // console.log(Object.keys.workout)
+  console.log("Testing")
   const [workoutContext, setWorkoutContext] = useState(workout);
   const [exercisesContext, setExercisesContext] = useState(exercises);
   const [startWorkoutContext, setStartWorkoutContext] = useState({});
