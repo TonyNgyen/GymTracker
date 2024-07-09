@@ -10,25 +10,37 @@ import {
 import { convertExercises } from "@/lib/utils";
 
 function StartWorkoutContainer({ workout, exercises, day }) {
-  // console.log(workout.workouts[workout.currentWorkout].workouts)
   let convertedExercises = convertExercises(
     workout.workouts[workout.currentWorkout].workouts,
     exercises
   );
-  console.log(convertedExercises);
+  console.log(convertedExercises)
+  let startWorkout = {};
   convertedExercises.map((exercise) => {
-    console.log(exercise)
-  })
-  // const startWorkout = Object.keys(workout.workouts).reduce((acc, key) => {
-  //   // acc[key] = workout[key] * 2;
-  //   console.log(workout.workouts[key])
-  //   return acc;
-  // }, {});
-  // console.log(Object.keys.workout)
-  console.log("Testing")
+    for (let i = 1; i <= exercise.sets; i++) {
+      if (exercise.id in startWorkout) {
+        startWorkout[exercise.id][i] = {
+          id: exercise.id,
+          name: exercise.name,
+          set: i,
+          reps: exercise.reps,
+          weight: exercise.weight,
+        };
+      } else {
+        startWorkout[exercise.id] = {};
+        startWorkout[exercise.id][i] = {
+          id: exercise.id,
+          name: exercise.name,
+          set: i,
+          reps: exercise.reps,
+          weight: exercise.weight,
+        };
+      }
+    }
+  });
   const [workoutContext, setWorkoutContext] = useState(workout);
   const [exercisesContext, setExercisesContext] = useState(exercises);
-  const [startWorkoutContext, setStartWorkoutContext] = useState({});
+  const [startWorkoutContext, setStartWorkoutContext] = useState(startWorkout);
   return (
     <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
       <ExercisesContext.Provider

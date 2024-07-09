@@ -1,63 +1,63 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import styles from "./startExercise.module.css";
-import { ExercisesContext } from "@/app/workouts/[slug]/start/context";
+import {
+  ExercisesContext,
+  StartWorkoutContext,
+} from "@/app/workouts/[slug]/start/context";
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { updateExercises } from "@/lib/actions";
 
 function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const isFirstRender = useRef(true)
+  const [startWorkoutContext, setStartWorkoutContext] =
+    useContext(StartWorkoutContext);
+  const isFirstRender = useRef(true);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
   const [submitWeight, setSubmitWeight] = useState(0);
+  console.log(startWorkoutContext);
 
-  useEffect(() => {
-    if (!isFirstRender.current) {
-      updateExercises(exercisesContext);
-    } else {
-      isFirstRender.current = false;
-    }
-  }, [submitWeight]);
+  // useEffect(() => {
+  //   if (!isFirstRender.current) {
+  //     updateExercises(exercisesContext);
+  //   } else {
+  //     isFirstRender.current = false;
+  //   }
+  // }, [submitWeight]);
 
   const confirmEditSubmit = (e) => {
     e.preventDefault();
     setEditToggle(!editToggle);
-    let copyExercises = {};
-    for (let exerciseIndex in exercisesContext) {
-      if (exercisesContext[exerciseIndex].id == set.id) {
-        copyExercises[set.id] = {
-          id: set.id,
-          name: set.name,
-          sets: set.sets,
-          reps: set.reps,
+    let exerciseID = set.id;
+    let setID = set.set;
+    setStartWorkoutContext({
+      ...startWorkoutContext,
+      [exerciseID]: {
+        ...startWorkoutContext[exerciseID],
+        [setID]: {
+          ...startWorkoutContext[exerciseID][setID],
           weight: weight,
-        };
-      } else {
-        copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];
-      }
-    }
-    setExercisesContext(copyExercises);
+        },
+      },
+    });
     setSubmitWeight(!submitWeight);
   };
 
   const confirmEditClick = () => {
     setEditToggle(!editToggle);
-    let copyExercises = {};
-    for (let exerciseIndex in exercisesContext) {
-      if (exercisesContext[exerciseIndex].id == set.id) {
-        copyExercises[set.id] = {
-          id: set.id,
-          name: set.name,
-          sets: set.sets,
-          reps: set.reps,
+    let exerciseID = set.id;
+    let setID = set.set;
+    setStartWorkoutContext({
+      ...startWorkoutContext,
+      [exerciseID]: {
+        ...startWorkoutContext[exerciseID],
+        [setID]: {
+          ...startWorkoutContext[exerciseID][setID],
           weight: weight,
-        };
-      } else {
-        copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];
-      }
-    }
-    setExercisesContext(copyExercises);
+        },
+      },
+    });
     setSubmitWeight(!submitWeight);
   };
   return (
