@@ -25,7 +25,7 @@ function StartExerciseList({ day }) {
   console.log(startWorkoutContext);
   return (
     <div className="">
-      <Carousel>
+      <Carousel className="mx-auto w-10/12 md:w-6/12">
         <CarouselContent>
           {Object.keys(startWorkoutContext).map((key) => (
             <CarouselItem key={key}>

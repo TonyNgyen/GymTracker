@@ -7,6 +7,7 @@ function WorkoutTimer({pause}) {
     if (!pause) {
       let intervalId;
       intervalId = setInterval(() => setTime(time + 1), 1000);
+      console.log(time);
       return () => clearInterval(intervalId);
     }
   }, [time, pause]);

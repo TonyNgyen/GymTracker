@@ -53,7 +53,8 @@ function StartWorkout({ day }) {
               className="text-lg min-w-[105px]"
               onClick={() => {
                 setItem(false);
-                setPause(true);
+                setPause(false);
+                setBegin(false);
               }}
             >
               End
