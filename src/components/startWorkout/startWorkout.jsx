@@ -11,9 +11,19 @@ import {
   StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
 import style from "./startWorkout.module.css";
+import Link from "next/link";
 
 function StartWorkout({ day }) {
-  const { setItem, getItem, removeItem } = useSessionStorage("Start");
+  const {
+    setItem: setStartItem,
+    getItem: getStartItem,
+    removeItem: removeStartItem,
+  } = useSessionStorage("Start");
+  const {
+    setItem: setTimeItem,
+    getItem: getTimeItem,
+    removeItem: removeTimeItem,
+  } = useSessionStorage("Time");
   const [begin, setBegin] = useState("");
   const [pause, setPause] = useState(false);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
@@ -21,7 +31,7 @@ function StartWorkout({ day }) {
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
   useEffect(() => {
-    setBegin(getItem());
+    setBegin(getStartItem());
   });
   return (
     <div className={style.startContainer}>
@@ -50,20 +60,22 @@ function StartWorkout({ day }) {
           )}
           {begin ? (
             <Button
+              asChild
               className="text-lg min-w-[105px]"
               onClick={() => {
-                setItem(false);
+                setStartItem(false);
                 setPause(false);
                 setBegin(false);
+                setTimeItem(0);
               }}
             >
-              End
+              <Link href={"/workouts"}>End</Link>
             </Button>
           ) : (
             <Button
               className="text-lg min-w-[105px]"
               onClick={() => {
-                setItem(true);
+                setStartItem(true);
                 setBegin(true);
               }}
             >

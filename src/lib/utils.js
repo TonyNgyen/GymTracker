@@ -82,5 +82,5 @@ export const useSessionStorage = (key) => {
     }
   };
 
-  return { setItem, getItem };
+  return { setItem, getItem, removeItem };
 };

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useLocalStorage, useSessionStorage } from "@/lib/utils";
 
 function WorkoutTimer({pause}) {
-  const [time, setTime] = useState(0);
+  const { setItem, getItem, removeItem } = useSessionStorage("Time");
+  const [time, setTime] = useState(getItem());
 
   useEffect(() => {
     if (!pause) {
       let intervalId;
       intervalId = setInterval(() => setTime(time + 1), 1000);
-      console.log(time);
+      setItem(time);
       return () => clearInterval(intervalId);
     }
   }, [time, pause]);
