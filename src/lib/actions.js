@@ -22,7 +22,6 @@ export const addLog = async (prevState, formData) => {
     });
 
     await newDevLog.save();
-    console.log("saved to db");
     revalidatePath("/workouts");
     revalidatePath("/admin");
   } catch (error) {
@@ -51,7 +50,7 @@ export const validateWorkoutDays = async (prevState, formData) => {
   if (numOfDays < 1) {
     return { error: "Please put in a proper input" };
   }
-  
+
   try {
     return { success: true };
   } catch (error) {
@@ -82,7 +81,6 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
         },
       }
     );
-    console.log("Added new workout");
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
@@ -112,7 +110,6 @@ export const updateWorkout = async (id, name, workout, day) => {
       }
     );
     revalidatePath("/workouts");
-    console.log("updated workout to db");
   } catch (error) {
     console.log(error);
   }
@@ -128,7 +125,6 @@ export const addExercises = async (exercises) => {
         $set: { exercises: exercises },
       }
     );
-    console.log("Added Exercises");
   } catch (error) {
     console.log("Failed to add exercises");
   }
@@ -199,7 +195,7 @@ export const login = async (prevState, formData) => {
     console.log(error);
 
     if (error.message.includes("CredentialsSignin")) {
-      return { error: "Invalid username or password" };
+      return { error: "Invalid Credentials" };
     }
     throw error;
   }

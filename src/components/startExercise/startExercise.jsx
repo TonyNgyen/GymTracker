@@ -3,6 +3,7 @@ import styles from "./startExercise.module.css";
 import {
   ExercisesContext,
   StartWorkoutContext,
+  CurrentExerciseContext,
 } from "@/app/workouts/[slug]/start/context";
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
@@ -13,6 +14,9 @@ function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
+  const [currentExerciseContext, setCurrentExerciseContext] = useContext(
+    CurrentExerciseContext
+  );
   const isFirstRender = useRef(true);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
@@ -23,7 +27,7 @@ function StartExercise({ set }) {
     getItem: getStartWorkoutItem,
     removeItem: removeStartWorkoutItem,
   } = useSessionStorage("StartWorkout");
-
+  
   // useEffect(() => {
   //   if (!isFirstRender.current) {
   //     updateExercises(exercisesContext);
@@ -74,7 +78,13 @@ function StartExercise({ set }) {
   };
   return (
     <div className="flex flex-auto flex-col gap-5">
-      <div className={`${styles.workouts} text-xl w-full`}>
+      <div
+        className={`${styles.workouts} text-xl w-full ${
+          currentExerciseContext[set.id] == set.set
+            ? ""
+            : "opacity-40 pointer-events-none"
+        }`}
+      >
         {!editToggle ? (
           <>
             <h1 className={styles.stats}>{set.reps}</h1>
