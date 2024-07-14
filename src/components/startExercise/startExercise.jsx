@@ -7,6 +7,7 @@ import {
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { updateExercises } from "@/lib/actions";
+import { useLocalStorage, useSessionStorage } from "@/lib/utils";
 
 function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
@@ -17,6 +18,11 @@ function StartExercise({ set }) {
   const [weight, setWeight] = useState(set.weight);
   const [reps, setReps] = useState(set.reps);
   const [submitWeight, setSubmitWeight] = useState(0);
+  const {
+    setItem: setStartWorkoutItem,
+    getItem: getStartWorkoutItem,
+    removeItem: removeStartWorkoutItem,
+  } = useSessionStorage("StartWorkout");
 
   // useEffect(() => {
   //   if (!isFirstRender.current) {
@@ -25,6 +31,10 @@ function StartExercise({ set }) {
   //     isFirstRender.current = false;
   //   }
   // }, [submitWeight]);
+
+  useEffect(() => {
+    setStartWorkoutItem(startWorkoutContext);
+  }, [startWorkoutContext]);
 
   const confirmEditSubmit = (e) => {
     e.preventDefault();

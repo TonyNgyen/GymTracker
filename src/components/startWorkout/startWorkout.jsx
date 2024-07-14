@@ -24,6 +24,11 @@ function StartWorkout({ day }) {
     getItem: getTimeItem,
     removeItem: removeTimeItem,
   } = useSessionStorage("Time");
+  const {
+    setItem: setStartWorkoutItem,
+    getItem: getStartWorkoutItem,
+    removeItem: removeStartWorkoutItem,
+  } = useSessionStorage("StartWorkout");
   const [begin, setBegin] = useState("");
   const [pause, setPause] = useState(false);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
@@ -63,10 +68,11 @@ function StartWorkout({ day }) {
               asChild
               className="text-lg min-w-[105px]"
               onClick={() => {
-                setStartItem(false);
+                removeStartItem();
                 setPause(false);
                 setBegin(false);
-                setTimeItem(0);
+                removeTimeItem();
+                removeStartWorkoutItem();
               }}
             >
               <Link href={"/workouts"}>End</Link>

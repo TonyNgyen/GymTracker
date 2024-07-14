@@ -8,36 +8,45 @@ import {
   StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
 import { convertExercises } from "@/lib/utils";
+import { useLocalStorage, useSessionStorage } from "@/lib/utils";
 
 function StartWorkoutContainer({ workout, exercises, day }) {
   let convertedExercises = convertExercises(
     workout.workouts[workout.currentWorkout].workouts,
     exercises
   );
-  console.log(convertedExercises)
-  let startWorkout = {};
-  convertedExercises.map((exercise) => {
-    for (let i = 1; i <= exercise.sets; i++) {
-      if (exercise.id in startWorkout) {
-        startWorkout[exercise.id][i] = {
-          id: exercise.id,
-          name: exercise.name,
-          set: i,
-          reps: exercise.reps,
-          weight: exercise.weight,
-        };
-      } else {
-        startWorkout[exercise.id] = {};
-        startWorkout[exercise.id][i] = {
-          id: exercise.id,
-          name: exercise.name,
-          set: i,
-          reps: exercise.reps,
-          weight: exercise.weight,
-        };
+  const {
+    setItem: setStartWorkoutItem,
+    getItem: getStartWorkoutItem,
+    removeItem: removeStartWorkoutItem,
+  } = useSessionStorage("StartWorkout");
+  let startWorkout = getStartWorkoutItem();
+  if (!startWorkout) {
+    startWorkout = {};
+    convertedExercises.map((exercise) => {
+      for (let i = 1; i <= exercise.sets; i++) {
+        if (exercise.id in startWorkout) {
+          startWorkout[exercise.id][i] = {
+            id: exercise.id,
+            name: exercise.name,
+            set: i,
+            reps: exercise.reps,
+            weight: exercise.weight,
+          };
+        } else {
+          startWorkout[exercise.id] = {};
+          startWorkout[exercise.id][i] = {
+            id: exercise.id,
+            name: exercise.name,
+            set: i,
+            reps: exercise.reps,
+            weight: exercise.weight,
+          };
+        }
       }
-    }
-  });
+    });
+    setStartWorkoutItem(startWorkout);
+  }
   const [workoutContext, setWorkoutContext] = useState(workout);
   const [exercisesContext, setExercisesContext] = useState(exercises);
   const [startWorkoutContext, setStartWorkoutContext] = useState(startWorkout);

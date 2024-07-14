@@ -18,7 +18,11 @@ async function StartPage({ params }) {
   const day = new Date().getDay();
   return (
     <div>
-      <StartWorkoutContainer workout={workout} exercises={exercises} day={weekday[day]} />
+      <StartWorkoutContainer
+        workout={workout}
+        exercises={exercises}
+        day={weekday[day]}
+      />
     </div>
   );
 }
