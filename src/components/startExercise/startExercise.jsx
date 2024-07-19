@@ -27,7 +27,7 @@ function StartExercise({ set }) {
     getItem: getStartWorkoutItem,
     removeItem: removeStartWorkoutItem,
   } = useSessionStorage("StartWorkout");
-  
+
   // useEffect(() => {
   //   if (!isFirstRender.current) {
   //     updateExercises(exercisesContext);
@@ -39,6 +39,14 @@ function StartExercise({ set }) {
   useEffect(() => {
     setStartWorkoutItem(startWorkoutContext);
   }, [startWorkoutContext]);
+
+  const completeRep = () => {
+    let currentExercise = currentExerciseContext[set.id];
+    setCurrentExerciseContext({
+      ...currentExerciseContext,
+      [set.id]: currentExercise + 1,
+    });
+  };
 
   const confirmEditSubmit = (e) => {
     e.preventDefault();
@@ -79,22 +87,34 @@ function StartExercise({ set }) {
   return (
     <div className="flex flex-auto flex-col gap-5">
       <div
-        className={`${styles.workouts} text-xl w-full ${
+        className={`text-xl w-full ${
           currentExerciseContext[set.id] == set.set
-            ? ""
-            : "opacity-40 pointer-events-none"
+            ? ` ${styles.currentExercise}`
+            : ` ${styles.workouts} opacity-40 pointer-events-none`
         }`}
       >
         {!editToggle ? (
           <>
             <h1 className={styles.stats}>{set.reps}</h1>
             <h1 className={styles.stats}>{set.weight}</h1>
-            <Button
-              className={`${styles.edit} bg-main hover:bg-main-foreground hover:text-foreground`}
-              onClick={() => setEditToggle(!editToggle)}
-            >
-              <FaEdit />
-            </Button>
+            <div className={`${styles.edit} flex gap-3`}>
+              <Button
+                className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground rounded-full md:h-11 md:w-11 ${
+                  editToggle ? "opacity-40 pointer-events-none" : ""
+                }`}
+                onClick={() => completeRep()}
+                size="icon"
+              >
+                <FaCheck />
+              </Button>
+              <Button
+                className={`bg-main hover:bg-main-foreground hover:text-foreground md:h-11 md:w-11`}
+                onClick={() => setEditToggle(!editToggle)}
+                size="icon"
+              >
+                <FaEdit />
+              </Button>
+            </div>
           </>
         ) : (
           <>
@@ -128,12 +148,24 @@ function StartExercise({ set }) {
                 />
               </form>
             </h1>
-            <Button
-              className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground`}
-              onClick={confirmEditClick}
-            >
-              <FaCheck />
-            </Button>
+            <div className={`${styles.edit} flex gap-3`}>
+              <Button
+                className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground rounded-full md:h-11 md:w-11 ${
+                  editToggle ? "opacity-40 pointer-events-none" : ""
+                }`}
+                onClick={() => setEditToggle(!editToggle)}
+                size="icon"
+              >
+                <FaCheck />
+              </Button>
+              <Button
+                className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground md:h-11 md:w-11`}
+                onClick={confirmEditClick}
+                size="icon"
+              >
+                <FaCheck />
+              </Button>
+            </div>
           </>
         )}
       </div>

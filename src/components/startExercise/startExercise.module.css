@@ -10,6 +10,18 @@
   background-color: hsl(var(--cardBG));
 }
 
+.currentExercise {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin: 0px auto;
+  padding: 2rem 2rem;
+  border: hsl(var(--foreground)) solid 2px;
+  border-radius: 10px;
+  background-color: hsl(var(--cardBG));
+}
+
 .headers,
 .stats {
   grid-column: span 4;

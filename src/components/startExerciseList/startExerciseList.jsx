@@ -28,7 +28,7 @@ function StartExerciseList({ day }) {
         <CarouselContent>
           {Object.keys(startWorkoutContext).map((key) => (
             <CarouselItem key={key}>
-              <StartExerciseContainer exercise={startWorkoutContext[key]} />
+              <StartExerciseContainer exercise={startWorkoutContext[key]} id={key} />
             </CarouselItem>
           ))}
         </CarouselContent>
