@@ -7,8 +7,10 @@ import {
 } from "@/app/workouts/[slug]/start/context";
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 import { updateExercises } from "@/lib/actions";
 import { useLocalStorage, useSessionStorage } from "@/lib/utils";
+import AutosizeInput from "react-input-autosize";
 
 function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
@@ -17,24 +19,15 @@ function StartExercise({ set }) {
   const [currentExerciseContext, setCurrentExerciseContext] = useContext(
     CurrentExerciseContext
   );
-  const isFirstRender = useRef(true);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
+  const [previousWeight, setPreviousWeight] = useState();
   const [reps, setReps] = useState(set.reps);
-  const [submitWeight, setSubmitWeight] = useState(0);
   const {
     setItem: setStartWorkoutItem,
     getItem: getStartWorkoutItem,
     removeItem: removeStartWorkoutItem,
   } = useSessionStorage("StartWorkout");
-
-  // useEffect(() => {
-  //   if (!isFirstRender.current) {
-  //     updateExercises(exercisesContext);
-  //   } else {
-  //     isFirstRender.current = false;
-  //   }
-  // }, [submitWeight]);
 
   useEffect(() => {
     setStartWorkoutItem(startWorkoutContext);
@@ -64,7 +57,6 @@ function StartExercise({ set }) {
         },
       },
     });
-    setSubmitWeight(!submitWeight);
   };
 
   const confirmEditClick = () => {
@@ -82,7 +74,6 @@ function StartExercise({ set }) {
         },
       },
     });
-    setSubmitWeight(!submitWeight);
   };
   return (
     <div className="flex flex-auto flex-col gap-5">
@@ -120,7 +111,7 @@ function StartExercise({ set }) {
           <>
             <h1 className={styles.stats}>
               <form className="text-center" onSubmit={confirmEditSubmit}>
-                <input
+                <AutosizeInput
                   type="number"
                   name="reps"
                   id=""
@@ -129,13 +120,19 @@ function StartExercise({ set }) {
                   }}
                   placeholder="Reps"
                   value={reps}
-                  className={styles.inputs}
+                  inputStyle={{
+                    textAlign: "center",
+                    background: "transparent",
+                    borderBottom: "2px solid white",
+                    marginBottom: "-2px",
+                  }}
+                  style={{ background: "transparent" }}
                 />
               </form>
             </h1>
             <h1 className={styles.stats}>
               <form className="text-center" onSubmit={confirmEditSubmit}>
-                <input
+                <AutosizeInput
                   type="number"
                   name="weight"
                   id=""
@@ -144,19 +141,23 @@ function StartExercise({ set }) {
                   }}
                   placeholder="Weight"
                   value={weight}
-                  className={styles.inputs}
+                  inputStyle={{
+                    textAlign: "center",
+                    background: "transparent",
+                    borderBottom: "2px solid white",
+                    marginBottom: "-2px",
+                  }}
+                  style={{ background: "transparent" }}
                 />
               </form>
             </h1>
             <div className={`${styles.edit} flex gap-3`}>
               <Button
-                className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground rounded-full md:h-11 md:w-11 ${
-                  editToggle ? "opacity-40 pointer-events-none" : ""
-                }`}
+                className={`bg-destructive hover:bg-destructive-foreground hover:text-foreground md:h-11 md:w-11`}
                 onClick={() => setEditToggle(!editToggle)}
                 size="icon"
               >
-                <FaCheck />
+                <ImCross />
               </Button>
               <Button
                 className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground md:h-11 md:w-11`}

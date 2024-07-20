@@ -75,7 +75,7 @@ function StartWorkout({ day }) {
                 removeStartWorkoutItem();
               }}
             >
-              <Link href={"/workouts"}>End</Link>
+              <Link href={"/workouts"}>Finish</Link>
             </Button>
           ) : (
             <Button
