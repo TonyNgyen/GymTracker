@@ -11,6 +11,17 @@ import { ImCross } from "react-icons/im";
 import { updateExercises } from "@/lib/actions";
 import { useLocalStorage, useSessionStorage } from "@/lib/utils";
 import AutosizeInput from "react-input-autosize";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function StartExercise({ set }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
@@ -21,8 +32,11 @@ function StartExercise({ set }) {
   );
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
-  const [previousWeight, setPreviousWeight] = useState();
+  const [previousWeight, setPreviousWeight] = useState(set.weight);
+  const [previousReps, setPreviousReps] = useState(set.reps);
   const [reps, setReps] = useState(set.reps);
+  const [showDialog, setShowDialog] = useState(false);
+
   const {
     setItem: setStartWorkoutItem,
     getItem: getStartWorkoutItem,
@@ -35,9 +49,21 @@ function StartExercise({ set }) {
 
   const completeRep = () => {
     let currentExercise = currentExerciseContext[set.id];
+    let exerciseID = set.id;
+    let setID = set.set;
     setCurrentExerciseContext({
       ...currentExerciseContext,
       [set.id]: currentExercise + 1,
+    });
+    setStartWorkoutContext({
+      ...startWorkoutContext,
+      [exerciseID]: {
+        ...startWorkoutContext[exerciseID],
+        [setID]: {
+          ...startWorkoutContext[exerciseID][setID],
+          completed: true,
+        },
+      },
     });
   };
 
@@ -57,6 +83,8 @@ function StartExercise({ set }) {
         },
       },
     });
+    setPreviousWeight(weight);
+    setPreviousReps(reps);
   };
 
   const confirmEditClick = () => {
@@ -74,7 +102,19 @@ function StartExercise({ set }) {
         },
       },
     });
+    setPreviousWeight(weight);
+    setPreviousReps(reps);
+    if (weight > set.weight) {
+      setShowDialog(true);
+    }
   };
+
+  const cancelEdit = () => {
+    setEditToggle(!editToggle);
+    setWeight(previousWeight);
+    setReps(previousReps);
+  };
+
   return (
     <div className="flex flex-auto flex-col gap-5">
       <div
@@ -86,6 +126,23 @@ function StartExercise({ set }) {
       >
         {!editToggle ? (
           <>
+            <AlertDialog open={showDialog}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setShowDialog(false)}>
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             <h1 className={styles.stats}>{set.reps}</h1>
             <h1 className={styles.stats}>{set.weight}</h1>
             <div className={`${styles.edit} flex gap-3`}>
@@ -154,7 +211,7 @@ function StartExercise({ set }) {
             <div className={`${styles.edit} flex gap-3`}>
               <Button
                 className={`bg-destructive hover:bg-destructive-foreground hover:text-foreground md:h-11 md:w-11`}
-                onClick={() => setEditToggle(!editToggle)}
+                onClick={() => cancelEdit()}
                 size="icon"
               >
                 <ImCross />

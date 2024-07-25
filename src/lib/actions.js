@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { makeid } from "./utils";
+import { format } from "date-fns";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -112,6 +113,27 @@ export const updateWorkout = async (id, name, workout, day) => {
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const saveWorkoutHistory = async (workout) => {
+  const session = await auth();
+  connectToDb();
+  try {
+    const date = format(new Date(), "P");
+    await User.findOneAndUpdate(
+      {
+        email: session.user?.email,
+      },
+      {
+        $set: {
+          [`workoutHistory.${date}`]: workout,
+        },
+      }
+    );
+    console.log("Saved Workout History");
+  } catch (error) {
+    console.log("Error for Saved Workout History");
   }
 };
 

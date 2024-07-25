@@ -35,10 +35,9 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
-  padding: 4%;
+  padding: 0 4%;
   width: 80%;
   margin: 0px auto;
-  border-radius: 20px;
 }
 
 .workouts {

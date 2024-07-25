@@ -40,6 +40,7 @@ function StartWorkoutContainer({ workout, exercises, day }) {
             set: i,
             reps: exercise.reps,
             weight: exercise.weight,
+            completed: false,
           };
         } else {
           startWorkout[exercise.id] = {};
@@ -49,6 +50,7 @@ function StartWorkoutContainer({ workout, exercises, day }) {
             set: i,
             reps: exercise.reps,
             weight: exercise.weight,
+            completed: false,
           };
         }
       }

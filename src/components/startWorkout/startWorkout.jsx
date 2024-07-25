@@ -12,6 +12,7 @@ import {
 } from "@/app/workouts/[slug]/start/context";
 import style from "./startWorkout.module.css";
 import Link from "next/link";
+import { saveWorkoutHistory } from "@/lib/actions";
 
 function StartWorkout({ day }) {
   const {
@@ -73,6 +74,7 @@ function StartWorkout({ day }) {
                 setBegin(false);
                 removeTimeItem();
                 removeStartWorkoutItem();
+                saveWorkoutHistory(startWorkoutContext);
               }}
             >
               <Link href={"/workouts"}>Finish</Link>
