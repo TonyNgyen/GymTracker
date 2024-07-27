@@ -8,7 +8,7 @@ import {
 import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import { updateExercises } from "@/lib/actions";
+import { updateSpecificExercise } from "@/lib/actions";
 import { useLocalStorage, useSessionStorage } from "@/lib/utils";
 import AutosizeInput from "react-input-autosize";
 import {
@@ -23,7 +23,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-function StartExercise({ set }) {
+function StartExercise({ set, savedWeight }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
@@ -85,6 +85,10 @@ function StartExercise({ set }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
+    if (weight > savedWeight) {
+      setShowDialog(true);
+      updateSpecificExercise(exerciseID, weight);
+    }
   };
 
   const confirmEditClick = () => {
@@ -104,8 +108,9 @@ function StartExercise({ set }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
-    if (weight > set.weight) {
+    if (weight > savedWeight) {
       setShowDialog(true);
+      updateSpecificExercise(exerciseID, weight);
     }
   };
 
@@ -121,7 +126,7 @@ function StartExercise({ set }) {
         className={`text-xl w-full ${
           currentExerciseContext[set.id] == set.set
             ? ` ${styles.currentExercise}`
-            : ` ${styles.workouts} opacity-40 pointer-events-none`
+            : ` ${styles.workouts} opacity-40`
         }`}
       >
         {!editToggle ? (
@@ -129,17 +134,24 @@ function StartExercise({ set }) {
             <AlertDialog open={showDialog}>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogTitle>Weight Increase!</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                    The weight on this rep is the highest compared to the
+                    previous weights used for this exercise. Would you like
+                    future sets of this exercise to use this weight?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel onClick={() => setShowDialog(false)}>
-                    Cancel
+                    No
                   </AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogAction
+                    onClick={() => {
+                      setShowDialog(false);
+                    }}
+                  >
+                    Yes
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -149,6 +161,10 @@ function StartExercise({ set }) {
               <Button
                 className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground rounded-full md:h-11 md:w-11 ${
                   editToggle ? "opacity-40 pointer-events-none" : ""
+                } ${
+                  currentExerciseContext[set.id] != set.set
+                    ? ` opacity-40 pointer-events-none`
+                    : ``
                 }`}
                 onClick={() => completeRep()}
                 size="icon"

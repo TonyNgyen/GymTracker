@@ -163,6 +163,22 @@ export const updateExercises = async (exercises) => {
   );
 };
 
+export const updateSpecificExercise = async (exercise, weight) => {
+  try {
+    const session = await auth();
+    connectToDb();
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: { [`exercises.${exercise}.weight`]: weight },
+      }
+    );
+    console.log("Successfully updated specific exercise!");
+  } catch (error) {
+    console.log("Unsuccessfully updated specific exercise!");
+  }
+};
+
 export const handleGithubLogin = async (e) => {
   "use server";
   await signIn("github");
