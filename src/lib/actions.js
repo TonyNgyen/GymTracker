@@ -117,7 +117,8 @@ export const updateWorkout = async (id, name, workout, day) => {
   }
 };
 
-export const saveWorkoutHistory = async (workout) => {
+export const saveWorkoutHistory = async (workout, time) => {
+  let workoutHistory = { exercises: workout, time: time + 1 };
   const session = await auth();
   connectToDb();
   try {
@@ -128,7 +129,7 @@ export const saveWorkoutHistory = async (workout) => {
       },
       {
         $set: {
-          [`workoutHistory.${date}`]: workout,
+          [`workoutHistory.${date}`]: workoutHistory,
         },
       }
     );
@@ -181,7 +182,6 @@ export const updateSpecificExercise = async (exercise, weight) => {
 };
 
 export const changeCurrentWorkout = async (workout, day) => {
-  console.log(workout, day);
   try {
     const session = await auth();
     connectToDb();

@@ -9,7 +9,7 @@ import {
   CurrentExerciseContext,
 } from "@/app/workouts/[slug]/start/context";
 import { convertExercises } from "@/lib/utils";
-import { useLocalStorage, useSessionStorage } from "@/lib/utils";
+import { useLocalStorage } from "@/lib/utils";
 
 function StartWorkoutContainer({ workout, exercises, day }) {
   let convertedExercises = convertExercises(
@@ -20,12 +20,12 @@ function StartWorkoutContainer({ workout, exercises, day }) {
     setItem: setStartWorkoutItem,
     getItem: getStartWorkoutItem,
     removeItem: removeStartWorkoutItem,
-  } = useSessionStorage("StartWorkout");
+  } = useLocalStorage("StartWorkout");
   const {
     setItem: setCurrentExerciseItem,
     getItem: getCurrentExerciseItem,
     removeItem: removeCurrentExerciseItem,
-  } = useSessionStorage("CurrentExercise");
+  } = useLocalStorage("CurrentExercise");
   let startWorkout = getStartWorkoutItem();
   let currentExercise = getCurrentExerciseItem();
   if (!startWorkout || !currentExercise) {

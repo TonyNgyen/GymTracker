@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { updateSpecificExercise } from "@/lib/actions";
-import { useLocalStorage, useSessionStorage } from "@/lib/utils";
+import { useLocalStorage } from "@/lib/utils";
 import AutosizeInput from "react-input-autosize";
 import {
   AlertDialog,
@@ -41,7 +41,7 @@ function StartExercise({ set, savedWeight }) {
     setItem: setStartWorkoutItem,
     getItem: getStartWorkoutItem,
     removeItem: removeStartWorkoutItem,
-  } = useSessionStorage("StartWorkout");
+  } = useLocalStorage("StartWorkout");
 
   useEffect(() => {
     setStartWorkoutItem(startWorkoutContext);

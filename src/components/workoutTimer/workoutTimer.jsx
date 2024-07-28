@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocalStorage, useSessionStorage } from "@/lib/utils";
+import { useLocalStorage } from "@/lib/utils";
 
 function WorkoutTimer({pause}) {
-  const { setItem, getItem, removeItem } = useSessionStorage("Time");
+  const { setItem, getItem, removeItem } = useLocalStorage("Time");
   const [time, setTime] = useState(getItem());
 
   useEffect(() => {

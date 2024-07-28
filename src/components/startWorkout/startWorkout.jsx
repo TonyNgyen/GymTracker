@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useContext } from "react";
 import { Button } from "../ui/button";
-import { useLocalStorage, useSessionStorage } from "@/lib/utils";
+import { useLocalStorage } from "@/lib/utils";
 import WorkoutTimer from "../workoutTimer/workoutTimer";
 import StartExerciseList from "../startExerciseList/startExerciseList";
 import {
@@ -20,29 +20,30 @@ function StartWorkout({ day }) {
     setItem: setStartItem,
     getItem: getStartItem,
     removeItem: removeStartItem,
-  } = useSessionStorage("Start");
-  const {
-    setItem: setTimeItem,
-    getItem: getTimeItem,
-    removeItem: removeTimeItem,
-  } = useSessionStorage("Time");
-  const {
-    setItem: setStartWorkoutItem,
-    getItem: getStartWorkoutItem,
-    removeItem: removeStartWorkoutItem,
-  } = useSessionStorage("StartWorkout");
+  } = useLocalStorage("Start");
+  const { getItem: getTimeItem, removeItem: removeTimeItem } =
+    useLocalStorage("Time");
+  const { removeItem: removeStartWorkoutItem } =
+    useLocalStorage("StartWorkout");
 
   const router = useRouter();
   const [begin, setBegin] = useState("");
   const [pause, setPause] = useState(false);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
-  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
+
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     setBegin(getStartItem());
   });
+
+  useEffect(() => {
+    let intervalId;
+    intervalId = setInterval(() => setTime(getTimeItem()), 1000);
+    return () => clearInterval(intervalId);
+  }, [time]);
 
   const incrementCurrentWorkout = async () => {
     let newDay = workoutContext.currentWorkout;
@@ -52,9 +53,9 @@ function StartWorkout({ day }) {
       newDay += 1;
     }
     try {
-      await saveWorkoutHistory(startWorkoutContext);
+      await saveWorkoutHistory(startWorkoutContext, time);
       await changeCurrentWorkout(workoutContext.id, newDay);
-      router.push('/workouts');
+      router.push("/workouts");
     } catch (error) {
       console.error("Error calling changeCurrentWorkout: ", error);
     }
