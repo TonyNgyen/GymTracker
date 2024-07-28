@@ -29,7 +29,9 @@ export const getExercises = async () => {
   }
 };
 
-export const getUserExercises = async (userEmail) => {
+export const getUserExercises = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
   connectToDb();
   try {
     const user = await User.findOne({ email: userEmail });
@@ -48,6 +50,18 @@ export const getWorkout = async (id) => {
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch workout!");
+  }
+};
+
+export const getUserWorkout = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    return Object.fromEntries(user.workouts);
+  } catch (error) {
+    console.log(error);
   }
 };
 

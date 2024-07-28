@@ -1,11 +1,11 @@
 import React from "react";
-import { getWorkout, getUserExercises } from "@/lib/data";
+import { getWorkout, getUserExercises, getUserWorkout } from "@/lib/data";
 import StartWorkoutContainer from "@/components/startWorkoutContainer/startWorkoutContainer";
 
 async function StartPage({ params }) {
   const { slug } = params;
-  const workout = await getWorkout(slug);
-  const exercises = await getUserExercises(workout.creator);
+  const workout = (await getUserWorkout())[slug];
+  const exercises = await getUserExercises();
   const weekday = [
     "Sunday",
     "Monday",

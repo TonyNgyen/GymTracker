@@ -63,8 +63,9 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
   const session = await auth();
   connectToDb();
   try {
+    const id = makeid();
     const newWorkout = new Workout({
-      id: makeid(),
+      id: id,
       name: name,
       creator: session.user?.email,
       dateCreated: startDate,
@@ -77,7 +78,7 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
       { email: session.user?.email },
       {
         $set: {
-          [`workouts.${name}`]: newWorkout,
+          [`workouts.${id}`]: newWorkout,
           exercises: exercises,
         },
       }
@@ -176,6 +177,27 @@ export const updateSpecificExercise = async (exercise, weight) => {
     console.log("Successfully updated specific exercise!");
   } catch (error) {
     console.log("Unsuccessfully updated specific exercise!");
+  }
+};
+
+export const changeCurrentWorkout = async (workout, day) => {
+  console.log(workout, day);
+  try {
+    const session = await auth();
+    connectToDb();
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${workout}.currentWorkout`]: day,
+        },
+      },
+      { new: false }
+    );
+    console.log("Successfully updated current workout!");
+    revalidatePath("/workouts");
+  } catch (error) {
+    console.log("Unsuccessfully updated current workout!");
   }
 };
 

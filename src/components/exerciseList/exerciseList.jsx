@@ -41,12 +41,12 @@ function ExerciseList({ workouts, day }) {
       <div className={styles.header}>
         <Select onValueChange={(value) => setSelect(value)}>
           <SelectTrigger className="w-[280px] text-4xl mb-4 md:mb-0 border-transparent">
-            <SelectValue placeholder={select} />
+            <SelectValue placeholder={workouts[select].name} />
           </SelectTrigger>
           <SelectContent>
-            {Object.keys(workouts).map((name) => (
-              <SelectItem value={name} key={name}>
-                {name}
+            {Object.keys(workouts).map((id) => (
+              <SelectItem value={id} key={id}>
+                {workouts[id].name}
               </SelectItem>
             ))}
           </SelectContent>
