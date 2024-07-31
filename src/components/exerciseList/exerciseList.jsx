@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./exerciseList.module.css";
 import { Button } from "../ui/button";
 import { ExercisesContext } from "../exerciseListContainer/context";
@@ -16,9 +16,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  CarouselAPI,
+} from "@/components/ui/carousel";
+
 import MainExercise from "../mainExercise/mainExercise";
 
-function ExerciseList({ workouts, day }) {
+function ExerciseList({ workouts, day, workoutHistory }) {
+  const [api, setApi] = useState(CarouselAPI);
+  const [currentDate, setCurrentDate] = useState("");
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const workoutForDay =
@@ -36,10 +48,30 @@ function ExerciseList({ workouts, day }) {
     }
   }
 
+  useEffect(() => {
+    if (date in workoutHistory) {
+      return;
+    }
+    workoutHistory[date] = undefined;
+  }, []);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    setCurrentDate(Object.keys(workoutHistory)[api.selectedScrollSnap()]);
+    api.on("select", () => {
+      setCurrentDate(Object.keys(workoutHistory)[api.selectedScrollSnap()]);
+    });
+  }, [currentDate, api]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Select onValueChange={(value) => setSelect(value)}>
+        <Select
+          onValueChange={(value) => setSelect(value)}
+          className="text-center"
+        >
           <SelectTrigger className="w-[280px] text-4xl mb-4 md:mb-0 border-transparent">
             <SelectValue placeholder={workouts[select].name} />
           </SelectTrigger>
@@ -73,10 +105,31 @@ function ExerciseList({ workouts, day }) {
       </div>
       {workoutForDay !== undefined ? (
         <>
-          <h1 className="text-center my-5 text-3xl font-semibold">{date}</h1>
+          <Carousel
+            className="my-5 w-9/12 md:w-6/12 lg:w-4/12"
+            opts={{
+              align: "center",
+              startIndex: Object.keys(workoutHistory).length - 1,
+            }}
+            setApi={setApi}
+          >
+            <CarouselContent className="text-center text-3xl font-semibold">
+              {Object.keys(workoutHistory).map((date) => (
+                <CarouselItem key={date}>
+                  <div className="">
+                    <span className="">{date}</span>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
           {workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
-          ) : (
+          ) : currentDate != date ? (
+            <></>
+          ) : workoutHistory[date] == undefined ? (
             <div className={styles.workoutContainer}>
               <div className={`${styles.workoutHeader} text-3xl`}>
                 <h1 className={styles.headers}>Exercise</h1>
@@ -90,6 +143,8 @@ function ExerciseList({ workouts, day }) {
                 </div>
               ))}
             </div>
+          ) : (
+            <></>
           )}
         </>
       ) : (

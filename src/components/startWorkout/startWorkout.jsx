@@ -25,6 +25,8 @@ function StartWorkout({ day }) {
     useLocalStorage("Time");
   const { removeItem: removeStartWorkoutItem } =
     useLocalStorage("StartWorkout");
+    const { removeItem: removeCurrentExerciseItem } =
+    useLocalStorage("CurrentExercise");
 
   const router = useRouter();
   const [begin, setBegin] = useState("");
@@ -64,44 +66,12 @@ function StartWorkout({ day }) {
   return (
     <div className={style.startContainer}>
       <div className="flex flex-col w-fit items-center mx-auto mb-10">
-        {!begin ? <h1>Ready to begin {workoutContext.name}?</h1> : ""}
-        {begin ? <WorkoutTimer pause={pause} /> : ""}
-        <div className="flex gap-3">
-          {begin ? (
-            !pause ? (
-              <Button
-                className="text-lg min-w-[105px]"
-                onClick={() => setPause(true)}
-              >
-                Pause
-              </Button>
-            ) : (
-              <Button
-                className="text-lg min-w-[105px]"
-                onClick={() => setPause(false)}
-              >
-                Resume
-              </Button>
-            )
-          ) : (
-            <></>
-          )}
-          {begin ? (
-            <Button
-              asChild
-              className="text-lg min-w-[105px]"
-              onClick={() => {
-                removeStartItem();
-                setPause(false);
-                setBegin(false);
-                removeTimeItem();
-                removeStartWorkoutItem();
-                incrementCurrentWorkout();
-              }}
-            >
-              <h1 className="cursor-pointer">Finish</h1>
-            </Button>
-          ) : (
+        {!begin ? (
+          <div className={`flex flex-col ${style.initialize} gap-10`}>
+            <div className="text-4xl text-center leading-normal font-semibold">
+              <h1>Ready to begin</h1>
+              <h1>{workoutContext.name}?</h1>
+            </div>
             <Button
               className="text-lg min-w-[105px]"
               onClick={() => {
@@ -109,10 +79,52 @@ function StartWorkout({ day }) {
                 setBegin(true);
               }}
             >
-              {begin ? "End" : "Begin Workout"}
+              <h1>Begin</h1>
             </Button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            {begin ? <WorkoutTimer pause={pause} /> : ""}
+            <div className="flex gap-3">
+              {begin ? (
+                !pause ? (
+                  <Button
+                    className="text-lg min-w-[105px]"
+                    onClick={() => setPause(true)}
+                  >
+                    Pause
+                  </Button>
+                ) : (
+                  <Button
+                    className="text-lg min-w-[105px]"
+                    onClick={() => setPause(false)}
+                  >
+                    Resume
+                  </Button>
+                )
+              ) : (
+                <></>
+              )}
+              {begin ? (
+                <Button
+                  asChild
+                  className="text-lg min-w-[105px]"
+                  onClick={() => {
+                    removeCurrentExerciseItem();
+                    removeStartItem();
+                    removeTimeItem();
+                    removeStartWorkoutItem();
+                    incrementCurrentWorkout();
+                  }}
+                >
+                  <h1 className="cursor-pointer">Finish</h1>
+                </Button>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div>{begin && <StartExerciseList day={day} />}</div>
     </div>

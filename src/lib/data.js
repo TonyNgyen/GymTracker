@@ -65,26 +65,17 @@ export const getUserWorkout = async () => {
   }
 };
 
-// export const getExercises = async (exerciseIDs) => {
-//   const session = await auth();
-//   const userEmail = session.user?.email;
-//   const exercises = [];
-//   connectToDb();
-//   try {
-//     const user = await User.findOne({email: userEmail});
-//     const allExercises = Object.fromEntries(user.execises);
-//     exerciseIDs.map(id => {
-//       allExercises.map(exercise => {
-//         if (id == exercise.id) {
-//           exercises.push(exercise);
-//         }
-//       })
-//     })
-//     return exercises;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+export const getWorkoutHistory = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    return Object.fromEntries(user.workoutHistory);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getDevLogs = async () => {
   try {
