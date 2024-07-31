@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import {
   WorkoutContext,
   ExercisesContext,
+  StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
 import { convertExercises } from "@/lib/utils";
 import StartExercise from "../startExercise/startExercise";
@@ -19,17 +20,15 @@ import StartExerciseContainer from "../startExerciseContainer/startExerciseConta
 function StartExerciseList({ day }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  let convertedExercises = convertExercises(
-    workoutContext.workouts[workoutContext.currentWorkout].workouts,
-    exercisesContext
-  );
+  const [startWorkoutContext, setStartWorkoutContext] =
+    useContext(StartWorkoutContext);
   return (
     <div className="">
-      <Carousel>
+      <Carousel className="mx-auto w-10/12 md:w-6/12">
         <CarouselContent>
-          {convertedExercises.map((exercise) => (
-            <CarouselItem key={exercise.id}>
-              <StartExerciseContainer exercise={exercise} />
+          {Object.keys(startWorkoutContext).map((key) => (
+            <CarouselItem key={key}>
+              <StartExerciseContainer exercise={startWorkoutContext[key]} savedExercise={exercisesContext[key]} id={key} />
             </CarouselItem>
           ))}
         </CarouselContent>

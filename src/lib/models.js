@@ -67,6 +67,7 @@ const workoutSchema = new mongoose.Schema({
     type: Number,
   },
   workouts: {},
+  history: {},
 });
 
 const devlogSchema = new mongoose.Schema(

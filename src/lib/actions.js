@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { makeid } from "./utils";
+import { format } from "date-fns";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -22,7 +23,6 @@ export const addLog = async (prevState, formData) => {
     });
 
     await newDevLog.save();
-    console.log("saved to db");
     revalidatePath("/workouts");
     revalidatePath("/admin");
   } catch (error) {
@@ -51,7 +51,7 @@ export const validateWorkoutDays = async (prevState, formData) => {
   if (numOfDays < 1) {
     return { error: "Please put in a proper input" };
   }
-  
+
   try {
     return { success: true };
   } catch (error) {
@@ -63,8 +63,9 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
   const session = await auth();
   connectToDb();
   try {
+    const id = makeid();
     const newWorkout = new Workout({
-      id: makeid(),
+      id: id,
       name: name,
       creator: session.user?.email,
       dateCreated: startDate,
@@ -77,12 +78,11 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
       { email: session.user?.email },
       {
         $set: {
-          [`workouts.${name}`]: newWorkout,
+          [`workouts.${id}`]: newWorkout,
           exercises: exercises,
         },
       }
     );
-    console.log("Added new workout");
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
@@ -112,9 +112,30 @@ export const updateWorkout = async (id, name, workout, day) => {
       }
     );
     revalidatePath("/workouts");
-    console.log("updated workout to db");
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const saveWorkoutHistory = async (workout, time) => {
+  let workoutHistory = { exercises: workout, time: time + 1 };
+  const session = await auth();
+  connectToDb();
+  try {
+    const date = format(new Date(), "P");
+    await User.findOneAndUpdate(
+      {
+        email: session.user?.email,
+      },
+      {
+        $set: {
+          [`workoutHistory.${date}`]: workoutHistory,
+        },
+      }
+    );
+    console.log("Saved Workout History");
+  } catch (error) {
+    console.log("Error for Saved Workout History");
   }
 };
 
@@ -128,7 +149,6 @@ export const addExercises = async (exercises) => {
         $set: { exercises: exercises },
       }
     );
-    console.log("Added Exercises");
   } catch (error) {
     console.log("Failed to add exercises");
   }
@@ -143,6 +163,42 @@ export const updateExercises = async (exercises) => {
       $set: { exercises: exercises },
     }
   );
+};
+
+export const updateSpecificExercise = async (exercise, weight) => {
+  try {
+    const session = await auth();
+    connectToDb();
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: { [`exercises.${exercise}.weight`]: weight },
+      }
+    );
+    console.log("Successfully updated specific exercise!");
+  } catch (error) {
+    console.log("Unsuccessfully updated specific exercise!");
+  }
+};
+
+export const changeCurrentWorkout = async (workout, day) => {
+  try {
+    const session = await auth();
+    connectToDb();
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${workout}.currentWorkout`]: day,
+        },
+      },
+      { new: false }
+    );
+    console.log("Successfully updated current workout!");
+    revalidatePath("/workouts");
+  } catch (error) {
+    console.log("Unsuccessfully updated current workout!");
+  }
 };
 
 export const handleGithubLogin = async (e) => {
@@ -199,7 +255,7 @@ export const login = async (prevState, formData) => {
     console.log(error);
 
     if (error.message.includes("CredentialsSignin")) {
-      return { error: "Invalid username or password" };
+      return { error: "Invalid Credentials" };
     }
     throw error;
   }

@@ -53,7 +53,7 @@ export const useLocalStorage = (key) => {
     }
   };
 
-  return { setItem, getItem };
+  return { setItem, getItem, removeItem };
 };
 
 export const useSessionStorage = (key) => {
@@ -82,5 +82,5 @@ export const useSessionStorage = (key) => {
     }
   };
 
-  return { setItem, getItem };
+  return { setItem, getItem, removeItem };
 };

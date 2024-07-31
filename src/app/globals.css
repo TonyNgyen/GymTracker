@@ -74,8 +74,8 @@
     /* --cardBG: 207, 74%, 9%; */
     --cardBG: 222.2 84% 9%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 65.2%;
+    --destructive-foreground: 0 84.2% 45%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
@@ -130,6 +130,16 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
 }
 
 @media (max-width: 1536px) {

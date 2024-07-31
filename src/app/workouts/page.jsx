@@ -1,14 +1,38 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExerciseListContainer from "@/components/exerciseListContainer/exerciseListContainer";
-import { getWorkouts, getExercises } from "@/lib/data";
+import { getWorkouts, getExercises, getWorkoutHistory } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 
 async function WorkoutsPage() {
-  const workouts = await getWorkouts();
+  const [workouts, setWorkouts] = useState();
+  const [exercises, setExercises] = useState();
+  const [workoutHistory, setWorkoutHistory] = useState();
+  const [loading, setLoading] = useState(true);
   const day = format(new Date(), "P");
-  const exercises = await getExercises();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchWorkouts = await getWorkouts();
+        const fetchExercies = await getExercises();
+        const fetchHistory = await getWorkoutHistory();
+        console.log(fetchWorkouts.ok);
+        setWorkouts(fetchWorkouts);
+        setExercises(fetchExercies);
+        setWorkoutHistory(fetchHistory);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+  if (loading) {
+    return <div></div>;
+  }
   return (
     <div>
       {workouts === undefined || !Object.keys(workouts).length ? (
@@ -18,7 +42,10 @@ async function WorkoutsPage() {
               There are no workouts to display
             </h1>
           </section>
-          <Button asChild className="bg-main text-background text-lg px-6 py-6 hover:bg-main-foreground hover:text-foreground">
+          <Button
+            asChild
+            className="bg-main text-background text-lg px-6 py-6 hover:bg-main-foreground hover:text-foreground"
+          >
             <Link href="/workouts/add">Add Workout</Link>
           </Button>
         </div>
@@ -27,6 +54,7 @@ async function WorkoutsPage() {
           workouts={workouts}
           day={day}
           exercises={exercises}
+          workoutHistory={workoutHistory}
         />
       )}
     </div>

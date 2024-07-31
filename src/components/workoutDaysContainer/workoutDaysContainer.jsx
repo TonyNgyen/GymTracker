@@ -23,7 +23,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover2";
 
 import React, { useEffect, useState } from "react";
 import WorkoutDayTest from "@/components/workoutDayTest/workoutDayTest";
@@ -42,6 +42,7 @@ import {
   subDays,
 } from "date-fns";
 import { FaCalendar } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 function WorkoutDaysContainer({ daysDict, title, exercises }) {
   const [workoutContext, setWorkoutContext] = useState(daysDict);
@@ -54,7 +55,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
         let workoutWithDays = {};
         if (workoutContext[1].date.length == 1) {
           for (let key in workoutContext) {
-            console.log(workoutContext[key])
+            console.log(workoutContext[key]);
             workoutWithDays[key] = workoutContext[key];
             workoutWithDays[key].date = addDays(date, key - 1);
           }
@@ -62,7 +63,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
           let difference = differenceInDays(date, workoutContext[1].date);
           if (isAfter(date, workoutContext[1].date)) {
             for (let key in workoutContext) {
-              console.log(workoutContext[key])
+              console.log(workoutContext[key]);
               workoutWithDays[key] = workoutContext[key];
               workoutWithDays[key].date = addDays(
                 workoutWithDays[key].date,
@@ -92,7 +93,6 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
     <ExerciseContext.Provider value={[exerciseContext, setExerciseContext]}>
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         <div className="flex flex-col items-center">
-          {/* <Button onClick={() => console.log(workoutC ontext)} /> */}
           <h1 className="text-center text-5xl font-semibold mb-5">{title}</h1>
           <Carousel
             className="flex w-10/12 md:w-4/5"
@@ -110,14 +110,6 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-          {/* <Link href="/workouts">
-            <Button
-              onClick={() => addWorkout(title, workoutContext, exerciseContext)}
-              className="mt-6 bg-main hover:bg-main-foreground hover:text-foreground text-xl font-semibold p-7"
-            >
-              Submit Workout
-            </Button>
-          </Link> */}
           <Dialog className="">
             <DialogTrigger>
               <Button className="mt-6 bg-main hover:bg-main-foreground hover:text-foreground text-xl font-semibold p-6">
@@ -177,7 +169,5 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
     </ExerciseContext.Provider>
   );
 }
-
-//TESTING
 
 export default WorkoutDaysContainer;
