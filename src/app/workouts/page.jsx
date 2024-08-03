@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 
 async function WorkoutsPage() {
-  const [workouts, setWorkouts] = useState();
+  const [workouts, setWorkouts] = useState(undefined);
   const [exercises, setExercises] = useState();
   const [workoutHistory, setWorkoutHistory] = useState();
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,6 @@ async function WorkoutsPage() {
         const fetchWorkouts = await getWorkouts();
         const fetchExercies = await getExercises();
         const fetchHistory = await getWorkoutHistory();
-        console.log(fetchWorkouts.ok);
         setWorkouts(fetchWorkouts);
         setExercises(fetchExercies);
         setWorkoutHistory(fetchHistory);
@@ -35,7 +34,7 @@ async function WorkoutsPage() {
   }
   return (
     <div>
-      {workouts === undefined || !Object.keys(workouts).length ? (
+      {workouts == undefined || !Object.keys(workouts).length ? (
         <div className="flex flex-col items-center">
           <section className="p-10 flex justify-center w-1/2 mx-auto rounded-md">
             <h1 className="text-5xl text-center leading-snug">

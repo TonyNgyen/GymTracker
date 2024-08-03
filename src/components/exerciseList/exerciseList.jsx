@@ -27,15 +27,19 @@ import {
 } from "@/components/ui/carousel";
 
 import MainExercise from "../mainExercise/mainExercise";
+import HistoryMainList from "../historyMainList/historyMainList";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
   const [api, setApi] = useState(CarouselAPI);
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState(undefined);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const workoutForDay =
     workouts[select].workouts[workouts[select].currentWorkout];
   const date = format(new Date(), "P");
+  if (!(date in workoutHistory)) {
+    workoutHistory[date] = undefined;
+  }
 
   const convertedExercises = [];
   if (workoutForDay != undefined) {
@@ -49,13 +53,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   }
 
   useEffect(() => {
-    if (date in workoutHistory) {
-      return;
-    }
-    workoutHistory[date] = undefined;
-  }, []);
-
-  useEffect(() => {
     if (!api) {
       return;
     }
@@ -63,8 +60,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     api.on("select", () => {
       setCurrentDate(Object.keys(workoutHistory)[api.selectedScrollSnap()]);
     });
+    console.log(workoutHistory);
   }, [currentDate, api]);
-
+  console.log(currentDate);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -127,8 +125,11 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           </Carousel>
           {workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
-          ) : currentDate != date ? (
-            <></>
+          ) : currentDate != date && currentDate != undefined ? (
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            ></HistoryMainList>
           ) : workoutHistory[date] == undefined ? (
             <div className={styles.workoutContainer}>
               <div className={`${styles.workoutHeader} text-3xl`}>
