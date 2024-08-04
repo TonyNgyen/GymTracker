@@ -1,26 +1,16 @@
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0 auto;
+}
+
 .tableHeader {
   font-weight: 600;
   padding: 1rem 4rem;
-}
-
-.exerciseName {
-  text-align: left;
-}
-
-.tableData {
-  text-align: center;
-}
-
-.exerciseName,
-.tableData {
-  padding: 2rem;
-}
-
-.tableRow {
-  background-color: hsl(var(--cardBG));
-  border: hsl(var(--foreground)) solid 2px;
-}
-
-.tableRow .exerciseName:first-child {
-    background-color: aliceblue;
 }
