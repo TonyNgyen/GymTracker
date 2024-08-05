@@ -31,7 +31,8 @@
     --greenConfirm: 142, 87%, 35%;
     --greenConfirm-foreground: 142, 87%, 70%;
 
-    --cardBG: 207, 74%, 95%;
+    --cardBG: 207, 84%, 87%;
+    --cardBG-foreground: 207, 74%, 95%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -68,11 +69,12 @@
     --main: 207, 74%, 85%;
     --main-foreground: 207, 74%, 45%;
 
-    --greenConfirm: 142, 87%, 70%;
+    --greenConfirm: 142, 87%, 71%;
     --greenConfirm-foreground: 142, 87%, 35%;
 
     /* --cardBG: 207, 74%, 9%; */
-    --cardBG: 222.2 84% 9%;
+    --cardBG: 212.2 64% 14%;
+    --cardBG-foreground: 212.2 14% 14%;
 
     --destructive: 0 84.2% 65.2%;
     --destructive-foreground: 0 84.2% 45%;

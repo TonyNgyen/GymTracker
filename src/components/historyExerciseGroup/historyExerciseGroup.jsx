@@ -8,9 +8,9 @@ function HistoryExerciseGroup({ workout, exercise }) {
     (set == 1 || drop) && (<>
       <tr
         key={`${exercise}-${set}`}
-        className={`text-xl ${styles.tableRow} relative`}
+        className={`text-xl ${styles.tableRow} relative ${set == 1 ? "bg-cardBG" : "bg-cardBG-foreground"}`}
       >
-        <td className={`${styles.exerciseName}`}>
+        <td className={`md:pl-[4.2rem] ${styles.exerciseName}`}>
           {workout.exercises[exercise][set].name}
         </td>
         <td className={styles.middle}>{set}</td>

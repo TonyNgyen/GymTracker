@@ -1,8 +1,5 @@
-.tableRow {
-  background-color: hsl(var(--cardBG));
-}
-
 .tableRow .exerciseName {
+  text-align: left;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border: hsl(var(--foreground)) solid 2px;
@@ -10,6 +7,7 @@
 }
 
 .weight {
+  text-align: center;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border: hsl(var(--foreground)) solid 2px;
@@ -25,7 +23,7 @@
 }
 
 .dropButton {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
