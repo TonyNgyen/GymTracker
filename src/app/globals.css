@@ -121,6 +121,10 @@ a {
 body {
 }
 
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
 .container {
   width: 1536px;
   margin: auto;
@@ -132,14 +136,14 @@ body {
   justify-content: space-between;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-input[type=number] {
-    -moz-appearance:textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 @media (max-width: 1536px) {
