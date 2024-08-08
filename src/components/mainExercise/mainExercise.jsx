@@ -54,11 +54,11 @@ function MainExercise({ exercise }) {
   };
 
   return (
-    <div className={`${styles.workouts} text-xl`}>
-      <h1 className={styles.stats}>{exercise.name}</h1>
-      <h1 className={styles.stats}>{exercise.sets}</h1>
-      <h1 className={styles.stats}>{exercise.reps}</h1>
-      <h1 className={styles.stats}>
+    <tr className={`${styles.tableRow} text-xl text-center bg-cardBG`}>
+      <td className={`${styles.exerciseName} md:pl-[4.2rem] pl-5 w-36`}>{exercise.name}</td>
+      <td className={styles.middle}>{exercise.sets}</td>
+      <td className={styles.middle}>{exercise.reps}</td>
+      <td className={styles.middle}>
         {!editToggle ? (
           exercise.weight
         ) : (
@@ -76,23 +76,25 @@ function MainExercise({ exercise }) {
             />
           </form>
         )}
-      </h1>
-      {!editToggle ? (
-        <Button
-          className={`${styles.edit} bg-main hover:bg-main-foreground hover:text-foreground`}
-          onClick={() => setEditToggle(!editToggle)}
-        >
-          <FaEdit />
-        </Button>
-      ) : (
-        <Button
-          className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground`}
-          onClick={confirmEditClick}
-        >
-          <FaCheck />
-        </Button>
-      )}
-    </div>
+      </td>
+      <td className={`${styles.edit} md:p-8 py-8`}>
+        {!editToggle ? (
+          <Button
+            className={`bg-main hover:bg-main-foreground hover:text-foreground`}
+            onClick={() => setEditToggle(!editToggle)}
+          >
+            <FaEdit />
+          </Button>
+        ) : (
+          <Button
+            className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground`}
+            onClick={confirmEditClick}
+          >
+            <FaCheck />
+          </Button>
+        )}
+      </td>
+    </tr>
   );
 }
 

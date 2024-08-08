@@ -10,7 +10,7 @@ function HistoryExerciseGroup({ workout, exercise }) {
         key={`${exercise}-${set}`}
         className={`text-xl ${styles.tableRow} relative ${set == 1 ? "bg-cardBG" : "bg-cardBG-foreground"}`}
       >
-        <td className={`md:pl-[4.2rem] ${styles.exerciseName}`}>
+        <td className={`md:pl-[4.2rem] pl-7 w-36 ${styles.exerciseName}`}>
           {workout.exercises[exercise][set].name}
         </td>
         <td className={styles.middle}>{set}</td>
@@ -20,7 +20,7 @@ function HistoryExerciseGroup({ workout, exercise }) {
         <td className={styles.weight}>
           {workout.exercises[exercise][set].weight}
         </td>
-        {set == 1 && <h2 className={`absolute ml-6 cursor-pointer text-2xl ${styles.dropButton}`} onClick={() => setDrop(!drop)}>{drop ? <IoIosArrowUp /> : <IoIosArrowDown />}</h2>}
+        {set == 1 && <h2 className={`absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.dropButton}`} onClick={() => setDrop(!drop)}>{drop ? <IoIosArrowUp /> : <IoIosArrowDown />}</h2>}
       </tr>
     </>)
   ));

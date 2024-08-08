@@ -23,14 +23,14 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselAPI,
 } from "@/components/ui/carousel";
 
 import MainExercise from "../mainExercise/mainExercise";
 import HistoryMainList from "../historyMainList/historyMainList";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
-  const [api, setApi] = useState(CarouselAPI);
+  console.log(Object.keys(workouts));
+  const [api, setApi] = useState();
   const [currentDate, setCurrentDate] = useState(undefined);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
@@ -62,7 +62,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     });
     console.log(workoutHistory);
   }, [currentDate, api]);
-  console.log(currentDate);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -131,18 +130,32 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               date={currentDate}
             ></HistoryMainList>
           ) : workoutHistory[date] == undefined ? (
-            <div className={styles.workoutContainer}>
-              <div className={`${styles.workoutHeader} text-3xl`}>
-                <h1 className={styles.headers}>Exercise</h1>
-                <h1 className={styles.headers}>Sets</h1>
-                <h1 className={styles.headers}>Reps</h1>
-                <h1 className={styles.headers}>Weight</h1>
+            <div className="sm:w-[90vw] md:w-full flex flex-col items-center justify-center">
+              <div className="w-full">
+                <table className={`lg:w-3/4 w-full ${styles.table}`}>
+                  <thead>
+                    <tr className="md:text-3xl">
+                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
+                        Exercise
+                      </th>
+                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
+                        Set
+                      </th>
+                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
+                        Reps
+                      </th>
+                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
+                        Weight
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {convertedExercises.map((exercise) => (
+                      <MainExercise key={exercise.id} exercise={exercise} />
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              {convertedExercises.map((exercise) => (
-                <div key={exercise.id}>
-                  <MainExercise exercise={exercise} />
-                </div>
-              ))}
             </div>
           ) : (
             <></>
@@ -156,3 +169,19 @@ function ExerciseList({ workouts, day, workoutHistory }) {
 }
 
 export default ExerciseList;
+
+{
+  /* <div className={styles.workoutContainer}>
+<div className={`${styles.workoutHeader} text-3xl`}>
+  <h1 className={styles.headers}>Exercise</h1>
+  <h1 className={styles.headers}>Sets</h1>
+  <h1 className={styles.headers}>Reps</h1>
+  <h1 className={styles.headers}>Weight</h1>
+</div>
+{convertedExercises.map((exercise) => (
+  <div key={exercise.id}>
+    <MainExercise exercise={exercise} />
+  </div>
+))}
+</div> */
+}

@@ -5,6 +5,17 @@
   align-items: center;
 }
 
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin: 0 auto;
+}
+
+.tableHeader {
+  font-weight: 600;
+  padding: 1rem 4rem;
+}
+
 .buttons {
   display: flex;
   gap: 7px;

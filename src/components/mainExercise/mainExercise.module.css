@@ -1,38 +1,22 @@
-.workouts {
-  display: grid;
-  grid-template-columns: repeat(17, 1fr);
-  justify-items: center;
-  align-items: center;
-  margin: 0px auto;
-  padding: 2rem 2rem;
+.tableRow .exerciseName {
+  text-align: left;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   border: hsl(var(--foreground)) solid 2px;
-  border-radius: 10px;
-  background-color: hsl(var(--cardBG));
+  border-right: transparent;
 }
 
-.headers,
-.stats {
-  grid-column: span 4;
-}
-
-.inputs {
-  width: 30%;
-  color: hsl(var(--foreground));
-  background-color: transparent;
+.middle {
   text-align: center;
-  border-bottom: 2px solid hsl(var(--foreground));
-  margin-bottom: -2px;
-  -moz-appearance: textfield;
+  border: hsl(var(--foreground)) solid 2px;
+  border-left: transparent;
+  border-right: transparent;
 }
 
-.inputs::placeholder {
-  font-size: 0.75em;
-}
-
-.inputs::-webkit-outer-spin-button,
-.inputs::-webkit-inner-spin-button,
-.addInputs::-webkit-outer-spin-button,
-.addInputs::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.edit {
+  text-align: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: hsl(var(--foreground)) solid 2px;
+  border-left: transparent;
 }
