@@ -25,7 +25,7 @@ function StartWorkout({ day }) {
     useLocalStorage("Time");
   const { removeItem: removeStartWorkoutItem } =
     useLocalStorage("StartWorkout");
-    const { removeItem: removeCurrentExerciseItem } =
+  const { removeItem: removeCurrentExerciseItem } =
     useLocalStorage("CurrentExercise");
 
   const router = useRouter();

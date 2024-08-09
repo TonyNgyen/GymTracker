@@ -165,14 +165,14 @@ export const updateExercises = async (exercises) => {
   );
 };
 
-export const updateSpecificExercise = async (exercise, weight) => {
+export const updateSpecificExercise = async (exercise, weight, date) => {
   try {
     const session = await auth();
     connectToDb();
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {
-        $set: { [`exercises.${exercise}.weight`]: weight },
+        $set: { [`exercises.${exercise}.weight`]: weight, [`exercises.${exercise}.history.${date}`]: weight},
       }
     );
     console.log("Successfully updated specific exercise!");

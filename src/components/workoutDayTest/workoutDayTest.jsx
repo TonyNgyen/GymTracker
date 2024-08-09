@@ -27,6 +27,7 @@ function WorkoutDayTest({ day, index }) {
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
+  const date = format(new Date(), "P");
 
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
@@ -51,8 +52,6 @@ function WorkoutDayTest({ day, index }) {
     for (let exercise in exerciseContext) {
       if (exerciseContext[exercise].name == name) {
         foundExercisesArray.push(exerciseContext[exercise]);
-        // FOUND OUT WHY THIS DOES NOT WORK
-        // setFoundExercises(...foundExercises, exerciseContext[exercise])
       }
     }
     setFoundExercises(foundExercisesArray);
@@ -67,6 +66,7 @@ function WorkoutDayTest({ day, index }) {
       sets: sets,
       reps: reps,
       weight: weight,
+      history: {[date]: weight},
     };
     setWorkouts([...workouts, newExercise]);
     setUnsavedExercises([...unsavedExercises, newExercise]);
@@ -88,6 +88,7 @@ function WorkoutDayTest({ day, index }) {
         sets: exercise.sets,
         reps: exercise.reps,
         weight: exercise.weight,
+        history: {[date]: weight},
       },
     ]);
     setExerciseIDs([...exerciseIDs, exerciseID]);
@@ -105,6 +106,7 @@ function WorkoutDayTest({ day, index }) {
       sets: sets,
       reps: reps,
       weight: weight,
+      history: {[date]: weight},
     };
     setWorkouts([...workouts, newExercise]);
     setUnsavedExercises([...unsavedExercises, newExercise]);
@@ -162,9 +164,9 @@ function WorkoutDayTest({ day, index }) {
             Rest
           </Button>
         )}
-        <Button onClick={debug} className="min-w-[69px]">
+        {/* <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button>
+        </Button> */}
       </div>
 
       {modal && (
@@ -259,8 +261,7 @@ function WorkoutDayTest({ day, index }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark
-            {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
+            Please add workouts or mark {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
             a rest day!
           </div>
         )}

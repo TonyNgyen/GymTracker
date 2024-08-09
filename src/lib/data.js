@@ -5,6 +5,18 @@ import { DevLog, User, Workout } from "./models";
 import { connectToDb } from "./mongo";
 import { unstable_noStore as noStore } from "next/cache";
 
+export const getUser = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const getWorkouts = async () => {
   const session = await auth();
   const userEmail = session.user?.email;

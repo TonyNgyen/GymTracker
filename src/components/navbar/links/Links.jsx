@@ -7,6 +7,18 @@ import Image from "next/image";
 import { handleLogout } from "@/lib/actions";
 import { ModeToggle } from "@/components/ui/toggle-mode";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FaUserCircle } from "react-icons/fa";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { useLocalStorage } from "@/lib/utils";
 
 const links = [
   {
@@ -28,6 +40,12 @@ const links = [
 ];
 
 function Links({ session }) {
+  const { removeItem: removeStartWorkoutItem } =
+    useLocalStorage("StartWorkout");
+  const { removeItem: removeCurrentExerciseItem } =
+    useLocalStorage("CurrentExercise");
+  const { removeItem: removeTimeItem } = useLocalStorage("Time");
+  const { removeItem: removeStartItem } = useLocalStorage("Start");
   const [open, setOpen] = useState(false);
 
   return (
@@ -41,11 +59,43 @@ function Links({ session }) {
             {session.user?.isAdmin && (
               <NavLink item={{ title: "Admin", path: "/admin" }} />
             )}
-            <form action={handleLogout}>
+            {/* <form action={handleLogout}>
               <Button className="cursor-pointer text-lg font-semibold bg-foreground text-background rounded-full">
                 Logout
               </Button>
-            </form>
+            </form> */}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>
+                    <FaUserCircle className="text-3xl" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <form action={handleLogout}>
+                    <button
+                      onClick={() => {
+                        removeCurrentExerciseItem();
+                        removeStartItem();
+                        removeStartWorkoutItem();
+                        removeTimeItem();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </form>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         ) : (
           <NavLink item={{ title: "Login", path: "/login" }} />

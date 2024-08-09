@@ -22,6 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { format } from "date-fns";
 
 function StartExercise({ set, savedWeight }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
@@ -36,6 +37,7 @@ function StartExercise({ set, savedWeight }) {
   const [previousReps, setPreviousReps] = useState(set.reps);
   const [reps, setReps] = useState(set.reps);
   const [showDialog, setShowDialog] = useState(false);
+  const date = format(new Date(), "P");
 
   const {
     setItem: setStartWorkoutItem,
@@ -87,7 +89,7 @@ function StartExercise({ set, savedWeight }) {
     setPreviousReps(reps);
     if (weight > savedWeight) {
       setShowDialog(true);
-      updateSpecificExercise(exerciseID, weight);
+      updateSpecificExercise(exerciseID, weight, date);
     }
   };
 
@@ -110,7 +112,7 @@ function StartExercise({ set, savedWeight }) {
     setPreviousReps(reps);
     if (weight > savedWeight) {
       setShowDialog(true);
-      updateSpecificExercise(exerciseID, weight);
+      updateSpecificExercise(exerciseID, weight, date);
     }
   };
 

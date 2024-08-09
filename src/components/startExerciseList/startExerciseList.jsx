@@ -22,13 +22,21 @@ function StartExerciseList({ day }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
+  // Object.keys(startWorkoutContext).map((key) => (
+  //   console.log(key)
+  // ))
+  console.log(startWorkoutContext);
   return (
     <div className="">
       <Carousel className="mx-auto w-10/12 md:w-6/12">
         <CarouselContent>
           {Object.keys(startWorkoutContext).map((key) => (
             <CarouselItem key={key}>
-              <StartExerciseContainer exercise={startWorkoutContext[key]} savedExercise={exercisesContext[key]} id={key} />
+              <StartExerciseContainer
+                exercise={startWorkoutContext[key]}
+                savedExercise={exercisesContext[key]}
+                id={key}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
