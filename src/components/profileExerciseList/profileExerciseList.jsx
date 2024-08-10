@@ -11,7 +11,7 @@ function ProfileExerciseList({ exercises }) {
             <th className="text-right">Weight</th>
           </tr>
           {Object.keys(exercises).map((exercise) => (
-            <tr className="text-lg">
+            <tr className="text-lg" key={exercise}>
               <td className="">{exercises[exercise].name}</td>
               <td className="text-right">{exercises[exercise].weight}</td>
             </tr>
