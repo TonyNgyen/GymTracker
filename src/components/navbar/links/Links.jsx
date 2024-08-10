@@ -68,7 +68,7 @@ function Links({ session }) {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
                   <AvatarFallback>
                     <FaUserCircle className="text-3xl" />
                   </AvatarFallback>
@@ -128,7 +128,7 @@ function Links({ session }) {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
                     <AvatarFallback>
                       <FaUserCircle className="text-3xl" />
                     </AvatarFallback>
