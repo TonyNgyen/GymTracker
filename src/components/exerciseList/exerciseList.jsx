@@ -27,6 +27,7 @@ import {
 
 import MainExercise from "../mainExercise/mainExercise";
 import HistoryMainList from "../historyMainList/historyMainList";
+import { changeCurrentWorkout, changeCurrentWorkoutRest } from "@/lib/actions";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
   console.log(Object.keys(workouts));
@@ -34,8 +35,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   const [currentDate, setCurrentDate] = useState(undefined);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const workoutForDay =
-    workouts[select].workouts[workouts[select].currentWorkout];
+  const [workoutForDay, setWorkoutForDay] = useState(
+    workouts[select].workouts[workouts[select].currentWorkout]
+  );
   const date = format(new Date(), "P");
   if (!(date in workoutHistory)) {
     workoutHistory[date] = undefined;
@@ -62,6 +64,39 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     });
     console.log(workoutHistory);
   }, [currentDate, api]);
+
+  // console.log(workouts[select].restDay == date);
+  // console.log(workouts[select].id);
+  // console.log(workouts[select].currentWorkout);
+
+  useEffect(() => {
+    const checkRestDay = async () => {
+      if (workouts[select].restDay == "") {
+        return;
+      }
+      if (workouts[select].restDay == date) {
+        return;
+      }
+      try {
+        let newDay = workouts[select].currentWorkout;
+        if (newDay === Object.keys(workouts[select].workouts).length) {
+          newDay = 1;
+        } else {
+          newDay += 1;
+        }
+        setWorkoutForDay(workouts[select].workouts[workouts[select].newDay]);
+        if (workouts[select].workouts[newDay].rest) {
+          await changeCurrentWorkoutRest(workouts[select].id, newDay);
+        } else {
+          await changeCurrentWorkout(workouts[select].id, newDay);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkRestDay();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -130,7 +165,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               date={currentDate}
             ></HistoryMainList>
           ) : workoutHistory[date] == undefined ? (
-            <div className="sm:w-[90vw] md:w-full flex flex-col items-center justify-center">
+            <div className="w-[90vw] md:w-full flex flex-col items-center justify-center">
               <div className="w-full">
                 <table className={`lg:w-3/4 w-full ${styles.table}`}>
                   <thead>

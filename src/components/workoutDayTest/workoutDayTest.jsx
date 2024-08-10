@@ -18,12 +18,16 @@ function WorkoutDayTest({ day, index }) {
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
   const [rest, setRest] = useState(workoutsContext[index].rest);
-  const [workouts, setWorkouts] = useState(convertExercises(workoutsContext[index].workouts, exerciseContext));
+  const [workouts, setWorkouts] = useState(
+    convertExercises(workoutsContext[index].workouts, exerciseContext)
+  );
   const [name, setName] = useState("");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-  const [exerciseIDs, setExerciseIDs] = useState(workoutsContext[index].workouts);
+  const [exerciseIDs, setExerciseIDs] = useState(
+    workoutsContext[index].workouts
+  );
   const [unsavedExercises, setUnsavedExercises] = useState([]);
   const [foundExercises, setFoundExercises] = useState([]);
   const [foundBoolean, setFoundBoolean] = useState(false);
@@ -32,12 +36,15 @@ function WorkoutDayTest({ day, index }) {
   const isWhitespaceString = (str) => !str.replace(/\s/g, "").length;
 
   useEffect(() => {
-    if (workouts.length != 0) {
-      setWorkoutsContext({
-        ...workoutsContext,
-        [index]: { completed: true, workouts: exerciseIDs, rest: rest, date:day },
-      });
-    }
+    setWorkoutsContext({
+      ...workoutsContext,
+      [index]: {
+        completed: true,
+        workouts: exerciseIDs,
+        rest: rest,
+        date: day,
+      },
+    });
   }, [exerciseIDs, rest, workouts]);
 
   const add = (e) => {
@@ -66,7 +73,7 @@ function WorkoutDayTest({ day, index }) {
       sets: sets,
       reps: reps,
       weight: weight,
-      history: {[date]: weight},
+      history: { [date]: weight },
     };
     setWorkouts([...workouts, newExercise]);
     setUnsavedExercises([...unsavedExercises, newExercise]);
@@ -88,7 +95,7 @@ function WorkoutDayTest({ day, index }) {
         sets: exercise.sets,
         reps: exercise.reps,
         weight: exercise.weight,
-        history: {[date]: weight},
+        history: { [date]: weight },
       },
     ]);
     setExerciseIDs([...exerciseIDs, exerciseID]);
@@ -106,7 +113,7 @@ function WorkoutDayTest({ day, index }) {
       sets: sets,
       reps: reps,
       weight: weight,
-      history: {[date]: weight},
+      history: { [date]: weight },
     };
     setWorkouts([...workouts, newExercise]);
     setUnsavedExercises([...unsavedExercises, newExercise]);
@@ -120,7 +127,7 @@ function WorkoutDayTest({ day, index }) {
   };
 
   const debug = (e) => {
-    console.log(exerciseIDs);
+    console.log(workoutsContext);
   };
 
   return (
@@ -164,9 +171,9 @@ function WorkoutDayTest({ day, index }) {
             Rest
           </Button>
         )}
-        {/* <Button onClick={debug} className="min-w-[69px]">
+        <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button> */}
+        </Button>
       </div>
 
       {modal && (
@@ -261,7 +268,8 @@ function WorkoutDayTest({ day, index }) {
       >
         {!workouts.length && !foundBoolean && (
           <div className="mt-32 text-2xl font-semibold">
-            Please add workouts or mark {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
+            Please add workouts or mark{" "}
+            {day.length == 1 ? "day " + day : format(day, "P").slice(0, -5)} as
             a rest day!
           </div>
         )}

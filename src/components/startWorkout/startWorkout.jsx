@@ -7,12 +7,14 @@ import WorkoutTimer from "../workoutTimer/workoutTimer";
 import StartExerciseList from "../startExerciseList/startExerciseList";
 import {
   WorkoutContext,
-  ExercisesContext,
   StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
 import style from "./startWorkout.module.css";
-import Link from "next/link";
-import { saveWorkoutHistory, changeCurrentWorkout } from "@/lib/actions";
+import {
+  saveWorkoutHistory,
+  changeCurrentWorkout,
+  changeCurrentWorkoutRest,
+} from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 function StartWorkout({ day }) {
@@ -56,7 +58,11 @@ function StartWorkout({ day }) {
     }
     try {
       await saveWorkoutHistory(startWorkoutContext, time);
-      await changeCurrentWorkout(workoutContext.id, newDay);
+      if (workoutContext.workouts[newDay].rest) {
+        await changeCurrentWorkoutRest(workoutContext.id, newDay);
+      } else {
+        await changeCurrentWorkout(workoutContext.id, newDay);
+      }
       router.push("/workouts");
     } catch (error) {
       console.error("Error calling changeCurrentWorkout: ", error);

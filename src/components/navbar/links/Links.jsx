@@ -77,10 +77,12 @@ function Links({ session }) {
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
+                <Link href="/profile">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Profile
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuItem className="cursor-pointer">
                   <form action={handleLogout}>
                     <button
                       onClick={() => {
@@ -123,11 +125,39 @@ function Links({ session }) {
               {session.user?.isAdmin && (
                 <NavLink item={{ title: "Admin", path: "/admin" }} />
               )}
-              <form action={handleLogout}>
-                <Button className="cursor-pointer text-lg font-semibold bg-foreground text-background rounded-full">
-                  Logout
-                </Button>
-              </form>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>
+                      <FaUserCircle className="text-3xl" />
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <Link href="/profile">
+                    <DropdownMenuItem className="cursor-pointer">
+                      Profile
+                    </DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem className="cursor-pointer">
+                    <form action={handleLogout}>
+                      <button
+                        onClick={() => {
+                          removeCurrentExerciseItem();
+                          removeStartItem();
+                          removeStartWorkoutItem();
+                          removeTimeItem();
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </form>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
             <NavLink item={{ title: "Login", path: "/login" }} />

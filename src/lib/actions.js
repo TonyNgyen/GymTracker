@@ -172,7 +172,10 @@ export const updateSpecificExercise = async (exercise, weight, date) => {
     await User.findOneAndUpdate(
       { email: session.user?.email },
       {
-        $set: { [`exercises.${exercise}.weight`]: weight, [`exercises.${exercise}.history.${date}`]: weight},
+        $set: {
+          [`exercises.${exercise}.weight`]: weight,
+          [`exercises.${exercise}.history.${date}`]: weight,
+        },
       }
     );
     console.log("Successfully updated specific exercise!");
@@ -190,6 +193,29 @@ export const changeCurrentWorkout = async (workout, day) => {
       {
         $set: {
           [`workouts.${workout}.currentWorkout`]: day,
+          [`workouts.${workout}.restDay`]: "",
+        },
+      },
+      { new: false }
+    );
+    console.log("Successfully updated current workout!");
+    revalidatePath("/workouts");
+  } catch (error) {
+    console.log("Unsuccessfully updated current workout!");
+  }
+};
+
+export const changeCurrentWorkoutRest = async (workout, day) => {
+  try {
+    const session = await auth();
+    connectToDb();
+    const date = format(new Date(), "P");
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${workout}.currentWorkout`]: day,
+          [`workouts.${workout}.restDay`]: date,
         },
       },
       { new: false }

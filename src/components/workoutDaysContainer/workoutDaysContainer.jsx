@@ -95,7 +95,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
         <div className="flex flex-col items-center">
           <h1 className="text-center text-5xl font-semibold mb-5">{title}</h1>
           <Carousel
-            className="flex w-10/12 md:w-4/5"
+            className="w-10/12 md:w-4/5"
             opts={{
               loop: true,
             }}
