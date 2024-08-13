@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getUser } from "@/lib/data";
 import styles from "./profile.module.css";
 import ProfileExerciseList from "@/components/profileExerciseList/profileExerciseList";
+import ProfileChart from "@/components/profileChart/profileChart";
 
 function ProfilePage() {
   const [user, setUser] = useState();
@@ -20,8 +21,10 @@ function ProfilePage() {
   }, []);
   return user != undefined ? (
     <div className={styles.container}>
-      {user.username}
+      <div className="text-center text-3xl font-semibold">{user.username}</div>
+
       <ProfileExerciseList exercises={user.exercises} />
+      <ProfileChart exercises={user.exercises} />
     </div>
   ) : (
     <>Loading</>

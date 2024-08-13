@@ -1,0 +1,27 @@
+.table {
+  border-collapse: separate;
+  border-spacing: 0 0px;
+  margin: 0 auto;
+}
+
+.exerciseHeader {
+  border-top-left-radius: 10px;
+  border: hsl(var(--foreground)) solid 2px;
+  border-right: transparent;
+}
+
+.weightHeader {
+  border-top-right-radius: 10px;
+  border: hsl(var(--foreground)) solid 2px;
+  border-left: transparent;
+}
+
+.exerciseRow {
+  border: hsl(var(--foreground)) solid 2px;
+  border-right: transparent;
+}
+
+.weightRow {
+  border: hsl(var(--foreground)) solid 2px;
+  border-left: transparent;
+}
