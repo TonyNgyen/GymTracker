@@ -19,15 +19,26 @@ function ProfileWorkoutHistory({ workoutHistory }) {
       let prepareTime = 0;
       let prepareData = [];
       Object.keys(workoutHistory).map((workoutDate) => {
-        prepareData = [
-          ...prepareData,
-          {
-            date: format(workoutDate, "yyyy-MM-dd"),
-            count: workoutHistory[workoutDate].time,
-            level: 1,
-          },
-        ];
-        prepareTime += workoutHistory[workoutDate].time;
+        if (workoutHistory[workoutDate].time != -1) {
+          prepareData = [
+            ...prepareData,
+            {
+              date: format(workoutDate, "yyyy-MM-dd"),
+              count: workoutHistory[workoutDate].time,
+              level: 2,
+            },
+          ];
+          prepareTime += workoutHistory[workoutDate].time;
+        } else {
+          prepareData = [
+            ...prepareData,
+            {
+              date: format(workoutDate, "yyyy-MM-dd"),
+              count: workoutHistory[workoutDate].time,
+              level: 1,
+            },
+          ];
+        }
       });
       if (!(`01/01/${currentYear}` in Object.keys(workoutHistory))) {
         prepareData = [
@@ -91,7 +102,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
               weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             }}
             hideColorLegend
-            maxLevel={1}
+            maxLevel={2}
           />
         }
       </CardContent>
