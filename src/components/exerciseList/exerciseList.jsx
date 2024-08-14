@@ -41,7 +41,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   if (!(date in workoutHistory)) {
     workoutHistory[date] = undefined;
   }
-
   const convertedExercises = [];
   if (workoutForDay != undefined) {
     workoutForDay.workouts.map((id) => {

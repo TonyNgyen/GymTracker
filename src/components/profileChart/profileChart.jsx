@@ -50,10 +50,10 @@ function ProfileChart({ exercises }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center">
+        <CardTitle className="flex items-center flex-col md:flex-row gap-2">
           Weight History for
-          <Select onValueChange={(value) => setSelect(value)}>
-            <SelectTrigger className="max-w-96 border-0 p-2 text-2xl">
+          <Select onValueChange={(value) => setSelect(value)} className="">
+            <SelectTrigger className="w-[280px] border-0 text-2xl p-0">
               <SelectValue placeholder={exercises[select].name} />
             </SelectTrigger>
             <SelectContent>
@@ -101,7 +101,7 @@ function ProfileChart({ exercises }) {
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
+      {/* <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
@@ -112,7 +112,7 @@ function ProfileChart({ exercises }) {
             </div>
           </div>
         </div>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

@@ -5,6 +5,7 @@ import { getUser } from "@/lib/data";
 import styles from "./profile.module.css";
 import ProfileExerciseList from "@/components/profileExerciseList/profileExerciseList";
 import ProfileChart from "@/components/profileChart/profileChart";
+import ProfileWorkoutHistory from "@/components/profileWorkoutHistory/profileWorkoutHistory";
 
 function ProfilePage() {
   const [user, setUser] = useState();
@@ -20,11 +21,12 @@ function ProfilePage() {
     fetchUser();
   }, []);
   return user != undefined ? (
-    <div className={styles.container}>
+    <div className={`flex flex-col gap-2 ${styles.container}`}>
       <div className="text-center text-3xl font-semibold">{user.username}</div>
 
       <ProfileExerciseList exercises={user.exercises} />
       <ProfileChart exercises={user.exercises} />
+      <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
     </div>
   ) : (
     <>Loading</>
