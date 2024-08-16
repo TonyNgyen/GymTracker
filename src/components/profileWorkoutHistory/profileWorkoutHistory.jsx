@@ -9,10 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import styles from "./profileWorkoutHistory.module.css";
 
 function ProfileWorkoutHistory({ workoutHistory }) {
   const [data, setData] = useState();
   const [totalTime, setTotalTime] = useState();
+  const explicitTheme = {
+    light: ["#30f0f0", "#94edde"],
+    dark: ["#383838", "#9D455D"],
+  };
   useEffect(() => {
     const getData = () => {
       const currentYear = new Date().getFullYear();
@@ -69,9 +74,9 @@ function ProfileWorkoutHistory({ workoutHistory }) {
   const minutes = Math.floor((totalTime % 3600) / 60);
   const seconds = Math.floor(totalTime % 60);
   return (
-    <Card className="p-4">
+    <Card className={`p-4 ${styles.container} md:flex md:flex-col bg-cardBG`}>
       <CardTitle className="mb-4">Workout History</CardTitle>
-      <CardContent>
+      <CardContent className="mx-auto">
         {
           <ActivityCalendar
             data={data}
@@ -103,6 +108,11 @@ function ProfileWorkoutHistory({ workoutHistory }) {
             }}
             hideColorLegend
             maxLevel={2}
+            theme={{
+              light: ["#f0f0f0", "#c4edde"],
+              dark: ["#383838", "#3b5c78", "#3795e1"],
+            }}
+            blockSize={12}
           />
         }
       </CardContent>

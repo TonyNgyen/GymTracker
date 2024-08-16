@@ -9,7 +9,11 @@ function ExerciseListContainer({ workouts, day, exercises, workoutHistory }) {
 
   return (
     <ExercisesContext.Provider value={[exercisesContext, setExercisesContext]}>
-      <ExerciseList workouts={workouts} day={day} workoutHistory={workoutHistory}/>
+      <ExerciseList
+        workouts={workouts}
+        day={day}
+        workoutHistory={workoutHistory}
+      />
     </ExercisesContext.Provider>
   );
 }

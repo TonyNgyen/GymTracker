@@ -48,7 +48,7 @@ function ProfileChart({ exercises }) {
   };
 
   return (
-    <Card>
+    <Card className="bg-cardBG">
       <CardHeader>
         <CardTitle className="flex items-center flex-col md:flex-row gap-2">
           Weight History for

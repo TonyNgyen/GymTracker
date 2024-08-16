@@ -4,11 +4,16 @@
 
 @layer base {
   :root {
-    --chart-1: 12 76% 61%;
+    /* --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-5: 27 87% 67%; */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
 
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -37,7 +42,7 @@
     --greenConfirm: 142, 87%, 35%;
     --greenConfirm-foreground: 142, 87%, 70%;
 
-    --cardBG: 207, 84%, 87%;
+    --cardBG: 207, 84%, 95%;
     --cardBG-foreground: 207, 74%, 95%;
 
     --destructive: 0 84.2% 60.2%;
@@ -85,7 +90,7 @@
     --greenConfirm-foreground: 142, 87%, 35%;
 
     /* --cardBG: 207, 74%, 9%; */
-    --cardBG: 212.2 64% 14%;
+    --cardBG: 212.2 64% 10%;
     --cardBG-foreground: 212.2 14% 14%;
 
     --destructive: 0 84.2% 65.2%;

@@ -43,6 +43,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    streak: {
+      type: Number,
+      default: 0,
+    },
+    lastWorkout: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
