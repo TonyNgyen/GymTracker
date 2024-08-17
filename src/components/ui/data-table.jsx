@@ -36,7 +36,7 @@ export function DataTable({ columns, data }) {
   });
 
   return (
-    <div className="rounded-md border p-4 bg-cardBG">
+    <div className="rounded-md border p-4 bg-cardBG border-foreground border-2">
       <div className="rounded-md border min-h-[354.5px] bg-background">
         <Table>
           <TableHeader>

@@ -25,16 +25,21 @@ function ProfilePage() {
   }, []);
   return user != undefined ? (
     <div className="flex flex-col items-center justify-center">
-      <div className={`w-[90vw] flex flex-col gap-2 ${styles.container}`}>
-        <ProfileCard user={user} />
-        <div className="flex w-full gap-2">
-          <ProfileTotalWeight exercises={user.exercises} />
-          <ProfileStreak streak={user.streak} />
+      <div
+        className={`w-[90vw] flex flex-col gap-2 ${styles.container} lg:grid lg:grid-cols-3 lg:mx-auto lg:w-[70vw]`}
+      >
+        <div className="lg:col-span-1 flex flex-col gap-2">
+          <ProfileCard user={user} />
+          <div className="flex gap-2">
+            <ProfileTotalWeight exercises={user.exercises} />
+            <ProfileStreak streak={user.streak} />
+          </div>
+          <ProfileExerciseList exercises={user.exercises} />
         </div>
-
-        <ProfileExerciseList exercises={user.exercises} />
-        <ProfileChart exercises={user.exercises} />
-        <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
+        <div className="lg:col-span-2 flex flex-col gap-2">
+          <ProfileChart exercises={user.exercises} />
+          <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
+        </div>
       </div>
     </div>
   ) : (

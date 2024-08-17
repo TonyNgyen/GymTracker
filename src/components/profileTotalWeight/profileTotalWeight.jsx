@@ -19,7 +19,7 @@ function ProfileTotalWeight({ exercises }) {
     }
   }
   return (
-    <Card className="flex-grow bg-cardBG">
+    <Card className="flex-grow bg-cardBG border-foreground border-2">
       <CardHeader className="p-4 md:p-6">
         <CardTitle className="m-0 flex gap-3 items-center">
           Total Weight <IoBarbell className="text-3xl text-main -rotate-45" />

@@ -48,7 +48,7 @@ function ProfileChart({ exercises }) {
   };
 
   return (
-    <Card className="bg-cardBG">
+    <Card className="bg-cardBG lg:h-[483px] border-foreground border-2">
       <CardHeader>
         <CardTitle className="flex items-center flex-col md:flex-row gap-2">
           Weight History for
@@ -70,7 +70,7 @@ function ProfileChart({ exercises }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="w-full md:h-[350px]">
           <AreaChart
             accessibilityLayer
             data={exerciseHistory}

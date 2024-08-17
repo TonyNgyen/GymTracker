@@ -74,7 +74,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
   const minutes = Math.floor((totalTime % 3600) / 60);
   const seconds = Math.floor(totalTime % 60);
   return (
-    <Card className={`p-4 ${styles.container} md:flex md:flex-col bg-cardBG`}>
+    <Card className={`p-4 ${styles.container} md:flex md:flex-col bg-cardBG lg:h-[261px] border-foreground border-2`}>
       <CardTitle className="mb-4">Workout History</CardTitle>
       <CardContent className="mx-auto">
         {
@@ -112,7 +112,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
               light: ["#f0f0f0", "#c4edde"],
               dark: ["#383838", "#3b5c78", "#3795e1"],
             }}
-            blockSize={12}
+            blockSize={11}
           />
         }
       </CardContent>
