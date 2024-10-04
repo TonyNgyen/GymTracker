@@ -30,7 +30,6 @@ import HistoryMainList from "../historyMainList/historyMainList";
 import { changeCurrentWorkout, changeCurrentWorkoutRest } from "@/lib/actions";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
-  console.log(Object.keys(workouts));
   const [api, setApi] = useState();
   const [currentDate, setCurrentDate] = useState(undefined);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
@@ -65,9 +64,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     console.log(workoutHistory);
   }, [currentDate, api]);
 
-  // console.log(workouts[select].restDay == date);
-  // console.log(workouts[select].id);
-  // console.log(workouts[select].currentWorkout);
+  useEffect(() => {
+    setWorkoutForDay(workouts[select].workouts[workouts[select].currentWorkout])
+  }, [select])
 
   useEffect(() => {
     const checkRestDay = async () => {
