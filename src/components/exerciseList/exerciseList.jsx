@@ -65,8 +65,10 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   }, [currentDate, api]);
 
   useEffect(() => {
-    setWorkoutForDay(workouts[select].workouts[workouts[select].currentWorkout])
-  }, [select])
+    setWorkoutForDay(
+      workouts[select].workouts[workouts[select].currentWorkout]
+    );
+  }, [select]);
 
   useEffect(() => {
     const checkRestDay = async () => {
@@ -159,10 +161,12 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           {workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
           ) : currentDate != date && currentDate != undefined ? (
-            <HistoryMainList
-              workout={workoutHistory[currentDate]}
-              date={currentDate}
-            ></HistoryMainList>
+            <div>
+              <HistoryMainList
+                workout={workoutHistory[currentDate]}
+                date={currentDate}
+              ></HistoryMainList>
+            </div>
           ) : workoutHistory[date] == undefined ? (
             <div className="w-[90vw] md:w-full flex flex-col items-center justify-center">
               <div className="w-full">
@@ -192,7 +196,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               </div>
             </div>
           ) : (
-            <></>
+            <h1>Test</h1>
           )}
         </>
       ) : (
