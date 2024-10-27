@@ -27,7 +27,11 @@ import {
 
 import MainExercise from "../mainExercise/mainExercise";
 import HistoryMainList from "../historyMainList/historyMainList";
-import { changeCurrentWorkout, changeCurrentWorkoutRest } from "@/lib/actions";
+import {
+  changeCurrentWorkout,
+  changeCurrentWorkoutRest,
+  saveWorkoutHistory,
+} from "@/lib/actions";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
   const [api, setApi] = useState();
@@ -41,7 +45,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   if (!(date in workoutHistory)) {
     workoutHistory[date] = undefined;
   }
-
   const convertedExercises = [];
   if (workoutForDay != undefined) {
     workoutForDay.workouts.map((id) => {
@@ -64,11 +67,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     console.log(workoutHistory);
   }, [currentDate, api]);
 
-  useEffect(() => {
-    setWorkoutForDay(
-      workouts[select].workouts[workouts[select].currentWorkout]
-    );
-  }, [select]);
+  // console.log(workouts[select].restDay == date);
+  // console.log(workouts[select].id);
+  // console.log(workouts[select].currentWorkout);
 
   useEffect(() => {
     const checkRestDay = async () => {
@@ -87,8 +88,10 @@ function ExerciseList({ workouts, day, workoutHistory }) {
         }
         setWorkoutForDay(workouts[select].workouts[workouts[select].newDay]);
         if (workouts[select].workouts[newDay].rest) {
+          await saveWorkoutHistory({}, -2);
           await changeCurrentWorkoutRest(workouts[select].id, newDay);
         } else {
+          await saveWorkoutHistory({}, -2);
           await changeCurrentWorkout(workouts[select].id, newDay);
         }
       } catch (error) {
