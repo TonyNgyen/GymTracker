@@ -33,7 +33,7 @@ async function WorkoutsPage() {
     return <div></div>;
   }
   return (
-    <div>
+    <div className="">
       {workouts == undefined || !Object.keys(workouts).length ? (
         <div className="flex flex-col items-center">
           <section className="p-10 flex justify-center w-1/2 mx-auto rounded-md">

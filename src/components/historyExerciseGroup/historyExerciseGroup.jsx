@@ -24,7 +24,7 @@ function HistoryExerciseGroup({ workout, exercise }) {
             <td className={styles.weight}>
               {workout.exercises[exercise][set].weight}
             </td>
-            <td className="bg-background pl-2 md:pl-4">
+            {/* <td className="bg-background pl-1 md:pl-4">
               {set == 1 && (
                 <button
                   className={`text-2xl`}
@@ -33,7 +33,17 @@ function HistoryExerciseGroup({ workout, exercise }) {
                   {drop ? <IoIosArrowUp /> : <IoIosArrowDown />}
                 </button>
               )}
-            </td>
+            </td> */}
+            <div className="relative">
+              {set == 1 && (
+                <h2
+                  className={`absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.dropButton}`}
+                  onClick={() => setDrop(!drop)}
+                >
+                  {drop ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                </h2>
+              )}
+            </div>
           </tr>
         </>
       )
