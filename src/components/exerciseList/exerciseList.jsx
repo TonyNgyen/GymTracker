@@ -35,7 +35,7 @@ import {
 
 function ExerciseList({ workouts, day, workoutHistory }) {
   const [api, setApi] = useState();
-  const [currentDate, setCurrentDate] = useState(undefined);
+  const [currentDate, setCurrentDate] = useState(day);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [workoutForDay, setWorkoutForDay] = useState(
@@ -64,7 +64,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     api.on("select", () => {
       setCurrentDate(Object.keys(workoutHistory)[api.selectedScrollSnap()]);
     });
-    console.log(workoutHistory);
   }, [currentDate, api]);
 
   useEffect(() => {
@@ -102,8 +101,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       workouts[select].workouts[workouts[select].currentWorkout]
     );
   }, [select]);
-
-  console.log(workouts[select]);
 
   return (
     <div className={styles.container}>
@@ -203,7 +200,12 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               </div>
             </div>
           ) : (
-            <h1>Test</h1>
+            <div>
+              <HistoryMainList
+                workout={workoutHistory[currentDate]}
+                date={currentDate}
+              ></HistoryMainList>
+            </div>
           )}
         </>
       ) : (
