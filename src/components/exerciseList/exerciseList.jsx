@@ -67,10 +67,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     console.log(workoutHistory);
   }, [currentDate, api]);
 
-  // console.log(workouts[select].restDay == date);
-  // console.log(workouts[select].id);
-  // console.log(workouts[select].currentWorkout);
-
   useEffect(() => {
     const checkRestDay = async () => {
       if (workouts[select].restDay == "") {
@@ -100,6 +96,14 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     };
     checkRestDay();
   }, []);
+
+  useEffect(() => {
+    setWorkoutForDay(
+      workouts[select].workouts[workouts[select].currentWorkout]
+    );
+  }, [select]);
+
+  console.log(workouts[select]);
 
   return (
     <div className={styles.container}>
