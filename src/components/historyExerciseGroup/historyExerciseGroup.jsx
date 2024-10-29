@@ -11,7 +11,7 @@ function HistoryExerciseGroup({ workout, exercise }) {
           <tr
             key={`${exercise}-${set}`}
             className={`text-xl ${styles.tableRow} relative ${
-              !workout.exercises[exercise][set].completed ? "bg-red-950" : set == 1 ? "bg-cardBG" : "bg-cardBG-foreground"
+              (set == 1 && !workout.exercises[exercise][set].completed) ? "bg-red-950" : !workout.exercises[exercise][set].completed ? "bg-red-950 bg-opacity-40" : set == 1 ? "bg-cardBG" : "bg-cardBG-foreground"
             }`}
           >
             <td className={`md:pl-[4.2rem] pl-7 w-36 ${styles.exerciseName}`}>
