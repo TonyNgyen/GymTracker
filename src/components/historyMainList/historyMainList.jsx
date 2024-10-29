@@ -5,7 +5,6 @@ import HistoryExerciseGroup from "../historyExerciseGroup/historyExerciseGroup";
 function HistoryMainList({ workout, date }) {
   const tableHeaderStyle =
     "font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4";
-  // console.log(workout)
   return (
     <div className="w-[85vw] md:w-full flex flex-col items-center justify-center">
       <div className="w-full">
