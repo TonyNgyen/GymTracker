@@ -20,7 +20,7 @@ function HistoryExerciseGroup({ workout, exercise }) {
                 : "bg-cardBG-foreground"
             }`}
           >
-            <td className={`md:pl-[4.2rem] pl-7 w-36 ${styles.exerciseName}`}>
+            <td className={`md:pl-[4.2rem] pl-5 w-36 ${styles.exerciseName}`}>
               {workout.exercises[exercise][set].name}
             </td>
             <td className={styles.middle}>{set}</td>

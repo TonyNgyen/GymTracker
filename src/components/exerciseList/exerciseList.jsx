@@ -34,6 +34,8 @@ import {
 } from "@/lib/actions";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
+  const tableHeaderStyle =
+    "font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4";
   const [api, setApi] = useState();
   const [currentDate, setCurrentDate] = useState(day);
   const [select, setSelect] = useState(Object.keys(workouts)[0]);
@@ -165,47 +167,33 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           {workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
           ) : currentDate != date && currentDate != undefined ? (
-            <div>
-              <HistoryMainList
-                workout={workoutHistory[currentDate]}
-                date={currentDate}
-              ></HistoryMainList>
-            </div>
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            />
           ) : workoutHistory[date] == undefined ? (
-            <div className="w-[90vw] md:w-full flex flex-col items-center justify-center">
-              <div className="w-full">
-                <table className={`lg:w-3/4 w-full ${styles.table}`}>
-                  <thead>
-                    <tr className="md:text-3xl">
-                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
-                        Exercise
-                      </th>
-                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
-                        Set
-                      </th>
-                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
-                        Reps
-                      </th>
-                      <th className="font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4">
-                        Weight
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {convertedExercises.map((exercise) => (
-                      <MainExercise key={exercise.id} exercise={exercise} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            <div className="w-[85vw] md:w-3/4 flex flex-col items-center justify-center">
+              <table className={`lg:w-3/4 w-full ${styles.table}`}>
+                <thead>
+                  <tr className="md:text-3xl">
+                    <th className={tableHeaderStyle}>Exercise</th>
+                    <th className={tableHeaderStyle}>Set</th>
+                    <th className={tableHeaderStyle}>Reps</th>
+                    <th className={tableHeaderStyle}>Weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {convertedExercises.map((exercise) => (
+                    <MainExercise key={exercise.id} exercise={exercise} />
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : (
-            <div>
-              <HistoryMainList
-                workout={workoutHistory[currentDate]}
-                date={currentDate}
-              ></HistoryMainList>
-            </div>
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            />
           )}
         </>
       ) : (

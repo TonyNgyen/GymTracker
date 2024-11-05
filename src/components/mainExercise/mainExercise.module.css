@@ -4,6 +4,8 @@
   border-bottom-left-radius: 10px;
   border: hsl(var(--foreground)) solid 2px;
   border-right: transparent;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .middle {
@@ -13,10 +15,25 @@
   border-right: transparent;
 }
 
+.weight {
+  text-align: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: hsl(var(--foreground)) solid 2px;
+  border-left: transparent;
+}
+
 .edit {
   text-align: center;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border: hsl(var(--foreground)) solid 2px;
   border-left: transparent;
+}
+
+.editNew {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 150%);
 }
