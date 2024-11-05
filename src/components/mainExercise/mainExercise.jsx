@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import { FaEdit, FaCheck } from "react-icons/fa";
 import styles from "./mainExercise.module.css";
 import { ExercisesContext } from "../exerciseListContainer/context";
 import { updateExercises } from "@/lib/actions";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 function MainExercise({ exercise }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);

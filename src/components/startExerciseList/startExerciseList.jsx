@@ -6,8 +6,6 @@ import {
   ExercisesContext,
   StartWorkoutContext,
 } from "@/app/workouts/[slug]/start/context";
-import { convertExercises } from "@/lib/utils";
-import StartExercise from "../startExercise/startExercise";
 import {
   Carousel,
   CarouselContent,
@@ -22,9 +20,6 @@ function StartExerciseList({ day }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
-  // Object.keys(startWorkoutContext).map((key) => (
-  //   console.log(key)
-  // ))
   console.log(startWorkoutContext);
   return (
     <div className="">

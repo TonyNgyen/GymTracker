@@ -31,6 +31,8 @@ function ProfileChart({ exercises }) {
   const [exerciseHistory, setExerciseHistory] = useState();
   const [select, setSelect] = useState(Object.keys(exercises)[0]);
 
+  console.log((exercises[select]));
+
   useEffect(() => {
     let conversion = Object.keys(exercises[select].history).map((date) => ({
       date: date,

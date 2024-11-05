@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "@/lib/data";
 import styles from "./profile.module.css";
-import ProfileExerciseList from "@/components/profileExerciseList/profileExerciseList";
-import ProfileChart from "@/components/profileChart/profileChart";
-import ProfileWorkoutHistory from "@/components/profileWorkoutHistory/profileWorkoutHistory";
-import ProfileTotalWeight from "@/components/profileTotalWeight/profileTotalWeight";
-import ProfileStreak from "@/components/profileStreak/profileStreak";
-import ProfileCard from "@/components/profileCard/profileCard";
+import ProfileExerciseList from "@/components/profile/profileExerciseList/profileExerciseList";
+import ProfileChart from "@/components/profile/profileChart/profileChart";
+import ProfileWorkoutHistory from "@/components/profile/profileWorkoutHistory/profileWorkoutHistory";
+import ProfileTotalWeight from "@/components/profile/profileTotalWeight/profileTotalWeight";
+import ProfileStreak from "@/components/profile/profileStreak/profileStreak";
+import ProfileCard from "@/components/profile/profileCard/profileCard";
 
 function ProfilePage() {
   const [user, setUser] = useState();

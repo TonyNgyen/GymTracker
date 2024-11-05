@@ -71,8 +71,8 @@
 
 import React from "react";
 import styles from "./profileExerciseList.module.css";
-import { Card } from "../ui/card";
-import { DataTable } from "../ui/data-table";
+import { Card } from "../../ui/card";
+import { DataTable } from "../../ui/data-table";
 
 function ProfileExerciseList({ exercises }) {
   const data = Object.keys(exercises).map((exercise) => ({

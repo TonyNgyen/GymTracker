@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import StartExercise from "../startExercise/startExercise";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { CurrentExerciseContext } from "@/app/workouts/[slug]/start/context";
 
 function StartExerciseContainer({ exercise, id, savedExercise }) {

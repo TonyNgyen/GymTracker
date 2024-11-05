@@ -1,24 +1,12 @@
 "use client";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
 import React, { useEffect, useState } from "react";
-import WorkoutDayTest from "@/components/workoutDayTest/workoutDayTest";
-import { WorkoutContext, ExerciseContext } from "./context";
 import {
-  addWorkout,
   validateWorkoutName,
   validateWorkoutDays,
 } from "@/lib/actions";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import styles from "./autoUpdate.module.css";
 import WorkoutDaysContainer from "../workoutDaysContainer/workoutDaysContainer";
 
