@@ -31,7 +31,10 @@ function RegisterForm() {
   return (
     <form action={formAction} className={`${styles.form}`}>
       <h1 className="text-xl font-semibold mb-[20px]">Sign Up</h1>
-      <label for="username" className="self-start mb-[5px] text-lg font-semibold">
+      <label
+        for="username"
+        className="self-start mb-[5px] text-lg font-semibold"
+      >
         Username
       </label>
       <input
@@ -40,20 +43,26 @@ function RegisterForm() {
         name="username"
         id=""
         className="mb-[15px] rounded-md"
+        required
       />
 
       <label for="email" className="self-start mb-[5px] text-lg font-semibold">
         Email
       </label>
       <input
-        type="text"
+        type="email"
         placeholder="Email"
         name="email"
         id=""
         className="mb-[15px] rounded-md"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        required
       />
 
-      <label for="username" className="self-start mb-[5px] text-lg font-semibold">
+      <label
+        for="username"
+        className="self-start mb-[5px] text-lg font-semibold"
+      >
         Password
       </label>
       <div className={`mb-[10px] ${passwordStyle}`}>
@@ -63,6 +72,7 @@ function RegisterForm() {
           name="password"
           id=""
           className="w-full rounded-md"
+          required
         />
         <FaEye onClick={() => togglePassword()} className="cursor-pointer" />
       </div>
@@ -74,6 +84,7 @@ function RegisterForm() {
           name="passwordRepeat"
           id=""
           className="w-full rounded-md"
+          required
         />
         <FaEye onClick={() => togglePassword()} className="cursor-pointer" />
       </div>

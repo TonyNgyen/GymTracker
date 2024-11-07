@@ -31,9 +31,10 @@ function ProfileChart({ exercises }) {
   const [exerciseHistory, setExerciseHistory] = useState();
   const [select, setSelect] = useState(Object.keys(exercises)[0]);
 
-  console.log((exercises[select]));
-
   useEffect(() => {
+    if (Object.keys(exercises).length == 0) {
+      return;
+    }
     let conversion = Object.keys(exercises[select].history).map((date) => ({
       date: date,
       weight: exercises[select].history[date],
@@ -51,58 +52,77 @@ function ProfileChart({ exercises }) {
 
   return (
     <Card className="bg-cardBG lg:h-[483px] border-foreground border-2">
-      <CardHeader>
-        <CardTitle className="flex items-center flex-col md:flex-row gap-2">
-          Weight History for
-          <Select onValueChange={(value) => setSelect(value)} className="">
-            <SelectTrigger className="w-[280px] border-0 text-2xl p-0">
-              <SelectValue placeholder={exercises[select].name} />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.keys(exercises).map((id) => (
-                <SelectItem value={id} key={id}>
-                  {exercises[id].name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="w-full md:h-[350px]">
-          <AreaChart
-            accessibilityLayer
-            data={exerciseHistory}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 5)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Area
-              dataKey="weight"
-              type="step"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
+      {Object.keys(exercises).length == 0 ? (
+        <>
+          <CardHeader>
+            <CardTitle className="flex items-center flex-col md:flex-row gap-2">
+              Weight History
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex h-2/3 justify-center items-center text-xl font-semibold">
+            No exercises to display history for.
+          </CardContent>
+        </>
+      ) : (
+        <>
+          <CardHeader>
+            <CardTitle className="flex items-center flex-col md:flex-row gap-2">
+              Weight History for
+              <Select onValueChange={(value) => setSelect(value)} className="">
+                <SelectTrigger className="w-[280px] border-0 text-2xl p-0">
+                  <SelectValue placeholder={exercises[select].name} />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.keys(exercises).map((id) => (
+                    <SelectItem value={id} key={id}>
+                      {exercises[id].name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardTitle>
+            <CardDescription>
+              Showing total visitors for the last 6 months
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer
+              config={chartConfig}
+              className="w-full md:h-[350px]"
+            >
+              <AreaChart
+                accessibilityLayer
+                data={exerciseHistory}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 5)}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Area
+                  dataKey="weight"
+                  type="step"
+                  fill="var(--color-desktop)"
+                  fillOpacity={0.4}
+                  stroke="var(--color-desktop)"
+                />
+              </AreaChart>
+            </ChartContainer>
+          </CardContent>
+        </>
+      )}
+
       {/* <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">

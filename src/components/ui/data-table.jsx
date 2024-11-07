@@ -78,9 +78,9 @@ export function DataTable({ columns, data }) {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center text-xl"
                 >
-                  No results.
+                  No exercises to display.
                 </TableCell>
               </TableRow>
             )}
