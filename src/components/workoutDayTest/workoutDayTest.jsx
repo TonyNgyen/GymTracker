@@ -165,15 +165,15 @@ function WorkoutDayTest({ day, index }) {
         ) : (
           <Button
             variant="destructive"
-            className="min-w-[110px] text-lg"
+            className="min-w-[110px] text-lg text-white"
             onClick={() => setRest(!rest)}
           >
             Rest
           </Button>
         )}
-        <Button onClick={debug} className="min-w-[69px]">
+        {/* <Button onClick={debug} className="min-w-[69px]">
           Debug
-        </Button>
+        </Button> */}
       </div>
 
       {modal && (
@@ -253,7 +253,7 @@ function WorkoutDayTest({ day, index }) {
                 setReps("");
                 setWeight("");
               }}
-              className=""
+              className="text-white"
             >
               Cancel
             </Button>
