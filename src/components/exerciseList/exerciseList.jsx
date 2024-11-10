@@ -144,9 +144,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
             </Button>
           ) : (
-            <Button
-              className="bg-greenConfirm hover:bg-greenConfirm text-lg min-w-[76px] opacity-50 cursor-default"
-            >
+            <Button className="bg-greenConfirm hover:bg-greenConfirm text-lg min-w-[76px] opacity-50 cursor-default">
               Start
             </Button>
           )}
@@ -190,10 +188,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               workout={workoutHistory[currentDate]}
               date={currentDate}
             />
-          ) : (
-            <>You have not worked out today</>
-          )}
-          {workoutForDay.rest ? (
+          ) : workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
           ) : currentDate != date && currentDate != undefined ? (
             <HistoryMainList
@@ -224,6 +219,37 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               date={currentDate}
             />
           )}
+          {/* {workoutForDay.rest ? (
+            <div className="text-center">Today is a rest day</div>
+          ) : currentDate != date && currentDate != undefined ? (
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            />
+          ) : workoutHistory[date] == undefined ? (
+            <div className="w-[85vw] md:w-3/4 flex flex-col items-center justify-center">
+              <table className={`lg:w-3/4 w-full ${styles.table}`}>
+                <thead>
+                  <tr className="md:text-3xl">
+                    <th className={tableHeaderStyle}>Exercise</th>
+                    <th className={tableHeaderStyle}>Set</th>
+                    <th className={tableHeaderStyle}>Reps</th>
+                    <th className={tableHeaderStyle}>Weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {convertedExercises.map((exercise) => (
+                    <MainExercise key={exercise.id} exercise={exercise} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            />
+          )} */}
         </>
       ) : (
         <div>There seems to be an error</div>
