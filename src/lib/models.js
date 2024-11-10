@@ -82,6 +82,7 @@ const workoutSchema = new mongoose.Schema({
   },
   workouts: {},
   history: {},
+  restDay: { type: String },
 });
 
 const devlogSchema = new mongoose.Schema(

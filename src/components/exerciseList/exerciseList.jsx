@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./exerciseList.module.css";
 import { Button } from "../ui/button";
 import { ExercisesContext } from "../exerciseListContainer/context";
-import { format } from "date-fns";
+import { format, compareAsc } from "date-fns";
 
 import {
   Select,
@@ -68,29 +68,36 @@ function ExerciseList({ workouts, day, workoutHistory }) {
 
   useEffect(() => {
     const checkRestDay = async () => {
-      if (workouts[select].restDay == "") {
+      // today is not rest day
+      if (workouts[select].restDay == "undefined") {
         return;
       }
+      // if rest day is today
       if (workouts[select].restDay == date) {
         return;
       }
-      try {
-        let newDay = workouts[select].currentWorkout;
-        if (newDay === Object.keys(workouts[select].workouts).length) {
-          newDay = 1;
-        } else {
-          newDay += 1;
+      // if today is the next day after rest
+      if (compareAsc(date, workouts[select].dateLast)) {
+        try {
+          let newDay = workouts[select].currentWorkout;
+          if (newDay === Object.keys(workouts[select].workouts).length) {
+            newDay = 1;
+          } else {
+            newDay += 1;
+          }
+          setWorkoutForDay(workouts[select].workouts[workouts[select].newDay]);
+          if (workouts[select].workouts[newDay].rest) {
+            console.log("HERE 1");
+            await saveWorkoutHistory({}, -2);
+            await changeCurrentWorkoutRest(workouts[select].id, newDay);
+          } else {
+            console.log("HERE 2");
+            await saveWorkoutHistory({}, -2);
+            await changeCurrentWorkout(workouts[select].id, newDay);
+          }
+        } catch (error) {
+          console.log(error);
         }
-        setWorkoutForDay(workouts[select].workouts[workouts[select].newDay]);
-        if (workouts[select].workouts[newDay].rest) {
-          await saveWorkoutHistory({}, -2);
-          await changeCurrentWorkoutRest(workouts[select].id, newDay);
-        } else {
-          await saveWorkoutHistory({}, -2);
-          await changeCurrentWorkout(workouts[select].id, newDay);
-        }
-      } catch (error) {
-        console.log(error);
       }
     };
     checkRestDay();

@@ -64,6 +64,10 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
   connectToDb();
   try {
     const id = makeid();
+    let restDaySetting = "undefined";
+    if (workout["1"].rest == true) {
+      restDaySetting = startDate;
+    }
     const newWorkout = new Workout({
       id: id,
       name: name,
@@ -72,6 +76,7 @@ export const addWorkout = async (name, workout, exercises, startDate) => {
       dateLast: startDate,
       currentWorkout: 1,
       workouts: workout,
+      restDay: restDaySetting,
     });
     await newWorkout.save();
     await User.findOneAndUpdate(
@@ -193,7 +198,8 @@ export const changeCurrentWorkout = async (workout, day) => {
       {
         $set: {
           [`workouts.${workout}.currentWorkout`]: day,
-          [`workouts.${workout}.restDay`]: "",
+          [`workouts.${workout}.restDay`]: "undefined",
+          [`workouts.${workout}.dateLast`]: date,
         },
       },
       { new: false }

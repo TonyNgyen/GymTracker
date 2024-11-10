@@ -55,7 +55,6 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
         let workoutWithDays = {};
         if (workoutContext[1].date.length == 1) {
           for (let key in workoutContext) {
-            console.log(workoutContext[key]);
             workoutWithDays[key] = workoutContext[key];
             workoutWithDays[key].date = addDays(date, key - 1);
           }
@@ -63,7 +62,6 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
           let difference = differenceInDays(date, workoutContext[1].date);
           if (isAfter(date, workoutContext[1].date)) {
             for (let key in workoutContext) {
-              console.log(workoutContext[key]);
               workoutWithDays[key] = workoutContext[key];
               workoutWithDays[key].date = addDays(
                 workoutWithDays[key].date,
@@ -81,7 +79,6 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
             }
           }
         }
-        console.log(workoutWithDays);
         setWorkoutContext(workoutWithDays);
       }
     } catch (error) {
