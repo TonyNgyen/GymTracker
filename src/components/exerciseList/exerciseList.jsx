@@ -66,6 +66,10 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     });
   }, [currentDate, api]);
 
+  console.log(
+    Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1]
+  );
+
   useEffect(() => {
     const checkRestDay = async () => {
       // today is not rest day
@@ -76,8 +80,12 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       if (workouts[select].restDay == date) {
         return;
       }
-      // if today is the next day after rest
-      if (compareAsc(date, workouts[select].dateLast)) {
+      // check if current date is after dateLast and current date is not in workout history
+      if (
+        compareAsc(date, workouts[select].dateLast) != -1 &&
+        Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1] !=
+          date
+      ) {
         try {
           let newDay = workouts[select].currentWorkout;
           if (newDay === Object.keys(workouts[select].workouts).length) {
@@ -128,12 +136,20 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           </SelectContent>
         </Select>
         <div className={styles.buttons}>
-          <Button
-            asChild
-            className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg min-w-[76px]"
-          >
-            <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
-          </Button>
+          {workoutHistory[date] == undefined ? (
+            <Button
+              asChild
+              className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg min-w-[76px]"
+            >
+              <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
+            </Button>
+          ) : (
+            <Button
+              className="bg-greenConfirm hover:bg-greenConfirm text-lg min-w-[76px] opacity-50 cursor-default"
+            >
+              Start
+            </Button>
+          )}
 
           <Button
             asChild
@@ -169,6 +185,14 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
+          {workoutHistory[date] != undefined ? (
+            <HistoryMainList
+              workout={workoutHistory[currentDate]}
+              date={currentDate}
+            />
+          ) : (
+            <>You have not worked out today</>
+          )}
           {workoutForDay.rest ? (
             <div className="text-center">Today is a rest day</div>
           ) : currentDate != date && currentDate != undefined ? (
