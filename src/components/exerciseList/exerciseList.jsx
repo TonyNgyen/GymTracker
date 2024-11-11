@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./exerciseList.module.css";
 import { Button } from "../ui/button";
 import { ExercisesContext } from "../exerciseListContainer/context";
-import { format, compareAsc } from "date-fns";
+import { format, compareAsc, add } from "date-fns";
 
 import {
   Select,
@@ -44,9 +44,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     workouts[select].workouts[workouts[select].currentWorkout]
   );
   const date = format(new Date(), "P");
-  if (!(date in workoutHistory)) {
-    workoutHistory[date] = undefined;
-  }
   const convertedExercises = [];
   if (workoutForDay != undefined) {
     workoutForDay.workouts.map((id) => {
@@ -85,14 +82,18 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           date
       ) {
         // Checks if current date is after restDay date
-        if (compareAsc(date, workouts[select].restDay == 1)) {
+        if (compareAsc(date, workouts[select].restDay) == 1) {
           try {
-            await saveRestDay({}, -2, workouts[select].restDay);
-            if (date != add(workouts[select].restDay, { days: 1 })) {
-              resetStreak();
+            if (
+              date != format(add(workouts[select].restDay, { days: 1 }), "P")
+            ) {
+              console.log("RESET");
+              await resetStreak();
             } else {
-              incrementStreak();
+              console.log("INCREMENT");
+              await incrementStreak();
             }
+            await saveRestDay({}, -2, workouts[select].restDay);
             let newDay = workouts[select].currentWorkout;
             if (newDay === Object.keys(workouts[select].workouts).length) {
               newDay = 1;
@@ -118,7 +119,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       }
     };
     checkRestDay();
-  }, []);
+  }, [select]);
 
   useEffect(() => {
     setWorkoutForDay(

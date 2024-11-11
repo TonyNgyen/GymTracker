@@ -44,8 +44,8 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     streak: {
-      type: Number,
-      default: 0,
+      type: Map,
+      default: { "currentStreak": 0, "highestStreak": 0 },
     },
     lastWorkout: {
       type: String,

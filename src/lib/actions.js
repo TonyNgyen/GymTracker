@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { makeid } from "./utils";
-import { format, add } from "date-fns";
+import { format, add, sub } from "date-fns";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -255,6 +255,7 @@ export const changeCurrentWorkoutRest = async (workout, day) => {
   }
 };
 
+// THIS IS CALLED BEFORE WORKOUT HISTORY IS SAVED
 export const incrementStreak = async () => {
   const session = await auth();
   const userEmail = session.user?.email;
@@ -262,26 +263,51 @@ export const incrementStreak = async () => {
   connectToDb();
   try {
     const user = await User.findOne({ email: userEmail });
-    console.log(user);
-    if (Object.keys(dictionary).length == 0) {
-      user.streak.currentStreak = (user.streak.currentStreak || 0) + 1;
-      user.streak.highestStreak = (user.streak.highestStreak || 0) + 1;
-    } else if (
+    const streak = Object.fromEntries(user.streak);
+    // Check if user has workout history, if not then set both currentStreak and highestStreak to 1 since it is their first workout.
+    if (
+      Object.keys(JSON.parse(JSON.stringify(user.workoutHistory))).length == 0
+    ) {
+      streak["currentStreak"] = 1;
+      streak["highestStreak"] = 1;
+    }
+    // Else check if current date is the day after the last workout, if so, increment
+    else if (
       date ==
-      sub(
-        Object.keys(user.workoutHistory)[
-          Object.keys(user.workoutHistory).length - 1
-        ],
-        { days: 1 }
+      format(
+        add(
+          Object.keys(JSON.parse(JSON.stringify(user.workoutHistory)))[
+            Object.keys(JSON.parse(JSON.stringify(user.workoutHistory)))
+              .length - 1
+          ],
+          { days: 1 }
+        ),
+        "P"
       )
     ) {
-      if (user.streak.currentStreak == user.streak.highestStreak) {
-        user.streak.currentStreak = (user.streak.currentStreak || 0) + 1;
-        user.streak.highestStreak = (user.streak.highestStreak || 0) + 1;
+      // Check if currentStreak and highestStreak are the same, if so, increment both
+      if (
+        streak == undefined ||
+        streak["currentStreak"] == undefined ||
+        streak["highestStreak"] == undefined ||
+        streak["currentStreak"] == streak["highestStreak"]
+      ) {
+        streak["currentStreak"] = (streak["currentStreak"] || 0) + 1;
+        streak["highestStreak"] = (streak["highestStreak"] || 0) + 1;
       }
-    } else {
-      user.streak.currentStreak = 1;
+      // else, just increment currentStreak
+      else {
+        streak["currentStreak"] = (streak["currentStreak"] || 0) + 1;
+      }
     }
+    // Else set currentStreak to 1 since streak has been broken
+    else {
+      streak["currentStreak"] = 1;
+    }
+    user.markModified("streak");
+    user.streak = new Map(Object.entries(streak));
+    await user.save();
+    console.log("Successfully saved");
   } catch (error) {
     console.log(error);
   }
