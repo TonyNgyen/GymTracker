@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import styles from "./workoutDayTest.module.css";
+import styles from "./workoutDay.module.css";
 import {
   ExerciseContext,
   WorkoutContext,
@@ -13,7 +13,7 @@ import { convertExercises, makeid } from "@/lib/utils";
 import FoundExercise from "../foundExercises/foundExercise";
 import { format } from "date-fns";
 
-function WorkoutDayTest({ day, index }) {
+function WorkoutDay({ day, index }) {
   const [modal, setModal] = useState(false);
   const [workoutsContext, setWorkoutsContext] = useContext(WorkoutContext);
   const [exerciseContext, setExerciseContext] = useContext(ExerciseContext);
@@ -303,4 +303,4 @@ function WorkoutDayTest({ day, index }) {
   );
 }
 
-export default WorkoutDayTest;
+export default WorkoutDay;

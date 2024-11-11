@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/popover2";
 
 import React, { useEffect, useState } from "react";
-import WorkoutDayTest from "@/components/workoutDayTest/workoutDayTest";
+import WorkoutDay from "@/components/workoutDay/workoutDay";
 import { WorkoutContext, ExerciseContext } from "../autoUpdate/context";
 import { addWorkout } from "@/lib/actions";
 import Link from "next/link";
@@ -92,7 +92,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
         <div className="flex flex-col items-center">
           <h1 className="text-center text-5xl font-semibold mb-5">{title}</h1>
           <Carousel
-            className="w-10/12 md:w-4/5"
+            className="w-full md:w-4/5"
             opts={{
               loop: true,
             }}
@@ -100,12 +100,14 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
             <CarouselContent className="text-center">
               {Object.entries(workoutContext).map(([key, value]) => (
                 <CarouselItem key={key}>
-                  <WorkoutDayTest day={value.date} index={key} />
+                  <WorkoutDay day={value.date} index={key} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <div className="invisible md:visible">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
           </Carousel>
           <Dialog className="">
             <DialogTrigger>

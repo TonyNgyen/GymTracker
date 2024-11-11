@@ -14,6 +14,7 @@ import {
   saveWorkoutHistory,
   changeCurrentWorkout,
   changeCurrentWorkoutRest,
+  incrementStreak,
 } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
@@ -57,6 +58,7 @@ function StartWorkout({ day }) {
       newDay += 1;
     }
     try {
+      await incrementStreak();
       await saveWorkoutHistory(startWorkoutContext, time);
       if (workoutContext.workouts[newDay].rest) {
         await changeCurrentWorkoutRest(workoutContext.id, newDay);

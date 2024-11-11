@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { makeid } from "./utils";
-import { format } from "date-fns";
+import { format, add } from "date-fns";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -144,6 +144,27 @@ export const saveWorkoutHistory = async (workout, time) => {
   }
 };
 
+export const saveRestDay = async (workout, time, date) => {
+  let workoutHistory = { exercises: workout, time: time + 1 };
+  const session = await auth();
+  connectToDb();
+  try {
+    await User.findOneAndUpdate(
+      {
+        email: session.user?.email,
+      },
+      {
+        $set: {
+          [`workoutHistory.${date}`]: workoutHistory,
+        },
+      }
+    );
+    console.log("Saved Workout History");
+  } catch (error) {
+    console.log("Error for Saved Workout History");
+  }
+};
+
 export const addExercises = async (exercises) => {
   const session = await auth();
   connectToDb();
@@ -192,6 +213,7 @@ export const updateSpecificExercise = async (exercise, weight, date) => {
 export const changeCurrentWorkout = async (workout, day) => {
   try {
     const session = await auth();
+    const date = format(new Date(), "P");
     connectToDb();
     await User.findOneAndUpdate(
       { email: session.user?.email },
@@ -221,7 +243,92 @@ export const changeCurrentWorkoutRest = async (workout, day) => {
       {
         $set: {
           [`workouts.${workout}.currentWorkout`]: day,
+          [`workouts.${workout}.restDay`]: add(date, { days: 1 }),
+        },
+      },
+      { new: false }
+    );
+    console.log("Successfully updated current workout!");
+    revalidatePath("/workouts");
+  } catch (error) {
+    console.log("Unsuccessfully updated current workout!");
+  }
+};
+
+export const incrementStreak = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  const date = format(new Date(), "P");
+  connectToDb();
+  try {
+    const user = await User.findOne({ email: userEmail });
+    console.log(user);
+    if (Object.keys(dictionary).length == 0) {
+      user.streak.currentStreak = (user.streak.currentStreak || 0) + 1;
+      user.streak.highestStreak = (user.streak.highestStreak || 0) + 1;
+    } else if (
+      date ==
+      sub(
+        Object.keys(user.workoutHistory)[
+          Object.keys(user.workoutHistory).length - 1
+        ],
+        { days: 1 }
+      )
+    ) {
+      if (user.streak.currentStreak == user.streak.highestStreak) {
+        user.streak.currentStreak = (user.streak.currentStreak || 0) + 1;
+        user.streak.highestStreak = (user.streak.highestStreak || 0) + 1;
+      }
+    } else {
+      user.streak.currentStreak = 1;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const resetStreak = async () => {
+  const session = await auth();
+  const userEmail = session.user?.email;
+  await User.updateOne(
+    { email: userEmail },
+    { $set: { "streak.currentStreak": 0 } }
+  );
+};
+
+export const workoutHomepageChangeToRest = async (workout, day) => {
+  try {
+    const session = await auth();
+    connectToDb();
+    const date = format(new Date(), "P");
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${workout}.currentWorkout`]: day,
           [`workouts.${workout}.restDay`]: date,
+        },
+      },
+      { new: false }
+    );
+    console.log("Successfully updated current workout!");
+    revalidatePath("/workouts");
+  } catch (error) {
+    console.log("Unsuccessfully updated current workout!");
+  }
+};
+
+export const workoutHomepageChangeDay = async (workout, day) => {
+  try {
+    const session = await auth();
+    const date = format(new Date(), "P");
+    connectToDb();
+    await User.findOneAndUpdate(
+      { email: session.user?.email },
+      {
+        $set: {
+          [`workouts.${workout}.currentWorkout`]: day,
+          [`workouts.${workout}.restDay`]: "undefined",
         },
       },
       { new: false }

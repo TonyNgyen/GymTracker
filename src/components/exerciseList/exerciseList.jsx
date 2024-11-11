@@ -26,9 +26,11 @@ import {
 import MainExercise from "../mainExercise/mainExercise";
 import HistoryMainList from "../historyMainList/historyMainList";
 import {
-  changeCurrentWorkout,
-  changeCurrentWorkoutRest,
-  saveWorkoutHistory,
+  incrementStreak,
+  resetStreak,
+  saveRestDay,
+  workoutHomepageChangeDay,
+  workoutHomepageChangeToRest,
 } from "@/lib/actions";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
@@ -66,10 +68,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     });
   }, [currentDate, api]);
 
-  console.log(
-    Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1]
-  );
-
   useEffect(() => {
     const checkRestDay = async () => {
       // today is not rest day
@@ -80,31 +78,42 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       if (workouts[select].restDay == date) {
         return;
       }
-      // check if current date is after dateLast and current date is not in workout history
+      // check if current date is after dateLast and current date is not in workout history and implies that last day was a rest day
       if (
         compareAsc(date, workouts[select].dateLast) != -1 &&
         Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1] !=
           date
       ) {
-        try {
-          let newDay = workouts[select].currentWorkout;
-          if (newDay === Object.keys(workouts[select].workouts).length) {
-            newDay = 1;
-          } else {
-            newDay += 1;
+        // Checks if current date is after restDay date
+        if (compareAsc(date, workouts[select].restDay == 1)) {
+          try {
+            await saveRestDay({}, -2, workouts[select].restDay);
+            if (date != add(workouts[select].restDay, { days: 1 })) {
+              resetStreak();
+            } else {
+              incrementStreak();
+            }
+            let newDay = workouts[select].currentWorkout;
+            if (newDay === Object.keys(workouts[select].workouts).length) {
+              newDay = 1;
+            } else {
+              newDay += 1;
+            }
+            setWorkoutForDay(
+              workouts[select].workouts[workouts[select].newDay]
+            );
+            // if next day is a rest day
+            if (workouts[select].workouts[newDay].rest) {
+              console.log("HERE 1");
+              await workoutHomepageChangeToRest(workouts[select].id, newDay);
+            } else {
+              // if next day is not a rest day
+              console.log("HERE 2");
+              await workoutHomepageChangeDay(workouts[select].id, newDay);
+            }
+          } catch (error) {
+            console.log(error);
           }
-          setWorkoutForDay(workouts[select].workouts[workouts[select].newDay]);
-          if (workouts[select].workouts[newDay].rest) {
-            console.log("HERE 1");
-            await saveWorkoutHistory({}, -2);
-            await changeCurrentWorkoutRest(workouts[select].id, newDay);
-          } else {
-            console.log("HERE 2");
-            await saveWorkoutHistory({}, -2);
-            await changeCurrentWorkout(workouts[select].id, newDay);
-          }
-        } catch (error) {
-          console.log(error);
         }
       }
     };
@@ -183,7 +192,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-          {workoutHistory[date] != undefined ? (
+          {compareAsc(workouts[select].dateCreated, date) == 1 ? (
+            <>This workout starts on {workouts[select].dateCreated}</>
+          ) : workoutHistory[date] != undefined ? (
             <HistoryMainList
               workout={workoutHistory[currentDate]}
               date={currentDate}
