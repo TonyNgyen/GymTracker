@@ -20,7 +20,6 @@ function StartExerciseList({ day }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
-  console.log(startWorkoutContext);
   return (
     <div className="">
       <Carousel className="mx-auto w-10/12 md:w-6/12">
