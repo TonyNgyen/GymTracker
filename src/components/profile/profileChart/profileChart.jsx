@@ -35,6 +35,7 @@ function ProfileChart({ exercises }) {
     if (Object.keys(exercises).length == 0) {
       return;
     }
+    console.log(Object.keys(exercises[select]));
     let conversion = Object.keys(exercises[select].history).map((date) => ({
       date: date,
       weight: exercises[select].history[date],
@@ -81,9 +82,9 @@ function ProfileChart({ exercises }) {
                 </SelectContent>
               </Select>
             </CardTitle>
-            <CardDescription>
+            {/* <CardDescription>
               Showing total visitors for the last 6 months
-            </CardDescription>
+            </CardDescription> */}
           </CardHeader>
           <CardContent>
             <ChartContainer

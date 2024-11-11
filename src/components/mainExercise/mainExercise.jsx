@@ -3,11 +3,13 @@ import { FaEdit, FaCheck } from "react-icons/fa";
 import styles from "./mainExercise.module.css";
 import { ExercisesContext } from "../exerciseListContainer/context";
 import { updateExercises } from "@/lib/actions";
+import { format } from "date-fns";
 
 function MainExercise({ exercise }) {
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(exercise.weight);
+  const date = format(new Date(), "P");
 
   useEffect(() => {
     updateExercises(exercisesContext);
@@ -19,12 +21,15 @@ function MainExercise({ exercise }) {
     let copyExercises = {};
     for (let exerciseIndex in exercisesContext) {
       if (exercisesContext[exerciseIndex].id == exercise.id) {
+        let historyEdit = exercise.history;
+        historyEdit[date] = weight;
         copyExercises[exercise.id] = {
           id: exercise.id,
           name: exercise.name,
           sets: exercise.sets,
           reps: exercise.reps,
           weight: weight,
+          history: historyEdit,
         };
       } else {
         copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];
@@ -38,12 +43,15 @@ function MainExercise({ exercise }) {
     let copyExercises = {};
     for (let exerciseIndex in exercisesContext) {
       if (exercisesContext[exerciseIndex].id == exercise.id) {
+        let historyEdit = exercise.history;
+        historyEdit[date] = weight;
         copyExercises[exercise.id] = {
           id: exercise.id,
           name: exercise.name,
           sets: exercise.sets,
           reps: exercise.reps,
           weight: weight,
+          history: historyEdit,
         };
       } else {
         copyExercises[exerciseIndex] = exercisesContext[exerciseIndex];

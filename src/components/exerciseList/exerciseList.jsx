@@ -145,7 +145,8 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           </SelectContent>
         </Select>
         <div className={styles.buttons}>
-          {workoutHistory[date] == undefined ? (
+          {workoutHistory[date] == undefined &&
+          compareAsc(workouts[select].dateCreated, date) != 1 ? (
             <Button
               asChild
               className="bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground text-lg min-w-[76px]"

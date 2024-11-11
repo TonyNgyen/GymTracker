@@ -24,9 +24,9 @@ function ProfileCard({ user }) {
           <CardTitle>{user.username}</CardTitle>
           <CardDescription>{date}</CardDescription>
         </CardHeader>
-        <CardFooter className="m-0 p-0">
+        {/* <CardFooter className="m-0 p-0">
           <p>Card Footer</p>
-        </CardFooter>
+        </CardFooter> */}
       </div>
     </Card>
   );

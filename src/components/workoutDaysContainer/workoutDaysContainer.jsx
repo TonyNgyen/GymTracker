@@ -35,14 +35,11 @@ import styles from "./workoutDaysContainer.module.css";
 import {
   format,
   addDays,
-  differenceInCalendarDays,
   isAfter,
   isBefore,
   differenceInDays,
-  subDays,
 } from "date-fns";
 import { FaCalendar } from "react-icons/fa";
-import { cn } from "@/lib/utils";
 
 function WorkoutDaysContainer({ daysDict, title, exercises }) {
   const [workoutContext, setWorkoutContext] = useState(daysDict);
