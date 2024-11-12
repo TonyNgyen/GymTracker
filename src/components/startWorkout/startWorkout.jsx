@@ -17,6 +17,7 @@ import {
   incrementStreak,
 } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { differenceInSeconds } from "date-fns";
 
 function StartWorkout({ day }) {
   const {
@@ -24,12 +25,29 @@ function StartWorkout({ day }) {
     getItem: getStartItem,
     removeItem: removeStartItem,
   } = useLocalStorage("Start");
-  const { getItem: getTimeItem, removeItem: removeTimeItem } =
-    useLocalStorage("Time");
+  const {
+    setItem: setTimeItem,
+    getItem: getTimeItem,
+    removeItem: removeTimeItem,
+  } = useLocalStorage("time");
+  const {
+    setItem: setLastTime,
+    getItem: getLastTime,
+    removeItem: removeLastTime,
+  } = useLocalStorage("lastTime");
   const { removeItem: removeStartWorkoutItem } =
     useLocalStorage("StartWorkout");
   const { removeItem: removeCurrentExerciseItem } =
     useLocalStorage("CurrentExercise");
+  const pausing = () => {
+    const currentTime = new Date();
+    const pastTime = getLastTime();
+    let timeItem = getTimeItem();
+    setTimeItem(timeItem + differenceInSeconds(currentTime, pastTime));
+  };
+  const resuming = () => {
+    setLastTime(new Date());
+  };
 
   const router = useRouter();
   const [begin, setBegin] = useState("");
@@ -59,7 +77,7 @@ function StartWorkout({ day }) {
     }
     try {
       await incrementStreak();
-      await saveWorkoutHistory(startWorkoutContext, time);
+      // await saveWorkoutHistory(startWorkoutContext, time);
       if (workoutContext.workouts[newDay].rest) {
         await changeCurrentWorkoutRest(workoutContext.id, newDay);
       } else {
@@ -98,14 +116,20 @@ function StartWorkout({ day }) {
                 !pause ? (
                   <Button
                     className="text-lg min-w-[105px]"
-                    onClick={() => setPause(true)}
+                    onClick={() => {
+                      setPause(true);
+                      pausing();
+                    }}
                   >
                     Pause
                   </Button>
                 ) : (
                   <Button
                     className="text-lg min-w-[105px]"
-                    onClick={() => setPause(false)}
+                    onClick={() => {
+                      setPause(false);
+                      resuming();
+                    }}
                   >
                     Resume
                   </Button>

@@ -1,15 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useLocalStorage } from "@/lib/utils";
+import { differenceInSeconds, subSeconds } from "date-fns";
 
 function WorkoutTimer({ pause }) {
-  const { setItem, getItem, removeItem } = useLocalStorage("Time");
-  const [time, setTime] = useState(getItem());
+  const {
+    setItem: setTimeItem,
+    getItem: getTimeItem,
+    removeItem: removeTimeItem,
+  } = useLocalStorage("time");
+  const {
+    setItem: setLastTime,
+    getItem: getLastTime,
+    removeItem: removeLastTime,
+  } = useLocalStorage("lastTime");
+  const [time, setTime] = useState(getTimeItem());
+
+  // useEffect(() => {
+  //   if (!pause) {
+  //     let intervalId;
+  //     intervalId = setInterval(() => setTime(time + 1), 1000);
+  //     setItem(time);
+  //     return () => clearInterval(intervalId);
+  //   }
+  // }, [time, pause]);
+  useEffect(() => {
+    const time = new Date();
+    setLastTime(time);
+  }, []);
 
   useEffect(() => {
     if (!pause) {
       let intervalId;
-      intervalId = setInterval(() => setTime(time + 1), 1000);
-      setItem(time);
+      intervalId = setInterval(() => {
+        const currentTime = new Date();
+        const pastTime = getLastTime();
+        const savedTime = getTimeItem();
+        setTime(savedTime + differenceInSeconds(currentTime, pastTime));
+      }, 1000);
       return () => clearInterval(intervalId);
     }
   }, [time, pause]);
