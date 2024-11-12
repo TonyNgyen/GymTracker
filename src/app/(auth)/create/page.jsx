@@ -12,9 +12,9 @@ function CreateAccountPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.wrapper}>
-          <form action={handleGithubLogin}>
+          {/* <form action={handleGithubLogin}>
             <Button className="w-full">Login with GitHub</Button>
-          </form>
+          </form> */}
           <LoginForm />
         </div>
       </div>

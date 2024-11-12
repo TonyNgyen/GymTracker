@@ -56,6 +56,10 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   }
 
   useEffect(() => {
+    workoutHistory[date] = undefined;
+  });
+
+  useEffect(() => {
     if (!api) {
       return;
     }
@@ -100,18 +104,22 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             } else {
               newDay += 1;
             }
-            setWorkoutForDay(
-              workouts[select].workouts[workouts[select].newDay]
-            );
             // if next day is a rest day
             if (workouts[select].workouts[newDay].rest) {
               console.log("HERE 1");
               await workoutHomepageChangeToRest(workouts[select].id, newDay);
+              workouts[select].currentWorkout = newDay;
+              workouts[select].restDay = date;
             } else {
               // if next day is not a rest day
               console.log("HERE 2");
               await workoutHomepageChangeDay(workouts[select].id, newDay);
+              workouts[select].currentWorkout = newDay;
+              workouts[select].undefined = "undefined";
             }
+            setWorkoutForDay(
+              workouts[select].workouts[workouts[select].newDay]
+            );
           } catch (error) {
             console.log(error);
           }
@@ -156,7 +164,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               <Link href={`/workouts/${workouts[select].id}/start`}>Start</Link>
             </Button>
           ) : (
-            <Button className="bg-greenConfirm hover:bg-greenConfirm text-lg min-w-[76px] opacity-50 cursor-default">
+            <Button className="bg-greenConfirm hover:bg-greenConfirm text-lg min-w-[76px] dark:opacity-50 brightness-75 cursor-default">
               Start
             </Button>
           )}
@@ -195,7 +203,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-          {compareAsc(workouts[select].dateCreated, date) == 1 ? (
+          {compareAsc(workouts[select].dateCreated, date) == 1 && currentDate == date ? (
             <>This workout starts on {workouts[select].dateCreated}</>
           ) : workoutHistory[date] != undefined ? (
             <HistoryMainList

@@ -17,7 +17,7 @@ function ProfileStreak({ streak }) {
           Streak <FaFireFlameCurved className="text-orange-500" />
         </CardTitle>
       </CardHeader>
-      <CardContent>{streak}</CardContent>
+      <CardContent>{streak.currentStreak}</CardContent>
     </Card>
   );
 }
