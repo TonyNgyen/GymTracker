@@ -122,7 +122,7 @@ export const updateWorkout = async (id, name, workout, day) => {
   }
 };
 
-export const saveWorkoutHistory = async (workout, time) => {
+export const saveWorkoutHistory = async (workoutID, workout, time) => {
   let workoutHistory = { exercises: workout, time: time + 1 };
   const session = await auth();
   connectToDb();
@@ -135,6 +135,7 @@ export const saveWorkoutHistory = async (workout, time) => {
       {
         $set: {
           [`workoutHistory.${date}`]: workoutHistory,
+          lastWorkout: workoutID,
         },
       }
     );
@@ -355,6 +356,7 @@ export const workoutHomepageChangeDay = async (workout, day) => {
         $set: {
           [`workouts.${workout}.currentWorkout`]: day,
           [`workouts.${workout}.restDay`]: "undefined",
+          lastWorkout: workout,
         },
       },
       { new: false }

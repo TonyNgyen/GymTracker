@@ -32,6 +32,7 @@ import {
   workoutHomepageChangeDay,
   workoutHomepageChangeToRest,
 } from "@/lib/actions";
+import { getUser } from "@/lib/data";
 
 function ExerciseList({ workouts, day, workoutHistory }) {
   const tableHeaderStyle =
@@ -71,6 +72,10 @@ function ExerciseList({ workouts, day, workoutHistory }) {
 
   useEffect(() => {
     const checkRestDay = async () => {
+      const user = await getUser();
+      if (user["lastWorkout"] != select) {
+        return;
+      }
       // today is not rest day
       if (workouts[select].restDay == "undefined") {
         return;
@@ -203,7 +208,8 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-          {compareAsc(workouts[select].dateCreated, date) == 1 && currentDate == date ? (
+          {compareAsc(workouts[select].dateCreated, date) == 1 &&
+          currentDate == date ? (
             <>This workout starts on {workouts[select].dateCreated}</>
           ) : workoutHistory[date] != undefined ? (
             <HistoryMainList

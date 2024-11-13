@@ -77,7 +77,7 @@ function StartWorkout({ day }) {
     }
     try {
       await incrementStreak();
-      // await saveWorkoutHistory(startWorkoutContext, time);
+      await saveWorkoutHistory(workoutContext.id, startWorkoutContext, time);
       if (workoutContext.workouts[newDay].rest) {
         await changeCurrentWorkoutRest(workoutContext.id, newDay);
       } else {
@@ -115,7 +115,7 @@ function StartWorkout({ day }) {
               {begin ? (
                 !pause ? (
                   <Button
-                    className="text-lg min-w-[105px]"
+                    className="text-lg min-w-[105px] bg-red-500 dark:bg-red-300"
                     onClick={() => {
                       setPause(true);
                       pausing();
@@ -125,7 +125,7 @@ function StartWorkout({ day }) {
                   </Button>
                 ) : (
                   <Button
-                    className="text-lg min-w-[105px]"
+                    className="text-lg min-w-[105px] bg-greenConfirm"
                     onClick={() => {
                       setPause(false);
                       resuming();
@@ -140,7 +140,7 @@ function StartWorkout({ day }) {
               {begin ? (
                 <Button
                   asChild
-                  className="text-lg min-w-[105px]"
+                  className="text-lg min-w-[105px] bg-main"
                   onClick={() => {
                     removeCurrentExerciseItem();
                     removeStartItem();
