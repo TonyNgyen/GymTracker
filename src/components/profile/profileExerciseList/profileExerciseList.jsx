@@ -106,7 +106,7 @@ function ProfileExerciseList({ exercises }) {
   ];
 
   return (
-    <div className="min-h-[440.5px]">
+    <div className="h-full">
       <DataTable columns={columns} data={data} />
     </div>
   );

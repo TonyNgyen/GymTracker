@@ -2,7 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { Activity, TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import {
   Card,
   CardContent,
@@ -35,7 +44,6 @@ function ProfileChart({ exercises }) {
     if (Object.keys(exercises).length == 0) {
       return;
     }
-    console.log(Object.keys(exercises[select]));
     let conversion = Object.keys(exercises[select].history).map((date) => ({
       date: date,
       weight: exercises[select].history[date],
@@ -51,8 +59,36 @@ function ProfileChart({ exercises }) {
     },
   };
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="text-center bg-secondary p-2 rounded-md border-2 border-foreground">
+          <p className="text-xl">{`${label}`}</p>
+          <p className="text-lg">{payload[0].value}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  const [chartColor, setChartColor] = useState(() =>
+    localStorage.getItem("theme") === "dark" ? "#bcdcf5" : "#1e7bc8"
+  );
+
+  useEffect(() => {
+    // Poll every second to detect `localStorage` theme change
+    const interval = setInterval(() => {
+      const theme = localStorage.getItem("theme");
+      const newChartColor = theme === "dark" ? "#bcdcf5" : "#1e7bc8";
+      setChartColor(newChartColor);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
   return (
-    <Card className="bg-cardBG lg:h-[483px] border-foreground border-2">
+    <Card className="bg-cardBG border-foreground border-2 h-full">
       {Object.keys(exercises).length == 0 ? (
         <>
           <CardHeader>
@@ -70,7 +106,7 @@ function ProfileChart({ exercises }) {
             <CardTitle className="flex items-center flex-col md:flex-row gap-2">
               Weight History for
               <Select onValueChange={(value) => setSelect(value)} className="">
-                <SelectTrigger className="w-[280px] border-0 text-2xl p-0">
+                <SelectTrigger className="w-[280px] border-0 text-2xl p-0 bg-cardBG">
                   <SelectValue placeholder={exercises[select].name} />
                 </SelectTrigger>
                 <SelectContent>
@@ -86,11 +122,8 @@ function ProfileChart({ exercises }) {
               Showing total visitors for the last 6 months
             </CardDescription> */}
           </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={chartConfig}
-              className="w-full md:h-[350px]"
-            >
+          <CardContent className="h-[80%]">
+            {/* <ChartContainer width={700} height="80%" config={chartConfig}>
               <AreaChart
                 accessibilityLayer
                 data={exerciseHistory}
@@ -119,7 +152,30 @@ function ProfileChart({ exercises }) {
                   stroke="var(--color-desktop)"
                 />
               </AreaChart>
-            </ChartContainer>
+            </ChartContainer> */}
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                width={500}
+                height={300}
+                data={exerciseHistory}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  bottom: 5,
+                }}
+              >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip
+                  labelStyle={{ color: "white" }}
+                  itemStyle={{ color: "white" }}
+                  contentStyle={{ background: "black" }}
+                  content={<CustomTooltip />}
+                />
+                <Legend />
+                <Line type="monotone" dataKey="weight" stroke={chartColor} />
+              </LineChart>
+            </ResponsiveContainer>
           </CardContent>
         </>
       )}

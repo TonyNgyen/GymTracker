@@ -13,7 +13,7 @@ import { FaUserCircle } from "react-icons/fa";
 function ProfileCard({ user }) {
   const date = format(user.createdAt, "LLLL yyyy");
   return (
-    <Card className="flex items-center justify-center px-6 py-4 gap-8 bg-cardBG border-foreground border-2">
+    <Card className="flex items-center justify-center px-6 py-4 gap-8 bg-cardBG border-foreground border-2 h-full">
       <div className="p-0 flex justify-center items-center">
         <div className="w-32 h-32 flex justify-center items-center">
           <FaUserCircle className="w-full h-full" />

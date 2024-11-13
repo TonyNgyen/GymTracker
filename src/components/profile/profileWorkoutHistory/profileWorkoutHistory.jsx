@@ -74,9 +74,11 @@ function ProfileWorkoutHistory({ workoutHistory }) {
   const minutes = Math.floor((totalTime % 3600) / 60);
   const seconds = Math.floor(totalTime % 60);
   return (
-    <Card className={`p-4 ${styles.container} md:flex md:flex-col bg-cardBG lg:h-[261px] border-foreground border-2`}>
+    <Card
+      className={`p-4 md:flex md:flex-col bg-cardBG h-full border-foreground border-2`}
+    >
       <CardTitle className="mb-4">Workout History</CardTitle>
-      <CardContent className="mx-auto">
+      <CardContent className="h-full flex items-center">
         {
           <ActivityCalendar
             data={data}
@@ -112,7 +114,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
               light: ["#f0f0f0", "#c4edde"],
               dark: ["#383838", "#3b5c78", "#3795e1"],
             }}
-            blockSize={11}
+            blockSize={30}
           />
         }
       </CardContent>

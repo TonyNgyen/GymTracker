@@ -36,8 +36,8 @@ export function DataTable({ columns, data }) {
   });
 
   return (
-    <div className="rounded-md border p-4 bg-cardBG border-foreground border-2">
-      <div className="rounded-md border min-h-[354.5px] bg-background">
+    <div className="rounded-md p-4 bg-cardBG border-foreground border-2 h-full">
+      <div className="rounded-md border h-5/6 bg-background">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -87,7 +87,7 @@ export function DataTable({ columns, data }) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 pt-4">
+      <div className="flex items-center justify-end space-x-2 pt-4 h-1/6">
         <Button
           variant="outline"
           size="sm"
