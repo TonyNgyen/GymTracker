@@ -14,10 +14,33 @@ import styles from "./profileWorkoutHistory.module.css";
 function ProfileWorkoutHistory({ workoutHistory }) {
   const [data, setData] = useState();
   const [totalTime, setTotalTime] = useState();
-  const explicitTheme = {
-    light: ["#30f0f0", "#94edde"],
-    dark: ["#383838", "#9D455D"],
-  };
+  const [theme, setTheme] = useState(() =>
+    localStorage.getItem("theme") === "dark"
+      ? {
+          dark: ["#e2e2e2", "#1e7bc8", "#1e7bc8"],
+        }
+      : {
+          dark: ["#454545", "#bcdcf5", "#bcdcf5"],
+        }
+  );
+  useEffect(() => {
+    // Poll every second to detect `localStorage` theme change
+    const interval = setInterval(() => {
+      const theme = localStorage.getItem("theme");
+      const newChartColor =
+        theme === "dark"
+          ? {
+              dark: ["#e2e2e2", "#1e7bc8", "#1e7bc8"],
+            }
+          : {
+              dark: ["#454545", "#bcdcf5", "#bcdcf5"],
+            };
+      setTheme(newChartColor);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
   useEffect(() => {
     const getData = () => {
       const currentYear = new Date().getFullYear();
@@ -78,7 +101,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
       className={`p-4 md:flex md:flex-col bg-cardBG h-full border-foreground border-2`}
     >
       <CardTitle className="mb-4">Workout History</CardTitle>
-      <CardContent className="h-full flex items-center">
+      <CardContent className="">
         {
           <ActivityCalendar
             data={data}
@@ -110,11 +133,9 @@ function ProfileWorkoutHistory({ workoutHistory }) {
             }}
             hideColorLegend
             maxLevel={2}
-            theme={{
-              light: ["#f0f0f0", "#c4edde"],
-              dark: ["#383838", "#3b5c78", "#3795e1"],
-            }}
+            theme={theme}
             blockSize={30}
+            blockRadius={5}
           />
         }
       </CardContent>

@@ -42,29 +42,33 @@ function ProfilePage() {
     //     </div>
     //   </div>
     // </div>
-    <div className={`bg-red-900 flex ${styles.container}`}>
-      <div className="h-full w-1/2 bg-blue-900">
-        <div className="h-[30%] w-full bg-green-900">
-          <ProfileCard user={user} />
-        </div>
-        <div className="h-[20%] w-full bg-purple-900 flex">
-          <div className="w-1/2">
-            <ProfileTotalWeight exercises={user.exercises} />
+    <div className="flex flex-col items-center justify-center">
+      <div
+        className={`flex md:h-[calc(100vh-200px)] gap-2 flex-col md:flex-row md:w-full w-[90vw] md:p-4`}
+      >
+        <div className="h-full md:w-1/2 flex flex-col gap-2">
+          <div className="h-[30%] w-full">
+            <ProfileCard user={user} />
           </div>
-          <div className="w-1/2">
-            <ProfileStreak streak={user.streak} />
+          <div className="h-[20%] w-full flex gap-2">
+            <div className="w-1/2">
+              <ProfileTotalWeight exercises={user.exercises} />
+            </div>
+            <div className="w-1/2">
+              <ProfileStreak streak={user.streak} />
+            </div>
+          </div>
+          <div className="h-1/2 w-full">
+            <ProfileExerciseList exercises={user.exercises} />
           </div>
         </div>
-        <div className="bg-purple-900 h-1/2 w-full">
-          <ProfileExerciseList exercises={user.exercises} />
-        </div>
-      </div>
-      <div className="h-full w-1/2 bg-green-900">
-        <div className="h-1/2 w-full bg-red-900">
-          <ProfileChart exercises={user.exercises} />
-        </div>
-        <div className="h-1/2 w-full bg-yellow-900">
-          <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
+        <div className="h-full md:w-1/2 flex flex-col gap-2">
+          <div className="md:h-1/2 w-full">
+            <ProfileChart exercises={user.exercises} />
+          </div>
+          <div className="md:h-1/2 w-full overflow-auto">
+            <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
+          </div>
         </div>
       </div>
     </div>
