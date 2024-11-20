@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutSlug.module.css";
 import { updateWorkout, addExercises, updateExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
@@ -15,10 +15,13 @@ import {
 } from "../editList/context";
 
 function WorkoutSlug({ workout, day }) {
+  const tableHeaderStyle =
+    "font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4";
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [newExercisesContext, setNewExercisesContext] =
     useContext(NewExercisesContext);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
+  const [needsSaving, setNeedsSaving] = useState(false);
 
   const [exerciseIds, setExerciseIds] = useState(
     workout.workouts[day].workouts
@@ -80,6 +83,8 @@ function WorkoutSlug({ workout, day }) {
     setNewWeight("");
   };
 
+  useEffect(() => {}, [exercisesContext, newExercisesContext, workoutContext]);
+
   const updateDay = (workoutID, workoutName, exercises, day) => {
     updateWorkout(workoutID, workoutName, exercises, day);
     updateExercises(exercisesContext);
@@ -91,11 +96,41 @@ function WorkoutSlug({ workout, day }) {
       value={[newExercisesContext, setNewExercisesContext]}
     >
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
-        <div className={styles.container}>
-          <div className={styles.cardContainer}>
-            <div className={styles.textContainer}>
-              <div className="flex">
-                <h1 className={styles.dayHeader}>{day}</h1>
+        <div className="">
+          <div
+            className={`styles.cardContainer border-2 border-foreground rounded-md px-4 py-5 bg-cardBG`}
+          >
+            <div className={`styles.textContainer flex justify-between mb-2`}>
+              <div className="">
+                <h1 className={`styles.dayHeader`}>
+                  <p className="text-3xl">Day {day}</p>
+                </h1>
+              </div>
+              {drop ? (
+                <button onClick={() => setDrop(!drop)}>
+                  <IoIosArrowUp className="text-3xl" />
+                </button>
+              ) : (
+                <button onClick={() => setDrop(!drop)}>
+                  <IoIosArrowDown className="text-3xl" />
+                </button>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() =>
+                  updateDay(
+                    workout.id,
+                    workout.name,
+                    workoutContext.workouts[day].workouts,
+                    day
+                  )
+                }
+                className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
+              >
+                Save
+              </button>
+              {drop && (
                 <button
                   onClick={() =>
                     updateDay(
@@ -105,23 +140,81 @@ function WorkoutSlug({ workout, day }) {
                       day
                     )
                   }
+                  className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
                 >
-                  <FaCheck />
-                </button>
-              </div>
-              {drop ? (
-                <button onClick={() => setDrop(!drop)}>
-                  <IoIosArrowUp />
-                </button>
-              ) : (
-                <button onClick={() => setDrop(!drop)}>
-                  <IoIosArrowDown />
+                  Add Exercise
                 </button>
               )}
             </div>
             {drop && (
               <div className={styles.workoutContainer}>
-                <div className={styles.workoutHeader}>
+                <table className={`lg:w-3/4 w-full ${styles.table}`}>
+                  <thead>
+                    <tr className="md:text-3xl">
+                      <th className={tableHeaderStyle}>Exercise</th>
+                      <th className={tableHeaderStyle}>Sets</th>
+                      <th className={tableHeaderStyle}>Reps</th>
+                      <th className={tableHeaderStyle}>Weight</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* {modal && (
+                      <form className={styles.addHeader}>
+                        <h1 className={styles.empty}></h1>
+                        <input
+                          value={newName}
+                          type="text"
+                          placeholder="Workout"
+                          className={styles.addInputs}
+                          onChange={(e) => {
+                            setNewName(e.target.value);
+                          }}
+                        />
+                        <input
+                          value={newSets}
+                          type="number"
+                          placeholder="Sets"
+                          className={styles.addInputs}
+                          onChange={(e) => {
+                            setNewSets(e.target.value);
+                          }}
+                        />
+                        <input
+                          value={newReps}
+                          type="number"
+                          placeholder="Reps"
+                          className={styles.addInputs}
+                          onChange={(e) => {
+                            setNewReps(e.target.value);
+                          }}
+                        />
+                        <input
+                          value={newWeight}
+                          type="number"
+                          placeholder="Weight"
+                          className={styles.addInputs}
+                          onChange={(e) => {
+                            setNewWeight(e.target.value);
+                          }}
+                        />
+                        <button
+                          className={styles.add + " text-2xl font-bold"}
+                          onClick={addExercise}
+                        >
+                          +
+                        </button>
+                      </form>
+                    )} */}
+                    {workoutContext.workouts[day].workouts.map((exercise) => (
+                      <EditExercise
+                        exerciseID={exercise}
+                        day={day}
+                        key={exercise}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+                {/* <div className={styles.workoutHeader}>
                   <h1 className={styles.empty}></h1>
                   <h1 className={styles.headers}>Workouts</h1>
                   <h1 className={styles.headers}>Sets</h1>
@@ -133,59 +226,7 @@ function WorkoutSlug({ workout, day }) {
                   >
                     +
                   </button>
-                </div>
-                {modal && (
-                  <form className={styles.addHeader}>
-                    <h1 className={styles.empty}></h1>
-                    <input
-                      value={newName}
-                      type="text"
-                      placeholder="Workout"
-                      className={styles.addInputs}
-                      onChange={(e) => {
-                        setNewName(e.target.value);
-                      }}
-                    />
-                    <input
-                      value={newSets}
-                      type="number"
-                      placeholder="Sets"
-                      className={styles.addInputs}
-                      onChange={(e) => {
-                        setNewSets(e.target.value);
-                      }}
-                    />
-                    <input
-                      value={newReps}
-                      type="number"
-                      placeholder="Reps"
-                      className={styles.addInputs}
-                      onChange={(e) => {
-                        setNewReps(e.target.value);
-                      }}
-                    />
-                    <input
-                      value={newWeight}
-                      type="number"
-                      placeholder="Weight"
-                      className={styles.addInputs}
-                      onChange={(e) => {
-                        setNewWeight(e.target.value);
-                      }}
-                    />
-                    <button
-                      className={styles.add + " text-2xl font-bold"}
-                      onClick={addExercise}
-                    >
-                      +
-                    </button>
-                  </form>
-                )}
-                {workoutContext.workouts[day].workouts.map((exercise) => (
-                  <div key={exercise}>
-                    <EditExercise exerciseID={exercise} day={day} />
-                  </div>
-                ))}
+                </div> */}
               </div>
             )}
           </div>

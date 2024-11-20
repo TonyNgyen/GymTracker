@@ -181,9 +181,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <Link href="/workouts/add">Add</Link>
           </Button>
 
-          <Button asChild className="text-lg min-w-[76px]">
+          {/* <Button asChild className="text-lg min-w-[76px]">
             <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
-          </Button>
+          </Button> */}
         </div>
       </div>
       {workoutForDay !== undefined ? (

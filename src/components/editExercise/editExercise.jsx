@@ -94,7 +94,7 @@ function EditExercise({ exerciseID, day }) {
 
   return (
     <>
-      {workout.id == exerciseSelect && edit ? (
+      {/* {workout.id == exerciseSelect && edit ? (
         <form className={styles.workouts}>
           <button
             onClick={() =>
@@ -164,7 +164,25 @@ function EditExercise({ exerciseID, day }) {
             <FaTrashAlt />
           </button>
         </div>
-      )}
+      )} */}
+      <tr className={`${styles.tableRow} text-xl text-center bg-cardBG`}>
+        {/* <button onClick={() => editSelect(workout.id)} className={styles.edit}>
+          <FaEdit />
+        </button> */}
+        <td className={`${styles.exerciseName} md:pl-[4.2rem] pl-5 w-36`}>{workout.name}</td>
+        <td className={styles.middle}>{workout.sets}</td>
+        <td className={styles.middle}>{workout.reps}</td>
+        <td className={styles.weight}>{workout.weight}</td>
+        {/* <button
+          className={styles.trash}
+          onClick={(e) => {
+            e.preventDefault();
+            deleteWorkout(workout.id);
+          }}
+        >
+          <FaTrashAlt />
+        </button> */}
+      </tr>
     </>
   );
 }

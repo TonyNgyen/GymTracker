@@ -1,6 +1,12 @@
-.dayHeader {
+/* .dayHeader {
   font-size: x-large;
   margin-right: 1rem;
+} */
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin: 0 auto;
 }
 
 .header {
@@ -124,7 +130,9 @@
     width: 100%;
   }
 
-  .workoutHeader, .addHeader, .workouts {
-    padding: 2rem .5rem;
+  .workoutHeader,
+  .addHeader,
+  .workouts {
+    padding: 2rem 0.5rem;
   }
 }

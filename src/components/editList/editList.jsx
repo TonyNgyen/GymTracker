@@ -17,7 +17,7 @@ function EditList({ workout, exercises }) {
     <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
       <ExercisesContext.Provider value={[exercisesContext, setExercisesContext]}>
         <NewExercisesContext.Provider value={[newExercisesContext, setNewExercisesContext]}>
-          <div className={styles.slugContainer}>
+          <div className={`md:w-[60%] w-[90vw] ${styles.slugContainer}`}>
             {Object.keys(workout.workouts).map((day) => (
               <WorkoutSlug day={day} workout={workout} key={day} />
             ))}

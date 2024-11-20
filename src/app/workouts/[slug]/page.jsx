@@ -13,7 +13,7 @@ async function SingleWorkoutPage({ params }) {
   return (
     <div>
       {workout.creator === userEmail ? (
-        <div>
+        <div className="flex min-h-[calc(100vh-200px)] items-center flex-col">
           <h1 className="text-center my-10 text-5xl font-bold">
             {workout.name}
           </h1>
