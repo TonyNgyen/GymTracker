@@ -8,7 +8,7 @@ import {
   NewExercisesContext,
 } from "../editList/context";
 
-function EditExercise({ exerciseID, day }) {
+function EditExercise({ exerciseID, day, index }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [newExercisesContext, setNewExercisesContext] =
@@ -45,19 +45,19 @@ function EditExercise({ exerciseID, day }) {
       reps: reps,
       weight: weight,
     };
-    // for (let exercise in exercisesContext) {
-    //   if (exercisesContext[exercise].id == exerciseID) {
-    //     copyExercises.push({
-    //       id: exerciseID,
-    //       name: name,
-    //       sets: sets,
-    //       reps: reps,
-    //       weight: weight,
-    //     });
-    //   } else {
-    //     copyExercises.push(exercisesContext[exercise]);
-    //   }
-    // }
+    for (let exercise in exercisesContext) {
+      if (exercisesContext[exercise].id == exerciseID) {
+        copyExercises.push({
+          id: exerciseID,
+          name: name,
+          sets: sets,
+          reps: reps,
+          weight: weight,
+        });
+      } else {
+        copyExercises.push(exercisesContext[exercise]);
+      }
+    }
     setExercisesContext(copyExercises);
 
     copyExercises = [];
@@ -165,24 +165,35 @@ function EditExercise({ exerciseID, day }) {
           </button>
         </div>
       )} */}
-      <tr className={`${styles.tableRow} text-xl text-center bg-cardBG`}>
-        {/* <button onClick={() => editSelect(workout.id)} className={styles.edit}>
+      <tr
+        className={`${styles.tableRow} text-xl text-center bg-cardBG relative ${
+          index != workoutContext.workouts[day].workouts.length - 1 &&
+          "border-b-white border"
+        } border-transparent`}
+      >
+        <button
+          onClick={() => editSelect(workout.id)}
+          className={`absolute ${styles.edit}`}
+        >
           <FaEdit />
-        </button> */}
-        <td className={`${styles.exerciseName} md:pl-[4.2rem] pl-5 w-36`}>{workout.name}</td>
+        </button>
+        <td className={`${styles.exerciseName} pl-8`}>{workout.name}</td>
         <td className={styles.middle}>{workout.sets}</td>
         <td className={styles.middle}>{workout.reps}</td>
         <td className={styles.weight}>{workout.weight}</td>
-        {/* <button
-          className={styles.trash}
+        <button
+          className={`absolute ${styles.delete} text-destructive`}
           onClick={(e) => {
             e.preventDefault();
             deleteWorkout(workout.id);
           }}
         >
           <FaTrashAlt />
-        </button> */}
+        </button>
       </tr>
+      {index != workoutContext.workouts[day].workouts.length - 1 && (
+        <div className="h-2"></div>
+      )}
     </>
   );
 }

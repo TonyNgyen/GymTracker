@@ -1,4 +1,4 @@
-import { getWorkout, getUserExercises } from "@/lib/data";
+import {  getUserExercises, getUserWorkout } from "@/lib/data";
 import React from "react";
 import EditList from "@/components/editList/editList";
 import { auth } from "@/lib/auth";
@@ -8,7 +8,7 @@ async function SingleWorkoutPage({ params }) {
   const { slug } = params;
   const session = await auth();
   const userEmail = session.user?.email;
-  const workout = await getWorkout(slug);
+  const workout = (await getUserWorkout())[slug];
   const exercises = await getUserExercises(workout.creator);
   return (
     <div>

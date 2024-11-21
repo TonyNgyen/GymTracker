@@ -4,7 +4,7 @@
 } */
 
 .table {
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0 10px;
   margin: 0 auto;
 }
@@ -117,12 +117,6 @@
 
 .add {
   grid-column: span 1;
-}
-
-.workoutContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
 }
 
 @media (max-width: 768px) {

@@ -15,13 +15,12 @@ import {
 } from "../editList/context";
 
 function WorkoutSlug({ workout, day }) {
-  const tableHeaderStyle =
-    "font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4";
+  const tableHeaderStyle = "font-semibold px-4";
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [newExercisesContext, setNewExercisesContext] =
     useContext(NewExercisesContext);
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
-  const [needsSaving, setNeedsSaving] = useState(false);
+  const [needSaving, setNeedSaving] = useState(false);
 
   const [exerciseIds, setExerciseIds] = useState(
     workout.workouts[day].workouts
@@ -117,19 +116,22 @@ function WorkoutSlug({ workout, day }) {
               )}
             </div>
             <div className="flex gap-2">
-              <button
-                onClick={() =>
-                  updateDay(
-                    workout.id,
-                    workout.name,
-                    workoutContext.workouts[day].workouts,
-                    day
-                  )
-                }
-                className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
-              >
-                Save
-              </button>
+              {needSaving && (
+                <button
+                  onClick={() =>
+                    updateDay(
+                      workout.id,
+                      workout.name,
+                      workoutContext.workouts[day].workouts,
+                      day
+                    )
+                  }
+                  className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
+                >
+                  Save
+                </button>
+              )}
+
               {drop && (
                 <button
                   onClick={() =>
@@ -147,10 +149,11 @@ function WorkoutSlug({ workout, day }) {
               )}
             </div>
             {drop && (
-              <div className={styles.workoutContainer}>
-                <table className={`lg:w-3/4 w-full ${styles.table}`}>
+              <div className={`${styles.workoutContainer} mt-5`}>
+                <table className={`${styles.table} w-full md:w-[90%]`}>
                   <thead>
-                    <tr className="md:text-3xl">
+                    <tr className="md:text-3xl text-lg">
+                      <th></th>
                       <th className={tableHeaderStyle}>Exercise</th>
                       <th className={tableHeaderStyle}>Sets</th>
                       <th className={tableHeaderStyle}>Reps</th>
@@ -205,13 +208,16 @@ function WorkoutSlug({ workout, day }) {
                         </button>
                       </form>
                     )} */}
-                    {workoutContext.workouts[day].workouts.map((exercise) => (
-                      <EditExercise
-                        exerciseID={exercise}
-                        day={day}
-                        key={exercise}
-                      />
-                    ))}
+                    {workoutContext.workouts[day].workouts.map(
+                      (exercise, index) => (
+                        <EditExercise
+                          exerciseID={exercise}
+                          day={day}
+                          key={index}
+                          index={index}
+                        />
+                      )
+                    )}
                   </tbody>
                 </table>
                 {/* <div className={styles.workoutHeader}>

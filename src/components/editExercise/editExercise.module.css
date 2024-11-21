@@ -1,4 +1,4 @@
-.workouts {
+/* .workouts {
   display: grid;
   grid-template-columns: repeat(14, 1fr);
   justify-items: center;
@@ -7,49 +7,58 @@
   padding: 2rem 2rem;
   border: 2px solid hsl(var(--foreground));
   border-radius: 18px;
-}
+} */
 
 .tableRow .exerciseName {
   text-align: left;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border: hsl(var(--foreground)) solid 2px;
+  /* border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px; */
+  /* border: hsl(var(--foreground)) solid 2px; */
   border-right: transparent;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  border-left: transparent;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .middle {
   text-align: center;
-  border: hsl(var(--foreground)) solid 2px;
+  /* border: hsl(var(--foreground)) solid 2px; */
   border-left: transparent;
   border-right: transparent;
 }
 
 .weight {
   text-align: center;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border: hsl(var(--foreground)) solid 2px;
+  /* border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  /* border: hsl(var(--foreground)) solid 2px; */
   border-left: transparent;
+  border-right: transparent;
 }
 
 .edit {
-  justify-self: start;
-  grid-column: span 1;
+  position: absolute;
+  top: 50%;
+  transform: translate(-10%, -50%);
 }
 
-.trash {
+.delete {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .trash {
   grid-column: span 1;
   color: hsl(var(--destructive));
-}
+} */
 
-.stats,
+/* .stats,
 .headers,
 .inputs,
 .addInputs {
   grid-column: span 3;
-}
+} */
 
 .inputs {
   width: 30%;
