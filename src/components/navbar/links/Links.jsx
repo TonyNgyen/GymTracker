@@ -6,8 +6,8 @@ import NavLink from "./navLink/navLink";
 import Image from "next/image";
 import { handleLogout } from "@/lib/actions";
 import { ModeToggle } from "@/components/ui/toggle-mode";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { IoMenu } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import {
   DropdownMenu,
@@ -105,14 +105,15 @@ function Links({ session }) {
         <ModeToggle />
       </div>
 
-      <Image
+      {/* <Image
         className={styles.menuButton}
         src="/menu.png"
         alt=""
         width={30}
         height={30}
         onClick={() => setOpen((prev) => !prev)}
-      />
+      /> */}
+      <IoMenu className={`text-5xl dark:text-gray-300 text-gray-500 ${styles.menuButton}`} onClick={() => setOpen((prev) => !prev)} />
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (

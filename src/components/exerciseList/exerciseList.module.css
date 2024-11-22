@@ -18,7 +18,14 @@
 
 .buttons {
   display: flex;
+  position: relative;
   gap: 7px;
+}
+
+.moreOptions {
+  position: absolute;
+  top: 50%;
+  transform: translate(-10%, -50%);
 }
 
 .container {
@@ -40,7 +47,8 @@
   font-weight: 600;
 }
 
-.headers, .stats {
+.headers,
+.stats {
   grid-column: span 4;
 }
 

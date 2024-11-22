@@ -55,17 +55,6 @@ function WorkoutSlug({ workout, day }) {
       },
     });
 
-    // setNewExercisesContext({
-    //   ...newExercisesContext,
-    //   [newExerciseId]: {
-    //     id: newExerciseId,
-    //     name: newName,
-    //     sets: newSets,
-    //     reps: newReps,
-    //     weight: newWeight,
-    //   },
-    // });
-
     setWorkoutContext({
       ...workoutContext,
       workouts: {
@@ -232,12 +221,12 @@ function WorkoutSlug({ workout, day }) {
                             }}
                           />
                         </td>
-                        <button
+                        <td
                           className={`absolute ${styles.delete} text-greenConfirm text-xl`}
                           onClick={addExercise}
                         >
                           <FaPlus />
-                        </button>
+                        </td>
                       </tr>
                     )}
                     {workoutContext.workouts[day].workouts.map(

@@ -6,6 +6,7 @@ import styles from "./exerciseList.module.css";
 import { Button } from "../ui/button";
 import { ExercisesContext } from "../exerciseListContainer/context";
 import { format, compareAsc, add } from "date-fns";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 import {
   Select,
@@ -174,16 +175,19 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             </Button>
           )}
 
-          <Button
+          {/* <Button
             asChild
             className="bg-main hover:bg-main-foreground hover:text-foreground text-lg min-w-[76px]"
           >
             <Link href="/workouts/add">Add</Link>
-          </Button>
+          </Button> */}
 
-          <Button asChild className="text-lg min-w-[76px]">
+          <Button asChild className="text-lg min-w-[76px] bg-main hover:bg-main-foreground hover:text-foreground">
             <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
           </Button>
+          <button>
+            <BsThreeDotsVertical className={`text-4xl dark:text-gray-300 text-gray-500 absolute ${styles.moreOptions}`} />
+          </button>
         </div>
       </div>
       {workoutForDay !== undefined ? (
