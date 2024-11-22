@@ -61,10 +61,7 @@
 } */
 
 .inputs {
-  width: 30%;
   color: hsl(var(--foreground));
-  background-color: hsl(var(--background));
-  text-align: center;
   border-bottom: 2px solid hsl(var(--foreground));
   margin-bottom: -2px;
   -moz-appearance: textfield;

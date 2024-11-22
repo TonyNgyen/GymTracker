@@ -5,7 +5,7 @@ import styles from "./workoutSlug.module.css";
 import { updateWorkout, addExercises, updateExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaPlus } from "react-icons/fa";
 import EditExercise from "../editExercise/editExercise";
 import { makeid } from "@/lib/utils";
 import {
@@ -13,6 +13,7 @@ import {
   NewExercisesContext,
   WorkoutContext,
 } from "../editList/context";
+import AutosizeInput from "react-input-autosize";
 
 function WorkoutSlug({ workout, day }) {
   const tableHeaderStyle = "font-semibold px-4";
@@ -54,16 +55,16 @@ function WorkoutSlug({ workout, day }) {
       },
     });
 
-    setNewExercisesContext({
-      ...newExercisesContext,
-      [newExerciseId]: {
-        id: newExerciseId,
-        name: newName,
-        sets: newSets,
-        reps: newReps,
-        weight: newWeight,
-      },
-    });
+    // setNewExercisesContext({
+    //   ...newExercisesContext,
+    //   [newExerciseId]: {
+    //     id: newExerciseId,
+    //     name: newName,
+    //     sets: newSets,
+    //     reps: newReps,
+    //     weight: newWeight,
+    //   },
+    // });
 
     setWorkoutContext({
       ...workoutContext,
@@ -80,14 +81,16 @@ function WorkoutSlug({ workout, day }) {
     setNewSets("");
     setNewReps("");
     setNewWeight("");
+    setNeedSaving(true);
+    setModal(false);
   };
 
   useEffect(() => {}, [exercisesContext, newExercisesContext, workoutContext]);
 
-  const updateDay = (workoutID, workoutName, exercises, day) => {
-    updateWorkout(workoutID, workoutName, exercises, day);
-    updateExercises(exercisesContext);
-    // addExercises(newExercisesContext);
+  const updateDay = async (workoutID, workoutName, exercises, day) => {
+    await updateWorkout(workoutID, workoutName, exercises, day);
+    await updateExercises(exercisesContext);
+    setNeedSaving(false);
   };
 
   return (
@@ -132,28 +135,28 @@ function WorkoutSlug({ workout, day }) {
                 </button>
               )}
 
-              {drop && (
-                <button
-                  onClick={() =>
-                    updateDay(
-                      workout.id,
-                      workout.name,
-                      workoutContext.workouts[day].workouts,
-                      day
-                    )
-                  }
-                  className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
-                >
-                  Add Exercise
-                </button>
-              )}
+              {drop &&
+                (!modal ? (
+                  <button
+                    onClick={() => setModal(true)}
+                    className="bg-greenConfirm text-background py-1 px-2 rounded-md font-semibold"
+                  >
+                    Add Exercise
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setModal(false)}
+                    className="bg-destructive text-background py-1 px-2 rounded-md font-semibold"
+                  >
+                    Cancel
+                  </button>
+                ))}
             </div>
             {drop && (
               <div className={`${styles.workoutContainer} mt-5`}>
                 <table className={`${styles.table} w-full md:w-[90%]`}>
                   <thead>
-                    <tr className="md:text-3xl text-lg">
-                      <th></th>
+                    <tr className="md:text-3xl text-lg border-b-foreground border border-transparent">
                       <th className={tableHeaderStyle}>Exercise</th>
                       <th className={tableHeaderStyle}>Sets</th>
                       <th className={tableHeaderStyle}>Reps</th>
@@ -161,53 +164,82 @@ function WorkoutSlug({ workout, day }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {modal && (
-                      <form className={styles.addHeader}>
-                        <h1 className={styles.empty}></h1>
-                        <input
-                          value={newName}
-                          type="text"
-                          placeholder="Workout"
-                          className={styles.addInputs}
-                          onChange={(e) => {
-                            setNewName(e.target.value);
-                          }}
-                        />
-                        <input
-                          value={newSets}
-                          type="number"
-                          placeholder="Sets"
-                          className={styles.addInputs}
-                          onChange={(e) => {
-                            setNewSets(e.target.value);
-                          }}
-                        />
-                        <input
-                          value={newReps}
-                          type="number"
-                          placeholder="Reps"
-                          className={styles.addInputs}
-                          onChange={(e) => {
-                            setNewReps(e.target.value);
-                          }}
-                        />
-                        <input
-                          value={newWeight}
-                          type="number"
-                          placeholder="Weight"
-                          className={styles.addInputs}
-                          onChange={(e) => {
-                            setNewWeight(e.target.value);
-                          }}
-                        />
+                    {modal && (
+                      <tr
+                        className={`${styles.tableRow} relative border-b-foreground border border-transparent`}
+                      >
+                        <td className={`${styles.exerciseName} pl-4`}>
+                          <AutosizeInput
+                            value={newName}
+                            type="text"
+                            placeholder="Workout"
+                            inputStyle={{
+                              textAlign: "center",
+                              background: "transparent",
+                              borderBottom: "2px solid hsl(var(--foreground)",
+                              marginBottom: "-2px",
+                            }}
+                            onChange={(e) => {
+                              setNewName(e.target.value);
+                            }}
+                          />
+                        </td>
+                        <td className={styles.middle}>
+                          <AutosizeInput
+                            value={newSets}
+                            type="number"
+                            placeholder="Sets"
+                            inputStyle={{
+                              textAlign: "center",
+                              background: "transparent",
+                              borderBottom: "2px solid hsl(var(--foreground)",
+                              marginBottom: "-2px",
+                            }}
+                            onChange={(e) => {
+                              setNewSets(e.target.value);
+                            }}
+                          />
+                        </td>
+                        <td className={styles.middle}>
+                          <AutosizeInput
+                            value={newReps}
+                            type="number"
+                            placeholder="Reps"
+                            inputStyle={{
+                              textAlign: "center",
+                              background: "transparent",
+                              borderBottom: "2px solid hsl(var(--foreground)",
+                              marginBottom: "-2px",
+                            }}
+                            onChange={(e) => {
+                              setNewReps(e.target.value);
+                            }}
+                          />
+                        </td>
+                        <td className={styles.weight}>
+                          <AutosizeInput
+                            value={newWeight}
+                            type="number"
+                            placeholder="Weight"
+                            inputStyle={{
+                              textAlign: "center",
+                              background: "transparent",
+                              borderBottom: "2px solid hsl(var(--foreground)",
+                              marginBottom: "-2px",
+                            }}
+                            onChange={(e) => {
+                              setNewWeight(e.target.value);
+                            }}
+                          />
+                        </td>
                         <button
-                          className={styles.add + " text-2xl font-bold"}
+                          className={`absolute ${styles.delete} text-greenConfirm text-xl`}
                           onClick={addExercise}
                         >
-                          +
+                          <FaPlus />
                         </button>
-                      </form>
-                    )} */}
+                      </tr>
+                    )}
                     {workoutContext.workouts[day].workouts.map(
                       (exercise, index) => (
                         <EditExercise
@@ -215,24 +247,13 @@ function WorkoutSlug({ workout, day }) {
                           day={day}
                           key={index}
                           index={index}
+                          needSaving={needSaving}
+                          setNeedSaving={setNeedSaving}
                         />
                       )
                     )}
                   </tbody>
                 </table>
-                {/* <div className={styles.workoutHeader}>
-                  <h1 className={styles.empty}></h1>
-                  <h1 className={styles.headers}>Workouts</h1>
-                  <h1 className={styles.headers}>Sets</h1>
-                  <h1 className={styles.headers}>Reps</h1>
-                  <h1 className={styles.headers}>Weight</h1>
-                  <button
-                    className={styles.add + " text-2xl font-bold"}
-                    onClick={toggle}
-                  >
-                    +
-                  </button>
-                </div> */}
               </div>
             )}
           </div>

@@ -103,19 +103,19 @@ export const updateWorkout = async (id, name, workout, day) => {
       { email: session.user?.email },
       {
         $set: {
-          [`workouts.${name}.workouts.${day}.workouts`]: workout,
+          [`workouts.${id}.workouts.${day}.workouts`]: workout,
         },
       }
     );
 
-    await Workout.findOneAndUpdate(
-      { id: id },
-      {
-        $set: {
-          [`workouts.${day}.workouts`]: workout,
-        },
-      }
-    );
+    // await Workout.findOneAndUpdate(
+    //   { id: id },
+    //   {
+    //     $set: {
+    //       [`workouts.${day}.workouts`]: workout,
+    //     },
+    //   }
+    // );
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
