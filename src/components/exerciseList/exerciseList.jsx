@@ -249,7 +249,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
                     variant="secondary"
                     className="min-w-28"
                   >
-                    Don't Skip
+                    Don&apos;t Skip
                   </Button>
                 </DialogClose>
                 <DialogClose asChild>
