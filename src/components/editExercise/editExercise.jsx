@@ -1,11 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import styles from "./editExercise.module.css";
 import { FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
-import {
-  WorkoutContext,
-  ExercisesContext,
-  NewExercisesContext,
-} from "../editList/context";
+import { WorkoutContext, ExercisesContext } from "../editList/context";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   DropdownMenu,
@@ -16,12 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AutosizeInput from "react-input-autosize";
+import { format } from "date-fns";
 
 function EditExercise({ exerciseID, day, index, needSaving, setNeedSaving }) {
   const [workoutContext, setWorkoutContext] = useContext(WorkoutContext);
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const [newExercisesContext, setNewExercisesContext] =
-    useContext(NewExercisesContext);
 
   let workout = {};
 
@@ -45,6 +40,7 @@ function EditExercise({ exerciseID, day, index, needSaving, setNeedSaving }) {
   };
 
   const editExercise = (exerciseID, name, sets, reps, weight) => {
+    const date = format(new Date(), "P");
     editSelect(exerciseID);
     if (
       sets == workout.sets &&
@@ -55,7 +51,7 @@ function EditExercise({ exerciseID, day, index, needSaving, setNeedSaving }) {
     }
     let copyExercises = exercisesContext;
     copyExercises[exerciseID] = {
-      history: exercisesContext[exerciseID].history,
+      history: { ...exercisesContext[exerciseID].history, [date]: weight },
       id: exerciseID,
       name: name,
       sets: sets,
@@ -165,9 +161,9 @@ function EditExercise({ exerciseID, day, index, needSaving, setNeedSaving }) {
           } border-transparent`}
         >
           <td className={`${styles.exerciseName} pl-4`}>{workout.name}</td>
-          <td className={styles.middle}>{workout.sets}</td>
-          <td className={styles.middle}>{workout.reps}</td>
-          <td className={styles.weight}>{workout.weight}</td>
+          <td className={styles.middle}>{sets}</td>
+          <td className={styles.middle}>{reps}</td>
+          <td className={styles.weight}>{weight}</td>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <BsThreeDotsVertical

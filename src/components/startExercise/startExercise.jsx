@@ -29,6 +29,7 @@ function StartExercise({ set, savedWeight }) {
   const [currentExerciseContext, setCurrentExerciseContext] = useContext(
     CurrentExerciseContext
   );
+  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [updatedWeight, setUpdatedWeight] = useState(savedWeight);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
@@ -86,7 +87,7 @@ function StartExercise({ set, savedWeight }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
-    if (weight > updatedWeight) {
+    if (weight > exercisesContext[set.id].weight) {
       setShowDialog(true);
     }
   };
@@ -108,7 +109,7 @@ function StartExercise({ set, savedWeight }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
-    if (weight > updatedWeight) {
+    if (weight > exercisesContext[set.id].weight) {
       setShowDialog(true);
     }
   };
@@ -118,6 +119,8 @@ function StartExercise({ set, savedWeight }) {
     setWeight(previousWeight);
     setReps(previousReps);
   };
+
+  console.log(exercisesContext);
 
   return (
     <div className="flex flex-auto flex-col gap-5">
@@ -131,12 +134,12 @@ function StartExercise({ set, savedWeight }) {
         {!editToggle ? (
           <>
             <AlertDialog open={showDialog}>
-              <AlertDialogContent>
+              <AlertDialogContent className="w-[80vw] rounded-md">
                 <AlertDialogHeader>
                   <AlertDialogTitle>Weight Increase!</AlertDialogTitle>
                   <AlertDialogDescription>
-                    The weight on this rep is a new pr! Would you like future
-                    sets of this exercise to use this weight?
+                    The weight on this rep is a new PR! Would you like future
+                    sets to use this weight?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -146,8 +149,15 @@ function StartExercise({ set, savedWeight }) {
                   <AlertDialogAction
                     onClick={() => {
                       setShowDialog(false);
-                      updateSpecificExercise(exerciseID, weight, date);
+                      updateSpecificExercise(set.id, weight, date);
                       setUpdatedWeight(weight);
+                      setExercisesContext({
+                        ...exercisesContext,
+                        [set.id]: {
+                          ...exercisesContext[set.id],
+                          weight: weight,
+                        },
+                      });
                     }}
                   >
                     Yes
@@ -156,7 +166,7 @@ function StartExercise({ set, savedWeight }) {
               </AlertDialogContent>
             </AlertDialog>
             <h1 className={styles.stats}>{set.reps}</h1>
-            <h1 className={styles.stats}>{set.weight}</h1>
+            <h1 className={styles.stats}>{exercisesContext[set.id].weight}</h1>
             <div className={`${styles.edit} flex gap-3`}>
               <Button
                 className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground rounded-full md:h-11 md:w-11 ${

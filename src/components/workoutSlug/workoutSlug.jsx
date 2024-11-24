@@ -52,6 +52,7 @@ function WorkoutSlug({ workout, day }) {
         sets: newSets,
         reps: newReps,
         weight: newWeight,
+        history: {},
       },
     });
 
@@ -73,9 +74,6 @@ function WorkoutSlug({ workout, day }) {
     setNeedSaving(true);
     setModal(false);
   };
-
-  useEffect(() => {}, [exercisesContext, newExercisesContext, workoutContext]);
-
   const updateDay = async (workoutID, workoutName, exercises, day) => {
     await updateWorkout(workoutID, workoutName, exercises, day);
     await updateExercises(exercisesContext);
