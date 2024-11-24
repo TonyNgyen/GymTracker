@@ -77,12 +77,21 @@ function StartWorkout({ day }) {
     }
     try {
       await incrementStreak();
-      await saveWorkoutHistory(workoutContext.id, startWorkoutContext, time);
+      await saveWorkoutHistory(
+        workoutContext.id,
+        startWorkoutContext,
+        getTimeItem()
+      );
       if (workoutContext.workouts[newDay].rest) {
         await changeCurrentWorkoutRest(workoutContext.id, newDay);
       } else {
         await changeCurrentWorkout(workoutContext.id, newDay);
       }
+      removeCurrentExerciseItem();
+      removeStartItem();
+      removeTimeItem();
+      removeStartWorkoutItem();
+      removeLastTime();
       router.push("/workouts");
     } catch (error) {
       console.error("Error calling changeCurrentWorkout: ", error);
@@ -142,10 +151,6 @@ function StartWorkout({ day }) {
                   asChild
                   className="text-lg min-w-[105px] bg-main"
                   onClick={() => {
-                    removeCurrentExerciseItem();
-                    removeStartItem();
-                    removeTimeItem();
-                    removeStartWorkoutItem();
                     incrementCurrentWorkout();
                   }}
                 >

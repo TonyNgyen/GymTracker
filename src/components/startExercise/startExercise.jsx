@@ -24,12 +24,12 @@ import {
 import { format } from "date-fns";
 
 function StartExercise({ set, savedWeight }) {
-  const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
   const [currentExerciseContext, setCurrentExerciseContext] = useContext(
     CurrentExerciseContext
   );
+  const [updatedWeight, setUpdatedWeight] = useState(savedWeight);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
   const [previousWeight, setPreviousWeight] = useState(set.weight);
@@ -86,9 +86,8 @@ function StartExercise({ set, savedWeight }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
-    if (weight > savedWeight) {
+    if (weight > updatedWeight) {
       setShowDialog(true);
-      updateSpecificExercise(exerciseID, weight, date);
     }
   };
 
@@ -109,9 +108,8 @@ function StartExercise({ set, savedWeight }) {
     });
     setPreviousWeight(weight);
     setPreviousReps(reps);
-    if (weight > savedWeight) {
+    if (weight > updatedWeight) {
       setShowDialog(true);
-      updateSpecificExercise(exerciseID, weight, date);
     }
   };
 
@@ -137,9 +135,8 @@ function StartExercise({ set, savedWeight }) {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Weight Increase!</AlertDialogTitle>
                   <AlertDialogDescription>
-                    The weight on this rep is the highest compared to the
-                    previous weights used for this exercise. Would you like
-                    future sets of this exercise to use this weight?
+                    The weight on this rep is a new pr! Would you like future
+                    sets of this exercise to use this weight?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -149,6 +146,8 @@ function StartExercise({ set, savedWeight }) {
                   <AlertDialogAction
                     onClick={() => {
                       setShowDialog(false);
+                      updateSpecificExercise(exerciseID, weight, date);
+                      setUpdatedWeight(weight);
                     }}
                   >
                     Yes

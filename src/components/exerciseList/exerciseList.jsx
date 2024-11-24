@@ -9,6 +9,26 @@ import { format, compareAsc, add } from "date-fns";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -57,8 +77,34 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     }
   }
 
+  const incrementDay = async () => {
+    let newDay = workouts[select].currentWorkout;
+    if (newDay === Object.keys(workouts[select].workouts).length) {
+      newDay = 1;
+    } else {
+      newDay += 1;
+    }
+    // if next day is a rest day
+    if (workouts[select].workouts[newDay].rest) {
+      console.log("HERE 1");
+      await workoutHomepageChangeToRest(workouts[select].id, newDay);
+      workouts[select].currentWorkout = newDay;
+      workouts[select].restDay = date;
+    } else {
+      // if next day is not a rest day
+      console.log("HERE 2");
+      await workoutHomepageChangeDay(workouts[select].id, newDay);
+      workouts[select].currentWorkout = newDay;
+      workouts[select].restDay = "undefined";
+    }
+    console.log(workouts[select].workouts[newDay]);
+    setWorkoutForDay(workouts[select].workouts[newDay]);
+  };
+
   useEffect(() => {
-    workoutHistory[date] = undefined;
+    if (workoutHistory[date] == undefined) {
+      workoutHistory[date] = undefined;
+    }
   });
 
   useEffect(() => {
@@ -104,28 +150,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               await incrementStreak();
             }
             await saveRestDay({}, -2, workouts[select].restDay);
-            let newDay = workouts[select].currentWorkout;
-            if (newDay === Object.keys(workouts[select].workouts).length) {
-              newDay = 1;
-            } else {
-              newDay += 1;
-            }
-            // if next day is a rest day
-            if (workouts[select].workouts[newDay].rest) {
-              console.log("HERE 1");
-              await workoutHomepageChangeToRest(workouts[select].id, newDay);
-              workouts[select].currentWorkout = newDay;
-              workouts[select].restDay = date;
-            } else {
-              // if next day is not a rest day
-              console.log("HERE 2");
-              await workoutHomepageChangeDay(workouts[select].id, newDay);
-              workouts[select].currentWorkout = newDay;
-              workouts[select].undefined = "undefined";
-            }
-            setWorkoutForDay(
-              workouts[select].workouts[workouts[select].newDay]
-            );
+            incrementDay();
           } catch (error) {
             console.log(error);
           }
@@ -182,12 +207,64 @@ function ExerciseList({ workouts, day, workoutHistory }) {
             <Link href="/workouts/add">Add</Link>
           </Button> */}
 
-          <Button asChild className="text-lg min-w-[76px] bg-main hover:bg-main-foreground hover:text-foreground">
+          <Button
+            asChild
+            className="text-lg min-w-[76px] bg-main hover:bg-main-foreground hover:text-foreground"
+          >
             <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
           </Button>
-          <button>
-            <BsThreeDotsVertical className={`text-4xl dark:text-gray-300 text-gray-500 absolute ${styles.moreOptions}`} />
-          </button>
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <button>
+                  <BsThreeDotsVertical
+                    className={`text-4xl dark:text-gray-300 text-gray-500 absolute ${styles.moreOptions}`}
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>More Options</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {/* <DropdownMenuItem>Change Day</DropdownMenuItem> */}
+                <DialogTrigger>
+                  <DropdownMenuItem>Skip Day</DropdownMenuItem>
+                </DialogTrigger>
+                <DropdownMenuItem>
+                  <a href="/workouts/add">Add New Workout</a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DialogContent className="w-[80vw] rounded-md">
+              <DialogHeader>
+                <DialogTitle>Skip Day</DialogTitle>
+                <DialogDescription>
+                  Do you want to skip this workout?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter className="flex flex-row justify-center gap-2 font-bold">
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="min-w-28"
+                  >
+                    Don't Skip
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="min-w-28 bg-main text-background font-bold"
+                    onClick={() => incrementDay()}
+                  >
+                    Skip
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       {workoutForDay !== undefined ? (
