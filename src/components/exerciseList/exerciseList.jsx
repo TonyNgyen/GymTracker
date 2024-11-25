@@ -97,7 +97,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       workouts[select].currentWorkout = newDay;
       workouts[select].restDay = "undefined";
     }
-    console.log(workouts[select].workouts[newDay]);
     setWorkoutForDay(workouts[select].workouts[newDay]);
   };
 

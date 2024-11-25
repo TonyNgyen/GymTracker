@@ -117,8 +117,6 @@ function StartExercise({ set, savedWeight }) {
     setReps(previousReps);
   };
 
-  console.log(exercisesContext);
-
   return (
     <div className="flex flex-auto flex-col gap-5">
       <div

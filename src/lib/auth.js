@@ -31,7 +31,6 @@ export const {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      console.log(profile);
       if (account.provider === "github") {
         connectToDb();
         try {
