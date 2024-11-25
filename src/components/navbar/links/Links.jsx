@@ -105,7 +105,10 @@ function Links({ session }) {
         <ModeToggle />
       </div>
 
-      <IoMenu className={`text-5xl dark:text-gray-300 text-gray-500 ${styles.menuButton}`} onClick={() => setOpen((prev) => !prev)} />
+      <IoMenu
+        className={`text-5xl dark:text-gray-300 text-gray-500 ${styles.menuButton}`}
+        onClick={() => setOpen((prev) => !prev)}
+      />
       {open && (
         <div className={styles.mobileLinks}>
           {links.map((link) => (
@@ -131,7 +134,10 @@ function Links({ session }) {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <Link href="/profile">
-                    <DropdownMenuItem className="cursor-pointer">
+                    <DropdownMenuItem
+                      className="cursor-pointer"
+                      onClick={() => setOpen((prev) => !prev)}
+                    >
                       Profile
                     </DropdownMenuItem>
                   </Link>
@@ -153,7 +159,9 @@ function Links({ session }) {
               </DropdownMenu>
             </>
           ) : (
-            <NavLink item={{ title: "Login", path: "/login" }} />
+            <div onClick={() => setOpen((prev) => !prev)}>
+              <NavLink item={{ title: "Login", path: "/login" }} />
+            </div>
           )}
           <ModeToggle />
         </div>

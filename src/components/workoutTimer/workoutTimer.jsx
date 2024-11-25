@@ -3,26 +3,16 @@ import { useLocalStorage } from "@/lib/utils";
 import { differenceInSeconds, subSeconds } from "date-fns";
 
 function WorkoutTimer({ pause }) {
-  const {
-    setItem: setTimeItem,
-    getItem: getTimeItem,
-    removeItem: removeTimeItem,
-  } = useLocalStorage("time");
-  const {
-    setItem: setLastTime,
-    getItem: getLastTime,
-    removeItem: removeLastTime,
-  } = useLocalStorage("lastTime");
+  const { getItem: getTimeItem } = useLocalStorage("time");
+  const { setItem: setLastTime, getItem: getLastTime } =
+    useLocalStorage("lastTime");
   const [time, setTime] = useState(getTimeItem());
+  const {
+    setItem: setTotalTime,
+    getItem: getTotalTime,
+    removeItem: removeTotalTime,
+  } = useLocalStorage("totalTime");
 
-  // useEffect(() => {
-  //   if (!pause) {
-  //     let intervalId;
-  //     intervalId = setInterval(() => setTime(time + 1), 1000);
-  //     setItem(time);
-  //     return () => clearInterval(intervalId);
-  //   }
-  // }, [time, pause]);
   useEffect(() => {
     const time = new Date();
     setLastTime(time);
@@ -36,6 +26,7 @@ function WorkoutTimer({ pause }) {
         const pastTime = getLastTime();
         const savedTime = getTimeItem();
         setTime(savedTime + differenceInSeconds(currentTime, pastTime));
+        setTotalTime(savedTime + differenceInSeconds(currentTime, pastTime));
       }, 1000);
       return () => clearInterval(intervalId);
     }

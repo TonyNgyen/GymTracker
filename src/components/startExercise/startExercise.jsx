@@ -236,14 +236,14 @@ function StartExercise({ set, savedWeight }) {
             </h1>
             <div className={`${styles.edit} flex gap-3`}>
               <Button
-                className={`bg-destructive hover:bg-destructive-foreground hover:text-foreground md:h-11 md:w-11`}
+                className={`bg-red-500 dark:bg-red-300 hover:text-foreground md:h-11 md:w-11`}
                 onClick={() => cancelEdit()}
                 size="icon"
               >
                 <ImCross />
               </Button>
               <Button
-                className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground md:h-11 md:w-11`}
+                className={`${styles.edit} bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground md:h-11 md:w-11 text-lg`}
                 onClick={confirmEditClick}
                 size="icon"
               >

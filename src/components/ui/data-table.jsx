@@ -22,7 +22,7 @@ import { useState } from "react";
 export function DataTable({ columns, data }) {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 4,
   });
   const table = useReactTable({
     data,

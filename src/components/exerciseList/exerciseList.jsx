@@ -123,14 +123,16 @@ function ExerciseList({ workouts, day, workoutHistory }) {
       if (user["lastWorkout"] != select) {
         return;
       }
-      // today is not rest day
-      if (workouts[select].restDay == "undefined") {
-        return;
-      }
-      // if rest day is today
-      if (workouts[select].restDay == date) {
-        return;
-      }
+      // // today is not rest day
+      // if (workouts[select].restDay == "undefined") {
+      //   console.log("Working 2");
+      //   return;
+      // }
+      // console.log("Working 2");
+      // // if rest day is today
+      // if (workouts[select].restDay == date) {
+      //   return;
+      // }
       // check if current date is after dateLast and current date is not in workout history and implies that last day was a rest day
       if (
         compareAsc(date, workouts[select].dateLast) != -1 &&
@@ -199,13 +201,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               Start
             </Button>
           )}
-
-          {/* <Button
-            asChild
-            className="bg-main hover:bg-main-foreground hover:text-foreground text-lg min-w-[76px]"
-          >
-            <Link href="/workouts/add">Add</Link>
-          </Button> */}
 
           <Button
             asChild

@@ -35,6 +35,8 @@ function StartWorkout({ day }) {
     getItem: getLastTime,
     removeItem: removeLastTime,
   } = useLocalStorage("lastTime");
+  const { getItem: getTotalTime, removeItem: removeTotalTime } =
+    useLocalStorage("totalTime");
   const { removeItem: removeStartWorkoutItem } =
     useLocalStorage("StartWorkout");
   const { removeItem: removeCurrentExerciseItem } =
@@ -56,7 +58,7 @@ function StartWorkout({ day }) {
   const [startWorkoutContext, setStartWorkoutContext] =
     useContext(StartWorkoutContext);
 
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(getTimeItem() || 0);
 
   useEffect(() => {
     setBegin(getStartItem());
@@ -80,7 +82,7 @@ function StartWorkout({ day }) {
       await saveWorkoutHistory(
         workoutContext.id,
         startWorkoutContext,
-        getTimeItem()
+        getTotalTime()
       );
       if (workoutContext.workouts[newDay].rest) {
         await changeCurrentWorkoutRest(workoutContext.id, newDay);
@@ -92,6 +94,7 @@ function StartWorkout({ day }) {
       removeTimeItem();
       removeStartWorkoutItem();
       removeLastTime();
+      removeTotalTime();
       router.push("/workouts");
     } catch (error) {
       console.error("Error calling changeCurrentWorkout: ", error);

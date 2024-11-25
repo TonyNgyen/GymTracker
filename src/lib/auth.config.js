@@ -27,6 +27,7 @@ export const authConfig = {
         request.nextUrl?.pathname.startsWith("/workouts");
       const isOnCreatePage = request.nextUrl?.pathname.startsWith("/create");
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
+      const isOnProfilePage = request.nextUrl?.pathname.startsWith("/profile");
 
       // ONLY ADMIN CAN REACH THE ADMIN DASHBOARD
       if (isOnWorkoutsPage && user == null) {
@@ -35,6 +36,10 @@ export const authConfig = {
 
       if (isOnCreatePage && user) {
         return Response.redirect(new URL("/", request.nextUrl));
+      }
+
+      if (isOnProfilePage && user == null) {
+        return Response.redirect(new URL("/login", request.nextUrl));
       }
 
       // ONLY AUTHENTICATED USERS CAN REACH THE LOGIN PAGE
