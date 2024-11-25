@@ -98,7 +98,7 @@ function ProfileWorkoutHistory({ workoutHistory }) {
   const seconds = Math.floor(totalTime % 60);
   return (
     <Card
-      className={`p-4 md:flex md:flex-col bg-cardBG h-full border-foreground border-2`}
+      className={`p-4 md:flex md:flex-col bg-cardBG h-full border-exerciseBorder border-2`}
     >
       <CardTitle className="mb-4">Workout History</CardTitle>
       <CardContent className="">

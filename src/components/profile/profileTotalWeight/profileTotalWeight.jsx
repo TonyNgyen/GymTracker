@@ -19,7 +19,7 @@ function ProfileTotalWeight({ exercises }) {
     }
   }
   return (
-    <Card className="bg-cardBG border-foreground border-2 h-full">
+    <Card className="bg-cardBG border-exerciseBorder border-2 h-full">
       <CardHeader className="p-4 md:p-6">
         <CardTitle className="m-0 flex gap-3 items-center">
           <span className="text-lg">Total Weight</span>

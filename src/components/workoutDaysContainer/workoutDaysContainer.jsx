@@ -107,7 +107,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
           </Carousel>
           <Dialog className="">
             <DialogTrigger>
-              <Button className="mt-6 bg-main hover:bg-main-foreground hover:text-foreground text-xl font-semibold p-6">
+              <Button className="mt-6 bg-greenConfirm text-xl font-semibold p-6">
                 Save Workout
               </Button>
             </DialogTrigger>
@@ -153,6 +153,7 @@ function WorkoutDaysContainer({ daysDict, title, exercises }) {
                       format(date, "P")
                     )
                   }
+                  className="bg-greenConfirm"
                 >
                   <Link href="/workouts">Save Workout</Link>
                 </Button>

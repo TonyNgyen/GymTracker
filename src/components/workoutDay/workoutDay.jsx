@@ -2,10 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./workoutDay.module.css";
-import {
-  ExerciseContext,
-  WorkoutContext,
-} from "../autoUpdate/context";
+import { ExerciseContext, WorkoutContext } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 import { convertExercises, makeid } from "@/lib/utils";
@@ -157,14 +154,13 @@ function WorkoutDay({ day, index }) {
         {!rest ? (
           <Button
             onClick={() => setRest(!rest)}
-            className="min-w-[110px] text-lg"
+            className="min-w-[110px] text-lg border-2 border-main bg-background text-main hover:bg-main hover:text-background"
           >
             Rest?
           </Button>
         ) : (
           <Button
-            variant="destructive"
-            className="min-w-[110px] text-lg text-white"
+            className="min-w-[110px] text-lg bg-gray-600 hover:bg-gray-400"
             onClick={() => setRest(!rest)}
           >
             Rest
@@ -275,7 +271,9 @@ function WorkoutDay({ day, index }) {
         {!foundBoolean &&
           workouts.map((workout) => (
             <article
-              className={`${styles.workouts} z-0 md:text-lg ${
+              className={`${
+                styles.workouts
+              } z-0 md:text-lg bg-[#f3f9fe] dark:bg-[#0c213a] ${
                 foundBoolean ? " pointer-events-none " : ""
               }`}
               key={workout.id}

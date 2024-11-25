@@ -39,6 +39,8 @@
     --main: 207, 74%, 45%;
     --main-foreground: 207, 74%, 85%;
 
+    --exerciseBorder: 222, 82%, 91%;
+
     --greenConfirm: 142, 87%, 35%;
     --greenConfirm-foreground: 142, 87%, 70%;
 
@@ -86,7 +88,9 @@
     --main: 207, 74%, 85%;
     --main-foreground: 207, 74%, 45%;
 
-    --greenConfirm: 142, 87%, 71%;
+    --exerciseBorder: 217, 33%, 17%;
+
+    --greenConfirm: 137, 80%, 85%;
     --greenConfirm-foreground: 142, 87%, 35%;
 
     /* --cardBG: 207, 74%, 9%; */

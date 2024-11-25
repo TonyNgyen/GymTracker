@@ -3,9 +3,9 @@
     grid-template-columns: repeat(5, 1fr);
     align-items: center;
     padding: 2rem 2rem;
-    border: 2px solid hsl(var(--foreground));
+    border: 2px solid hsl(var(--exerciseBorder));
     border-radius: 18px;
-    background-color: hsl(var(--background));
+    background-color: hsl(var(--cardBG));
 }
 
 .stats {

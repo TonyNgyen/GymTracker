@@ -219,8 +219,8 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               <DropdownMenuContent>
                 <DropdownMenuLabel>More Options</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DialogTrigger>
-                  <DropdownMenuItem>Skip Day</DropdownMenuItem>
+                <DialogTrigger className="w-full">
+                  <DropdownMenuItem className="cursor-pointer">Skip Day</DropdownMenuItem>
                 </DialogTrigger>
                 <DropdownMenuItem>
                   <a href="/workouts/add">Add New Workout</a>

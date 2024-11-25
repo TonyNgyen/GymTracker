@@ -88,7 +88,7 @@ function ProfileChart({ exercises }) {
   }, []);
 
   return (
-    <Card className="bg-cardBG border-foreground border-2 h-full">
+    <Card className="bg-cardBG border-exerciseBorder border-2 h-full">
       {Object.keys(exercises).length == 0 ? (
         <>
           <CardHeader>

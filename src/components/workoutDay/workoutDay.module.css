@@ -5,7 +5,7 @@
   align-items: center;
   margin: auto;
   border-radius: 50px;
-  border: 2px hsl(var(--foreground)) solid;
+  border: 2px hsl(var(--exerciseBorder)) solid;
   /* FIND A COLOR THAT WORKS */
   background-color: hsl(var(--cardBG));
 }
@@ -31,12 +31,12 @@
   justify-content: center;
   width: 80%;
   margin-top: 2rem;
-  background-color: hsl(var(--muted));
+  background-color: hsl(var(--background));
   padding: 1rem;
   position: absolute;
   top: 7em;
   border-radius: 15px;
-  border: 2px hsl(var(--foreground)) solid;
+  border: 2px hsl(var(--exerciseBorder)) solid;
   z-index: 20;
 }
 
@@ -63,8 +63,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-  background-color: hsl(var(--secondary));
-  border: 2px hsl(var(--foreground)) solid;
+  background-color: hsl(var(--background));
+  border: 2px hsl(var(--exerciseBorder)) solid;
   border-radius: 20px;
   padding: 2rem;
   display: flex;
@@ -84,7 +84,7 @@
   align-items: center;
   margin: 0px auto 0.5em;
   padding: 2rem 2rem;
-  border: 2px solid hsl(var(--foreground));
+  border: 2px solid hsl(var(--exerciseBorder));
   border-radius: 20px;
 }
 
