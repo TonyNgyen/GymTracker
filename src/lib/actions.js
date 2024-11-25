@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
 import { auth } from "@/lib/auth";
 import { makeid } from "./utils";
-import { format, add, sub } from "date-fns";
+import { format, add } from "date-fns";
 
 export const addLog = async (prevState, formData) => {
   const { title, desc, slug, username, img } = Object.fromEntries(formData);
@@ -107,15 +107,6 @@ export const updateWorkout = async (id, name, workout, day) => {
         },
       }
     );
-
-    // await Workout.findOneAndUpdate(
-    //   { id: id },
-    //   {
-    //     $set: {
-    //       [`workouts.${day}.workouts`]: workout,
-    //     },
-    //   }
-    // );
     revalidatePath("/workouts");
   } catch (error) {
     console.log(error);
@@ -348,7 +339,6 @@ export const workoutHomepageChangeToRest = async (workout, day) => {
 export const workoutHomepageChangeDay = async (workout, day) => {
   try {
     const session = await auth();
-    const date = format(new Date(), "P");
     connectToDb();
     await User.findOneAndUpdate(
       { email: session.user?.email },

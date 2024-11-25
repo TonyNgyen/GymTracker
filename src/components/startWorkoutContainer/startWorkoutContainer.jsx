@@ -19,12 +19,10 @@ function StartWorkoutContainer({ workout, exercises, day }) {
   const {
     setItem: setStartWorkoutItem,
     getItem: getStartWorkoutItem,
-    removeItem: removeStartWorkoutItem,
   } = useLocalStorage("StartWorkout");
   const {
     setItem: setCurrentExerciseItem,
     getItem: getCurrentExerciseItem,
-    removeItem: removeCurrentExerciseItem,  
   } = useLocalStorage("CurrentExercise");
 
   let startWorkout = getStartWorkoutItem();

@@ -220,7 +220,6 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               <DropdownMenuContent>
                 <DropdownMenuLabel>More Options</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem>Change Day</DropdownMenuItem> */}
                 <DialogTrigger>
                   <DropdownMenuItem>Skip Day</DropdownMenuItem>
                 </DialogTrigger>

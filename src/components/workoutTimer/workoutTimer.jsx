@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocalStorage } from "@/lib/utils";
-import { differenceInSeconds, subSeconds } from "date-fns";
+import { differenceInSeconds } from "date-fns";
 
 function WorkoutTimer({ pause }) {
   const { getItem: getTimeItem } = useLocalStorage("time");
@@ -9,8 +9,6 @@ function WorkoutTimer({ pause }) {
   const [time, setTime] = useState(getTimeItem());
   const {
     setItem: setTotalTime,
-    getItem: getTotalTime,
-    removeItem: removeTotalTime,
   } = useLocalStorage("totalTime");
 
   useEffect(() => {

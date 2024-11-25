@@ -31,7 +31,6 @@ import { WorkoutContext, ExerciseContext } from "../autoUpdate/context";
 import { addWorkout } from "@/lib/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import styles from "./workoutDaysContainer.module.css";
 import {
   format,
   addDays,

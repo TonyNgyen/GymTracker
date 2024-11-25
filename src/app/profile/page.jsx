@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { getUser } from "@/lib/data";
-import styles from "./profile.module.css";
 import ProfileExerciseList from "@/components/profile/profileExerciseList/profileExerciseList";
 import ProfileChart from "@/components/profile/profileChart/profileChart";
 import ProfileWorkoutHistory from "@/components/profile/profileWorkoutHistory/profileWorkoutHistory";
@@ -24,24 +23,6 @@ function ProfilePage() {
     fetchUser();
   }, []);
   return user != undefined ? (
-    // <div className="flex flex-col items-center justify-center">
-    //   <div
-    //     className={`w-[90vw] flex flex-col gap-2 ${styles.container} lg:grid lg:grid-cols-3 lg:mx-auto lg:w-[70vw]`}
-    //   >
-    //     <div className="lg:col-span-1 flex flex-col gap-2">
-    //       <ProfileCard user={user} />
-    //       <div className="flex gap-2">
-    //         <ProfileTotalWeight exercises={user.exercises} />
-    //         <ProfileStreak streak={user.streak} />
-    //       </div>
-    //       <ProfileExerciseList exercises={user.exercises} />
-    //     </div>
-    //     <div className="lg:col-span-2 flex flex-col gap-2">
-    //       <ProfileChart exercises={user.exercises} />
-    //       <ProfileWorkoutHistory workoutHistory={user.workoutHistory} />
-    //     </div>
-    //   </div>
-    // </div>
     <div className="flex flex-col items-center justify-center">
       <div
         className={`flex md:h-[calc(100vh-200px)] gap-2 flex-col md:flex-row md:w-full w-[90vw] md:p-4`}

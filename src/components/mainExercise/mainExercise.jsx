@@ -87,11 +87,6 @@ function MainExercise({ exercise }) {
         )}
       </td>
       <div className="relative">
-        {/* <h2
-          className={`absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.editNew}`}
-        >
-          <IoIosArrowUp />
-        </h2> */}
         {!editToggle ? (
           <h2
             className={`text-main hover:text-foreground absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.editNew}`}
@@ -108,23 +103,6 @@ function MainExercise({ exercise }) {
           </h2>
         )}
       </div>
-      {/* <td className={`${styles.edit} md:p-8 py-8`}>
-        {!editToggle ? (
-          <h2
-            className={`bg-main hover:bg-main-foreground hover:text-foreground absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.editNew}`}
-            onClick={() => setEditToggle(!editToggle)}
-          >
-            <FaEdit />
-          </h2>
-        ) : (
-          <h2
-            className={`bg-greenConfirm hover:bg-greenConfirm-foreground hover:text-foreground absolute ml-4 md:ml-6 cursor-pointer text-2xl ${styles.editNew}`}
-            onClick={confirmEditClick}
-          >
-            <FaCheck />
-          </h2>
-        )}
-      </td> */}
     </tr>
   );
 }

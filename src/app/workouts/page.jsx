@@ -3,7 +3,9 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ExerciseListContainer from "@/components/exerciseListContainer/exerciseListContainer";
-import { getWorkouts, getExercises, getWorkoutHistory } from "@/lib/data";
+import {
+  getUser,
+} from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 
@@ -16,12 +18,10 @@ async function WorkoutsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchWorkouts = await getWorkouts();
-        const fetchExercies = await getExercises();
-        const fetchHistory = await getWorkoutHistory();
-        setWorkouts(fetchWorkouts);
-        setExercises(fetchExercies);
-        setWorkoutHistory(fetchHistory);
+        const fetchUser = await getUser();
+        setWorkouts(fetchUser.workouts);
+        setExercises(fetchUser.exercises);
+        setWorkoutHistory(fetchUser.workoutHistory);
         setLoading(false);
       } catch (error) {
         console.log(error);

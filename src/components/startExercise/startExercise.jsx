@@ -30,7 +30,6 @@ function StartExercise({ set, savedWeight }) {
     CurrentExerciseContext
   );
   const [exercisesContext, setExercisesContext] = useContext(ExercisesContext);
-  const [updatedWeight, setUpdatedWeight] = useState(savedWeight);
   const [editToggle, setEditToggle] = useState(false);
   const [weight, setWeight] = useState(set.weight);
   const [previousWeight, setPreviousWeight] = useState(set.weight);
@@ -41,8 +40,6 @@ function StartExercise({ set, savedWeight }) {
 
   const {
     setItem: setStartWorkoutItem,
-    getItem: getStartWorkoutItem,
-    removeItem: removeStartWorkoutItem,
   } = useLocalStorage("StartWorkout");
 
   useEffect(() => {
@@ -150,7 +147,6 @@ function StartExercise({ set, savedWeight }) {
                     onClick={() => {
                       setShowDialog(false);
                       updateSpecificExercise(set.id, weight, date);
-                      setUpdatedWeight(weight);
                       setExercisesContext({
                         ...exercisesContext,
                         [set.id]: {

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./workoutSlug.module.css";
-import { updateWorkout, addExercises, updateExercises } from "@/lib/actions";
+import { updateWorkout, updateExercises } from "@/lib/actions";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-import { FaCheck, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import EditExercise from "../editExercise/editExercise";
 import { makeid } from "@/lib/utils";
 import {

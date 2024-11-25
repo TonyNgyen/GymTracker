@@ -5,7 +5,6 @@ import styles from "./workoutDay.module.css";
 import {
   ExerciseContext,
   WorkoutContext,
-  OriginalDaysContext,
 } from "../autoUpdate/context";
 import { Button } from "../ui/button";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";

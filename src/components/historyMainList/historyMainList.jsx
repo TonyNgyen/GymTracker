@@ -3,7 +3,6 @@ import styles from "./historyMainList.module.css";
 import HistoryExerciseGroup from "../historyExerciseGroup/historyExerciseGroup";
 
 function HistoryMainList({ workout, date }) {
-  console.log(workout);
   const tableHeaderStyle =
     "font-semibold lg:px-16 lg:py-4 md:px-12 md:py-4 sm:px-4 sm:py-4";
   return (
