@@ -6,10 +6,10 @@ function Footer() {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <div className={styles.logo}>Tony</div>
+        <div className={styles.logo}>Toned</div>
         <Link href={"/devlogs"} className={styles.devLogs}>DevLogs</Link>
       </div>
-      <div className={styles.text}>Tony GymTracker © All rights reserved.</div>
+      <div className={styles.text}>Tony Toned © All rights reserved.</div>
     </div>
   );
 }

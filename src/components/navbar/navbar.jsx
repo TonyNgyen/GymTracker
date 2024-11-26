@@ -10,7 +10,8 @@ async function Navbar() {
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
-        Gym<span className="text-main">Tracker</span>
+        <span className="">TONE</span>
+        <span className="text-main">D</span>
       </Link>
       <Links session={session} />
     </div>

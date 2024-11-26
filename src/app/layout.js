@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "GymTracker Home Page",
-    template: "%s | GymTracker",
+    default: "Toned Home Page",
+    template: "%s | Toned",
   },
-  description: "GymTracker",
+  description: "Toned",
 };
 
 export default function RootLayout({ children }) {
