@@ -25,7 +25,7 @@ function ProfilePage() {
   return user != undefined ? (
     <div className="flex flex-col items-center justify-center">
       <div
-        className={`flex md:h-[calc(100vh-200px)] gap-2 flex-col md:flex-row md:w-full w-[90vw] md:p-4`}
+        className={`flex md:h-[calc(100vh-200px)] gap-2 flex-col md:flex-row md:w-full w-[90vw] md:p-4 mt-4 md:mt-0`}
       >
         <div className="h-full md:w-1/2 flex flex-col gap-2">
           <div className="h-1/2 w-full flex flex-col gap-2">
@@ -42,7 +42,7 @@ function ProfilePage() {
             </div>
           </div>
 
-          <div className="h-1/2 w-full  overflow-hidden">
+          <div className="h-1/2 w-full overflow-hidden">
             <ProfileExerciseList exercises={user.exercises} />
           </div>
         </div>

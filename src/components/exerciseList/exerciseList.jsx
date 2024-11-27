@@ -168,7 +168,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   }, [select]);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} mt-4  md:mt-0`}>
       <div className={styles.header}>
         <Select
           onValueChange={(value) => setSelect(value)}

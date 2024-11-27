@@ -87,7 +87,7 @@ function WorkoutSlug({ workout, day }) {
       <WorkoutContext.Provider value={[workoutContext, setWorkoutContext]}>
         <div className="">
           <div
-            className={`styles.cardContainer border-2 border-foreground rounded-md px-4 py-5 bg-cardBG`}
+            className={`styles.cardContainer border-2 border-exerciseBorder rounded-md px-4 py-5 bg-cardBG`}
           >
             <div className={`styles.textContainer flex justify-between mb-2`}>
               <div className="">

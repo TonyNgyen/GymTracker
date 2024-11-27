@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import styles from "@/components/ui/data-table.module.css"
 
 export function DataTable({ columns, data }) {
   const [pagination, setPagination] = useState({
@@ -37,7 +38,7 @@ export function DataTable({ columns, data }) {
 
   return (
     <div className="rounded-md p-4 bg-cardBG border-exerciseBorder border-2 h-full">
-      <div className="rounded-md border h-5/6 bg-background">
+      <div className={`rounded-md border h-5/6 bg-background overflow-y-auto ${styles.container}`}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
