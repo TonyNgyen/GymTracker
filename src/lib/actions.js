@@ -235,7 +235,7 @@ export const changeCurrentWorkoutRest = async (workout, day) => {
       {
         $set: {
           [`workouts.${workout}.currentWorkout`]: day,
-          [`workouts.${workout}.restDay`]: add(date, { days: 1 }),
+          [`workouts.${workout}.restDay`]: format(add(date, { days: 1 }), "P"),
         },
       },
       { new: false }

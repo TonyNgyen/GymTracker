@@ -65,7 +65,8 @@ function ExerciseList({ workouts, day, workoutHistory }) {
   const [workoutForDay, setWorkoutForDay] = useState(
     workouts[select].workouts[workouts[select].currentWorkout]
   );
-  const date = format(new Date(), "P");
+  const [date, setDate] = useState(format(new Date(), "P"));
+
   const convertedExercises = [];
   if (workoutForDay != undefined) {
     workoutForDay.workouts.map((id) => {
@@ -116,50 +117,108 @@ function ExerciseList({ workouts, day, workoutHistory }) {
     });
   }, [currentDate, api]);
 
+  // console.log(
+  //   Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1]
+  // );
+
+  // let yesterday = new Date();
+  // let yesterdayTime = yesterday.getTime();
+  // yesterdayTime = yesterdayTime - 24 * 60 * 60 * 1000;
+  // yesterday.setTime(yesterdayTime);
+  // console.log(format(yesterday, "P") == "11/29/2024");
+
+  console.log(workoutHistory[date]);
+
   useEffect(() => {
+    const checkStreak = async () => {
+      let yesterday = new Date();
+      let yesterdayTime = yesterday.getTime();
+      yesterdayTime = yesterdayTime - 24 * 60 * 60 * 1000;
+      yesterday.setTime(yesterdayTime);
+
+      if (
+        format(yesterday, "P") ==
+          Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1] &&
+        workouts[select].restDay == date
+      ) {
+        await incrementStreak();
+      }
+      if (
+        format(yesterday, "P") !=
+        Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1]
+      ) {
+        await resetStreak();
+      }
+    };
+
     const checkRestDay = async () => {
       const user = await getUser();
+      // Check if the last workout done is the current selected workout
       if (user["lastWorkout"] != select) {
         return;
       }
-      // // today is not rest day
-      // if (workouts[select].restDay == "undefined") {
-      //   console.log("Working 2");
-      //   return;
-      // }
-      // console.log("Working 2");
-      // // if rest day is today
-      // if (workouts[select].restDay == date) {
-      //   return;
-      // }
-      // check if current date is after dateLast and current date is not in workout history and implies that last day was a rest day
-      if (
-        compareAsc(date, workouts[select].dateLast) != -1 &&
-        Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1] !=
-          date
-      ) {
-        // Checks if current date is after restDay date
-        if (compareAsc(date, workouts[select].restDay) == 1) {
-          try {
-            if (
-              date != format(add(workouts[select].restDay, { days: 1 }), "P")
-            ) {
-              console.log("RESET");
-              await resetStreak();
-            } else {
-              console.log("INCREMENT");
-              await incrementStreak();
-            }
-            await saveRestDay({}, -2, workouts[select].restDay);
-            incrementDay();
-          } catch (error) {
-            console.log(error);
-          }
-        }
+      // Check if today is designated rest day
+      if (workouts[select].restDay == date) {
+        return;
+      }
+      // Check if today is a workout day
+      if (workouts[select].restDay == "undefined") {
+        await checkStreak();
+      }
+      // Check if restDay is before current date, if so, increment workout
+      if (compareAsc(workouts[select].restDay, date) == -1) {
+        await saveRestDay({}, -2, workouts[select].restDay);
+        workoutHistory[date] = { exercises: {}, time: -1 };
+        checkStreak();
+        await incrementDay();
       }
     };
-    checkRestDay();
-  }, [select]);
+  });
+
+  // useEffect(() => {
+  //   const checkRestDay = async () => {
+  //     const user = await getUser();
+  //     if (user["lastWorkout"] != select) {
+  //       return;
+  //     }
+  //     // // today is not rest day
+  //     // if (workouts[select].restDay == "undefined") {
+  //     //   console.log("Working 2");
+  //     //   return;
+  //     // }
+  //     // console.log("Working 2");
+  //     // // if rest day is today
+  //     // if (workouts[select].restDay == date) {
+  //     //   return;
+  //     // }
+  //     // check if current date is after dateLast and current date is not in workout history and implies that last day was a rest day
+  //     if (
+  //       compareAsc(date, workouts[select].dateLast) != -1 &&
+  //       Object.keys(workoutHistory)[Object.keys(workoutHistory).length - 1] !=
+  //         date
+  //     ) {
+  //       // Checks if current date is after restDay date
+  //       if (compareAsc(date, workouts[select].restDay) == 1) {
+  //         try {
+  //           if (
+  //             date != format(add(workouts[select].restDay, { days: 1 }), "P")
+  //           ) {
+  //             console.log("RESET");
+  //             await resetStreak();
+  //           } else {
+  //             console.log("INCREMENT");
+  //             await incrementStreak();
+  //           }
+  //           await saveRestDay({}, -2, workouts[select].restDay);
+  //           incrementDay();
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       }
+  //     }
+  //   };
+  //   checkRestDay();
+  // }, [select, date]);
 
   useEffect(() => {
     setWorkoutForDay(
@@ -207,6 +266,13 @@ function ExerciseList({ workouts, day, workoutHistory }) {
           >
             <Link href={`/workouts/${workouts[select].id}`}>Edit</Link>
           </Button>
+          {/* <Button
+            onClick={() => {
+              setDate(format(add(date, { days: 1 }), "P"));
+            }}
+          >
+            Add Day
+          </Button> */}
           <Dialog>
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -220,7 +286,9 @@ function ExerciseList({ workouts, day, workoutHistory }) {
                 <DropdownMenuLabel>More Options</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DialogTrigger className="w-full">
-                  <DropdownMenuItem className="cursor-pointer">Skip Day</DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Skip Day
+                  </DropdownMenuItem>
                 </DialogTrigger>
                 <DropdownMenuItem>
                   <a href="/workouts/add">Add New Workout</a>
@@ -290,7 +358,7 @@ function ExerciseList({ workouts, day, workoutHistory }) {
               workout={workoutHistory[currentDate]}
               date={currentDate}
             />
-          ) : workoutForDay.rest ? (
+          ) : workoutForDay.rest && currentDate == date ? (
             <div className="text-center">Today is a rest day</div>
           ) : currentDate != date && currentDate != undefined ? (
             <HistoryMainList
